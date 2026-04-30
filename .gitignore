@@ -1,0 +1,11 @@
+.venv/
+.tmp/
+__pycache__/
+*.py[cod]
+*.sqlite3
+.env
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/

@@ -1,0 +1,3805 @@
+city,state,latitude,longitude,source_name,population
+Abbeville,AL,31.57184,-85.25049,Abbeville,2620
+Alabaster,AL,33.24428,-86.81638,Alabaster,32707
+Altoona,AL,34.02621,-86.32609,Altoona,924
+Andalusia,AL,31.30808,-86.48243,Andalusia,9063
+Ashford,AL,31.18296,-85.23632,Ashford,2158
+Atmore,AL,31.02379,-87.49387,Atmore,10049
+Bessemer,AL,33.40178,-86.95444,Bessemer,26730
+Birmingham,AL,33.52066,-86.80249,Birmingham,196357
+Boaz,AL,34.20065,-86.16637,Boaz,9688
+Brent,AL,32.93735,-87.16472,Brent,4898
+Brewton,AL,31.10518,-87.07219,Brewton,5434
+Brundidge,AL,31.72016,-85.81606,Brundidge,1989
+Calera,AL,33.1029,-86.7536,Calera,13213
+Centre,AL,34.15204,-85.67885,Centre,3570
+Childersburg,AL,33.27817,-86.35498,Childersburg,5046
+Clanton,AL,32.83874,-86.62943,Clanton,8844
+Cottondale,AL,31.20518,-85.38188,Cottondale,0
+Courtland,AL,34.66898,-87.30946,Courtland,597
+Creola,AL,30.89185,-88.03972,Creola,1955
+Cullman,AL,34.17482,-86.84361,Cullman,15350
+Cusseta,AL,32.78485,-85.30578,Cusseta,124
+Daleville,AL,31.31017,-85.71299,Daleville,5141
+Decatur,AL,34.60593,-86.98334,Decatur,55437
+Demopolis,AL,32.51764,-87.8364,Demopolis,7148
+Dothan,AL,31.22323,-85.39049,Dothan,68567
+Eastaboga,AL,33.60594,-86.02136,Eastaboga,0
+Enterprise,AL,31.31517,-85.85522,Enterprise,27978
+Eutaw,AL,32.84059,-87.88762,Eutaw,2766
+Evergreen,AL,31.4335,-86.95692,Evergreen,3774
+Fackler,AL,34.79258,-85.90998,Fackler,0
+Falkville,AL,34.36843,-86.90862,Falkville,1268
+Foley,AL,30.40659,-87.6836,Foley,17218
+Fort Payne,AL,34.44425,-85.71969,Fort Payne,14150
+Gadsden,AL,34.01434,-86.00639,Gadsden,36084
+Gordon,AL,31.14129,-85.0966,Gordon,327
+Grand Bay,AL,30.47631,-88.34223,Grand Bay,3672
+Grove Hill,AL,31.70877,-87.77722,Grove Hill,1494
+Hamilton,AL,34.14232,-87.98864,Hamilton,6772
+Hanceville,AL,34.06065,-86.7675,Hanceville,3281
+Hartford,AL,31.1024,-85.69688,Hartford,2647
+Headland,AL,31.35128,-85.34216,Headland,4736
+Heflin,AL,33.64899,-85.58746,Heflin,3499
+Hope Hull,AL,32.26986,-86.35719,Hope Hull,0
+Huntsville,AL,34.7304,-86.58594,Huntsville,215006
+Irvington,AL,34.63981,-86.92917,Irvington,0
+Jackson,AL,33.81382,-85.7613,Jacksonville,12222
+Jasper,AL,33.83122,-87.27751,Jasper,14071
+Jemison,AL,32.95985,-86.74665,Jemison,2619
+Knoxville,AL,33.59177,-85.89719,Knoxville,0
+Lincoln,AL,33.61316,-86.11831,Lincoln,6524
+Lineville,AL,33.31067,-85.75441,Lineville,2319
+Livingston,AL,32.5843,-88.18725,Livingston,3414
+Loxley,AL,30.61825,-87.75305,Loxley,1785
+Lynn,AL,34.04705,-87.54974,Lynn,641
+Madison,AL,34.69926,-86.74833,Madison,46962
+Maplesville,AL,32.78897,-86.87353,Maplesville,704
+Mc Calla,AL,33.34872,-87.01416,McCalla,0
+Millbrook,AL,32.47986,-86.36192,Millbrook,15314
+Mobile,AL,30.69436,-88.04305,Mobile,183289
+Monroeville,AL,31.52794,-87.32471,Monroeville,6110
+Montgomery,AL,32.36681,-86.29997,Montgomery,195287
+Moody,AL,33.59094,-86.49082,Moody,12593
+Moulton,AL,34.48121,-87.29335,Moulton,3337
+Mount Vernon,AL,31.08518,-88.01333,Mount Vernon,1518
+Northport,AL,33.22901,-87.57723,Northport,24772
+Opelika,AL,32.64541,-85.37828,Opelika,29527
+Oxford,AL,33.61427,-85.83496,Oxford,21249
+Ozark,AL,31.45906,-85.64049,Ozark,14719
+Pelham,AL,33.28567,-86.80999,Pelham,22885
+Pell City,AL,33.58621,-86.28609,Pell City,13646
+Pennington,AL,32.20709,-88.05613,Pennington,210
+Phenix City,AL,32.47098,-85.00077,Phenix City,37570
+Prattville,AL,32.46402,-86.4597,Prattville,35420
+Robertsdale,AL,30.5538,-87.71193,Robertsdale,5894
+SAMSON,AL,31.11295,-86.04605,Samson,1928
+Saraland,AL,30.82074,-88.07056,Saraland,13906
+Satsuma,AL,30.85324,-88.05611,Satsuma,6182
+Scottsboro,AL,34.67231,-86.03415,Scottsboro,14722
+Selma,AL,32.40736,-87.0211,Selma,19519
+Shorter,AL,32.39486,-85.9169,Shorter,429
+Smiths Station,AL,32.54014,-85.09855,Smiths Station,5300
+Steele,AL,33.93982,-86.20164,Steele,1078
+Sylacauga,AL,33.17317,-86.25164,Sylacauga,12657
+Theodore,AL,30.54769,-88.17528,Theodore,6130
+Thomasville,AL,31.91349,-87.73584,Thomasville,4051
+Troy,AL,31.80877,-85.96995,Troy,18853
+Tuscaloosa,AL,33.20984,-87.56917,Tuscaloosa,111338
+Tuscumbia,AL,34.7312,-87.70253,Tuscumbia,8474
+Tuskegee,AL,32.42415,-85.69096,Tuskegee,8817
+Valley,AL,32.81874,-85.17939,Valley,9464
+Vance,AL,33.17428,-87.23361,Vance,1513
+Warrior,AL,33.81427,-86.80944,Warrior,3199
+Wetumpka,AL,32.54374,-86.21191,Wetumpka,7994
+Winfield,AL,33.92899,-87.81725,Winfield,4570
+Alma,AR,35.47787,-94.22188,Alma,5575
+Arkadelphia,AR,34.12093,-93.05378,Arkadelphia,10745
+Ashdown,AR,33.67429,-94.13131,Ashdown,4479
+Atkins,AR,35.24647,-92.93656,Atkins,3051
+Bald Knob,AR,35.30981,-91.56791,Bald Knob,2908
+Batesville,AR,35.7698,-91.64097,Batesville,10668
+Beebe,AR,35.07064,-91.87959,Beebe,8106
+Benton,AR,34.56454,-92.58683,Benton,34177
+Black Rock,AR,36.1084,-91.09735,Black Rock,625
+Blytheville,AR,35.9273,-89.91898,Blytheville,14694
+Boles,AR,34.77955,-94.0491,Boles,0
+Brinkley,AR,34.88787,-91.19457,Brinkley,2890
+Bryant,AR,34.59593,-92.48905,Bryant,19986
+Cabot,AR,34.97453,-92.01653,Cabot,25587
+Carlisle,AR,34.78315,-91.74652,Carlisle,2183
+Cave City,AR,35.94174,-91.54847,Cave City,1868
+Clarksville,AR,35.47147,-93.46657,Clarksville,9433
+Clinton,AR,35.59147,-92.46044,Clinton,2538
+Conway,AR,35.0887,-92.4421,Conway,64980
+Corning,AR,36.40784,-90.57983,Corning,3162
+Dumas,AR,33.88705,-91.49179,Dumas,4323
+Earle,AR,35.27509,-90.46677,Earle,2282
+El Dorado,AR,33.20763,-92.66627,El Dorado,18386
+Fayetteville,AR,36.06258,-94.15743,Fayetteville,82830
+Forrest City,AR,35.00815,-90.78983,Forrest City,14672
+Fort Smith,AR,35.38592,-94.39855,Fort Smith,88194
+Gassville,AR,36.28312,-92.49405,Gassville,2133
+Greenbrier,AR,35.23397,-92.38765,Greenbrier,5296
+Gurdon,AR,33.92094,-93.15406,Gurdon,2144
+Hardy,AR,36.3159,-91.48264,Hardy,759
+Harrison,AR,36.22979,-93.10768,Harrison,13138
+Hazen,AR,34.78093,-91.58097,Hazen,1404
+Hensley,AR,34.50537,-92.2057,Hensley,139
+Hot Springs National Park,AR,34.5037,-93.05518,Hot Springs,35635
+Huntsville,AR,36.08619,-93.7413,Huntsville,2378
+Jacksonville,AR,34.8662,-92.11015,Jacksonville,28643
+Jonesboro,AR,35.8423,-90.70428,Jonesboro,73907
+Lake City,AR,35.81619,-90.43427,Lake City,2324
+Lake Village,AR,33.32873,-91.28178,Lake Village,2575
+Little Rock,AR,34.74648,-92.28959,Little Rock,202591
+Lonoke,AR,34.78398,-91.89986,Lonoke,4249
+Lowell,AR,36.25535,-94.13076,Lowell,8549
+Magnolia,AR,33.26707,-93.23933,Magnolia,11669
+Malvern,AR,34.36231,-92.81295,Malvern,10928
+Mansfield,AR,35.05954,-94.25271,Mansfield,1096
+Marion,AR,35.21453,-90.19648,Marion,12292
+Maumelle,AR,34.86676,-92.40432,Maumelle,17931
+Mc Crory,AR,35.2562,-91.20012,McCrory,1601
+Morrilton,AR,35.15092,-92.74405,Morrilton,6738
+Mulberry,AR,35.50064,-94.05159,Mulberry,1634
+Newport,AR,35.6048,-91.2818,Newport,7767
+North Little Rock,AR,34.76954,-92.26709,North Little Rock,66504
+Osceola,AR,35.70508,-89.96953,Osceola,7233
+Ozark,AR,35.48703,-93.8277,Ozark,3590
+Palestine,AR,34.97232,-90.90262,Palestine,623
+Pine Bluff,AR,34.22843,-92.0032,Pine Bluff,44772
+Pocahontas,AR,36.26146,-90.97123,Pocahontas,6438
+Portia,AR,36.08646,-91.06735,Portia,420
+Prescott,AR,33.80261,-93.38101,Prescott,3133
+Rogers,AR,36.33202,-94.11854,Rogers,63159
+Russellville,AR,35.27842,-93.13379,Russellville,29166
+Searcy,AR,35.25064,-91.73625,Searcy,24196
+Sheridan,AR,34.30704,-92.40127,Sheridan,4812
+Springdale,AR,36.18674,-94.12881,Springdale,77859
+Stuttgart,AR,34.50037,-91.55263,Stuttgart,9056
+Texarkana,AR,33.44179,-94.03769,Texarkana,30353
+Trumann,AR,35.67369,-90.50733,Trumann,7145
+Turrell,AR,35.37981,-90.25787,Turrell,575
+Warren,AR,33.61261,-92.06458,Warren,5804
+West Helena,AR,34.5291,-90.59,Helena-West Helena,11109
+West Memphis,AR,35.14648,-90.18454,West Memphis,25052
+Wheatley,AR,34.91287,-91.11012,Wheatley,328
+White Hall,AR,34.27399,-92.09098,White Hall,5180
+Widener,AR,35.02343,-90.68483,Widener,252
+Apache Junction,AZ,33.41505,-111.54958,Apache Junction,38074
+Ash Fork,AZ,35.22501,-112.48407,Ash Fork,396
+Avondale,AZ,33.4356,-112.3496,Avondale,80684
+Bellemont,AZ,35.23807,-111.8335,Bellemont,0
+Benson,AZ,31.96786,-110.29452,Benson,4888
+Bowie,AZ,32.32647,-109.48701,Bowie,449
+Buckeye,AZ,33.37032,-112.58378,Buckeye,50876
+Chandler,AZ,33.30616,-111.84125,Chandler,260828
+Claypool,AZ,33.41117,-110.84261,Claypool,1538
+Dewey,AZ,34.53,-112.24222,Dewey-Humboldt,3894
+Ehrenberg,AZ,33.60419,-114.52523,Ehrenberg,1470
+Eloy,AZ,32.7559,-111.55484,Eloy,17059
+Flagstaff,AZ,35.19807,-111.65127,Flagstaff,70320
+Gila Bend,AZ,32.94782,-112.71683,Gila Bend,2025
+Glendale,AZ,33.53865,-112.18599,Glendale,240126
+Globe,AZ,33.39422,-110.7865,Globe,7396
+Holbrook,AZ,34.90225,-110.15818,Holbrook,5019
+Joseph City,AZ,34.95586,-110.33401,Joseph City,1386
+Kingman,AZ,35.18944,-114.05301,Kingman,28912
+Lake Havasu City,AZ,34.4839,-114.32245,Lake Havasu City,53553
+Litchfield Park,AZ,33.49337,-112.35794,Litchfield Park,5533
+Littlefield,AZ,36.89942,-113.93274,Beaver Dam,1962
+Lupton,AZ,35.35391,-109.0537,Lupton,25
+Marana,AZ,32.43674,-111.22538,Marana,41315
+Mayer,AZ,34.39781,-112.23627,Mayer,1497
+Mesa,AZ,33.42227,-111.82264,Mesa,471825
+Nogales,AZ,31.34038,-110.93425,Nogales,20252
+Page,AZ,36.91472,-111.45583,Page,7490
+Payson,AZ,34.23087,-111.32514,Payson,15345
+Phoenix,AZ,33.44838,-112.07404,Phoenix,1650070
+Prescott,AZ,34.54002,-112.4685,Prescott,41899
+Quartzsite,AZ,33.66391,-114.22995,Quartzsite,3626
+Rio Rico,AZ,31.47148,-110.97648,Rio Rico,18962
+Safford,AZ,32.83395,-109.70758,Safford,9683
+Salome,AZ,33.78114,-113.61465,Salome,1530
+San Simon,AZ,32.26786,-109.22756,San Simon,165
+Show Low,AZ,34.25421,-110.02983,Show Low,10860
+Sierra Vista,AZ,31.55454,-110.30369,Sierra Vista,43355
+Springerville,AZ,34.13355,-109.28834,Springerville,1954
+Surprise,AZ,33.63059,-112.33322,Surprise,143148
+Tacna,AZ,32.69755,-113.95354,Tacna,602
+Tolleson,AZ,33.45004,-112.25932,Tolleson,7008
+Tonopah,AZ,33.49365,-112.93712,Tonopah,60
+Tucson,AZ,32.22174,-110.92648,Tucson,542629
+Wikieup,AZ,34.70335,-113.61132,Wikieup,133
+Willcox,AZ,32.25285,-109.83201,Willcox,3552
+Williams,AZ,35.24946,-112.191,Williams,3122
+Winslow,AZ,35.02419,-110.69736,Winslow,9600
+Wittmann,AZ,33.77642,-112.5285,Wittmann,763
+Yucca,AZ,34.87223,-114.1494,Yucca,126
+Yuma,AZ,32.72532,-114.6244,Yuma,95548
+Brawley,CA,32.97866,-115.53027,Brawley,25897
+Calexico,CA,32.67895,-115.49888,Calexico,40053
+Coachella,CA,33.6803,-116.17389,Coachella,44635
+El Centro,CA,32.792,-115.56305,El Centro,43956
+Jacumba,CA,32.61756,-116.18974,Jacumba Hot Springs,561
+Thermal,CA,33.6403,-116.13945,Thermal,2865
+Westmorland,CA,33.03727,-115.62138,Westmorland,2267
+Alamosa,CO,37.46945,-105.87002,Alamosa,9819
+Atwood,CO,40.54776,-103.26966,Atwood,133
+Aurora,CO,39.72943,-104.83192,Aurora,359407
+Bennett,CO,39.75887,-104.42746,Bennett,2484
+Berthoud,CO,40.30832,-105.08109,Berthoud,6031
+Brighton,CO,39.98526,-104.82053,Brighton,37585
+Brush,CO,40.25887,-103.62384,Brush,5459
+Burlington,CO,39.30611,-102.26936,Burlington,3720
+Canon City,CO,38.44098,-105.24245,Cañon City,16400
+Colorado City,CO,37.94529,-104.83526,Colorado City,2193
+Colorado Springs,CO,38.83388,-104.82136,Colorado Springs,456568
+Commerce City,CO,39.80832,-104.93387,Commerce City,53696
+Cortez,CO,37.34888,-108.58593,Cortez,8715
+Craig,CO,40.51525,-107.54645,Craig,8844
+Crook,CO,40.85888,-102.80103,Crook,110
+De Beque,CO,39.33442,-108.21508,De Beque,496
+Denver,CO,39.73915,-104.9847,Denver,729019
+Dumont,CO,39.76471,-105.60028,Dumont,0
+Durango,CO,37.27528,-107.88007,Durango,18006
+Eads,CO,38.48056,-102.78186,Eads,608
+Eaton,CO,40.53026,-104.71135,Eaton,4928
+Erie,CO,40.05026,-105.04998,Erie,21420
+Evans,CO,40.37637,-104.69219,Evans,21383
+Fort Collins,CO,40.58526,-105.08442,Fort Collins,170924
+Fort Morgan,CO,40.25026,-103.79995,Fort Morgan,11319
+Fountain,CO,38.68222,-104.70081,Fountain,27767
+Fruita,CO,39.15887,-108.72899,Fruita,12795
+Golden,CO,39.75554,-105.2211,Golden,20330
+Grand Junction,CO,39.06387,-108.55065,Grand Junction,60358
+Greeley,CO,40.42331,-104.70913,Greeley,108795
+Hudson,CO,40.07359,-104.64302,Hudson,1571
+Johnstown,CO,40.33693,-104.9122,Johnstown,14896
+Keenesburg,CO,40.10832,-104.51996,Keenesburg,1195
+Kersey,CO,40.38748,-104.56163,Kersey,1577
+Kremmling,CO,40.05887,-106.38892,Kremmling,1457
+Lamar,CO,38.08723,-102.62075,Lamar,7555
+Limon,CO,39.26388,-103.69217,Limon,1911
+Longmont,CO,40.16721,-105.10193,Longmont,92088
+Mead,CO,40.23332,-104.99859,Mead,4476
+Meeker,CO,40.03747,-107.91313,Meeker,2362
+Montrose,CO,38.47832,-107.87617,Montrose,19062
+Monument,CO,39.09166,-104.87276,Monument,6420
+Palisade,CO,39.11026,-108.35092,Palisade,2651
+Parachute,CO,39.45192,-108.05285,Parachute,1105
+Pueblo,CO,38.25445,-104.60914,Pueblo,109412
+Rifle,CO,39.5347,-107.78312,Rifle,9563
+Seibert,CO,39.29916,-102.8691,Seibert,220
+Silt,CO,39.54859,-107.65617,Silt,3043
+Sterling,CO,40.62554,-103.20771,Sterling,14104
+Towaoc,CO,37.20444,-108.72954,Towaoc,1087
+Trinidad,CO,37.16946,-104.50054,Trinidad,8153
+Walsenburg,CO,37.62418,-104.78026,Walsenburg,2898
+Watkins,CO,39.74526,-104.60747,Watkins,0
+Wellington,CO,40.70387,-105.00859,Wellington,7807
+Wheat Ridge,CO,39.7661,-105.07721,Wheat Ridge,31192
+Wiggins,CO,40.23054,-104.07273,Wiggins,893
+Windsor,CO,40.47748,-104.90136,Windsor,32716
+Wray,CO,40.07582,-102.22325,Wray,2378
+Yuma,CO,40.12221,-102.72521,Yuma,3596
+Branford,CT,41.27954,-72.8151,Branford,29438
+Bridgeport,CT,41.17923,-73.18945,Bridgeport,147629
+Danbury,CT,41.39482,-73.45401,Danbury,84657
+Darien,CT,41.07871,-73.46929,Darien,20732
+East Granby,CT,41.94121,-72.72732,East Granby,0
+East Lyme,CT,41.36899,-72.21758,Flanders,0
+East Windsor,CT,41.91232,-72.54509,East Windsor,4069
+Hartford,CT,41.76371,-72.68509,Hartford,121054
+Madison,CT,41.27954,-72.59843,Madison,19100
+Milford,CT,41.22232,-73.0565,Milford,52759
+Milldale,CT,41.56593,-72.89177,Milldale,0
+New Haven,CT,41.30815,-72.92816,New Haven,130322
+North Haven,CT,41.39093,-72.85954,North Haven,24093
+North Stonington,CT,41.44093,-71.88118,North Stonington,0
+Plainfield,CT,41.67649,-71.91507,Plainfield,15498
+South Windsor,CT,41.82371,-72.6212,South Windsor,24412
+Waterbury,CT,41.55815,-73.0515,Waterbury,108802
+West Haven,CT,41.27065,-72.94705,West Haven,54927
+Willington,CT,41.48593,-72.35536,Millington,0
+Bridgeville,DE,38.74261,-75.60437,Bridgeville,2256
+Felton,DE,39.00845,-75.57798,Felton,1402
+Greenwood,DE,38.80706,-75.59132,Greenwood,1066
+Laurel,DE,38.5565,-75.57131,Laurel,4075
+Middletown,DE,39.44956,-75.71632,Middletown,20372
+New Castle,DE,39.65948,-75.56359,New Castle,5382
+Newark,DE,39.68372,-75.74966,Newark,33817
+Seaford,DE,38.64123,-75.61104,Seaford,7586
+Baker,FL,30.16604,-85.68576,Baker,0
+Bartow,FL,27.89641,-81.84314,Bartow,18972
+Blountstown,FL,30.44379,-85.04744,Blountstown,2497
+Bonita Springs,FL,26.33981,-81.7787,Bonita Springs,51704
+Boynton Beach,FL,26.52535,-80.06643,Boynton Beach,73966
+Bradenton,FL,27.49893,-82.57482,Bradenton,54437
+Branford,FL,29.95912,-82.92818,Branford,721
+Brooksville,FL,28.55554,-82.38991,Brooksville,7854
+Bushnell,FL,28.66499,-82.11286,Bushnell,2995
+Callahan,FL,30.56218,-81.83066,Callahan,1185
+Chiefland,FL,29.47496,-82.85984,Chiefland,2218
+Clearwater,FL,27.96585,-82.8001,Clearwater,117292
+Cocoa,FL,28.38612,-80.742,Cocoa,17711
+Cottondale,FL,30.79714,-85.3766,Cottondale,900
+Dade City,FL,28.36472,-82.19592,Dade City,6955
+Davenport,FL,28.1614,-81.60174,Davenport,3534
+Defuniak Springs,FL,30.72102,-86.11522,DeFuniak Springs,5795
+Ellenton,FL,27.52171,-82.5276,Ellenton,4275
+Fort Lauderdale,FL,26.12231,-80.14338,Fort Lauderdale,183146
+Fort Myers,FL,26.62168,-81.84059,Fort Myers,74013
+Fort Pierce,FL,27.44671,-80.32561,Fort Pierce,44484
+Gainesville,FL,29.65163,-82.32483,Gainesville,145214
+Grand Ridge,FL,30.71291,-85.02328,Grand Ridge,872
+Haines City,FL,28.1145,-81.62009,Haines City,22807
+Hastings,FL,29.71802,-81.50813,Hastings,632
+Hawthorne,FL,29.59191,-82.08732,Hawthorne,1492
+Hialeah,FL,25.8576,-80.27811,Hialeah,237069
+Homestead,FL,25.46872,-80.47756,Homestead,80737
+Hosford,FL,30.38705,-84.79943,Hosford,650
+Hudson,FL,28.36445,-82.69343,Hudson,12158
+Immokalee,FL,26.41869,-81.4173,Immokalee,24154
+Jacksonville,FL,30.33218,-81.65565,Jacksonville,1009833
+Jasper,FL,30.51827,-82.94819,Jasper,4155
+Jennings,FL,30.6041,-83.09792,Jennings,870
+Jupiter,FL,26.93422,-80.09421,Jupiter,62707
+Kissimmee,FL,28.30468,-81.41667,Kissimmee,69152
+Labelle,FL,26.76173,-81.43841,LaBelle,4753
+Lake Butler,FL,28.50167,-81.54091,Lake Butler,15400
+Lake City,FL,30.18968,-82.63929,Lake City,12161
+Lake Panasoffkee,FL,28.777,-82.12,Lake Panasoffkee,3551
+Lake Placid,FL,27.29834,-81.37124,Lake Placid,2164
+Lake Wales,FL,27.90141,-81.58591,Lake Wales,15541
+Lakeland,FL,28.03947,-81.9498,Lakeland,104401
+Lamont,FL,30.37715,-83.81294,Lamont,178
+Land O Lakes,FL,28.2189,-82.45759,Land O' Lakes,31996
+Lawtey,FL,30.04413,-82.07177,Lawtey,719
+Lecanto,FL,28.85165,-82.4876,Lecanto,5882
+Lee,FL,28.81082,-81.87786,Leesburg,21993
+Leesburg,FL,28.81082,-81.87786,Leesburg,21993
+Live Oak,FL,30.29495,-82.98402,Live Oak,6931
+Macclenny,FL,30.28218,-82.12206,Macclenny,6487
+Madison,FL,30.46938,-83.41293,Madison,2880
+Marathon,FL,24.71375,-81.09035,Marathon,8750
+Marianna,FL,30.77436,-85.22687,Marianna,9100
+Mascotte,FL,28.57833,-81.88675,Mascotte,5473
+Mc Alpin,FL,30.13912,-82.9518,McAlpin,0
+Miami,FL,25.77427,-80.19366,Miami,487014
+Middleburg,FL,30.06885,-81.86038,Middleburg,13008
+Midway,FL,30.40648,-87.00553,Midway,16115
+Milton,FL,30.63241,-87.03969,Milton,9628
+Mims,FL,28.66527,-80.84478,Mims,7058
+Moore Haven,FL,26.83312,-81.09312,Moore Haven,1794
+Nokomis,FL,27.11922,-82.44426,Nokomis,3167
+North Fort Myers,FL,26.66729,-81.88009,North Fort Myers,39407
+Ocala,FL,29.1872,-82.14009,Ocala,58218
+Okeechobee,FL,27.24393,-80.82978,Okeechobee,5608
+Opa Locka,FL,25.90232,-80.25033,Opa-locka,16565
+Orlando,FL,28.53834,-81.37924,Orlando,334854
+Ormond Beach,FL,29.28581,-81.05589,Ormond Beach,40970
+Palatka,FL,29.64858,-81.63758,Palatka,10390
+Palm Bay,FL,28.03446,-80.58866,Palm Bay,119760
+Palmetto,FL,27.52143,-82.57232,Palmetto,13249
+Panama City,FL,30.15946,-85.65983,Panama City,38286
+Pensacola,FL,30.42131,-87.21691,Pensacola,53724
+Perry,FL,30.11766,-83.58274,Perry,7055
+Pierson,FL,29.23942,-81.46563,Pierson,1772
+Plant City,FL,28.01888,-82.11469,Plant City,37406
+Polk City,FL,28.18251,-81.82397,Polk City,1907
+Pompano Beach,FL,26.23786,-80.12477,Pompano Beach,107762
+Punta Gorda,FL,26.92978,-82.04537,Punta Gorda,18150
+Reddick,FL,29.36664,-82.19732,Reddick,518
+Saint Augustine,FL,29.89469,-81.31452,Saint Augustine,12975
+Saint Johns,FL,30.0815,-81.54774,St. Johns,40000
+San Antonio,FL,28.33611,-82.27453,San Antonio,1308
+Sebring,FL,27.49559,-81.44091,Sebring,10497
+Seffner,FL,27.98363,-82.27565,Seffner,7579
+South Bay,FL,26.66396,-80.71617,South Bay,5101
+Summerfield,FL,29.00859,-82.03481,Summerfield,0
+Tallahassee,FL,30.43826,-84.28073,Tallahassee,201731
+Tampa,FL,27.94752,-82.45843,Tampa,414547
+Vero Beach,FL,27.63864,-80.39727,Vero Beach,16358
+Waldo,FL,29.78969,-82.16732,Waldo,1030
+Webster,FL,28.60999,-82.05508,Webster,995
+West Palm Beach,FL,26.71534,-80.05337,West Palm Beach,120932
+Wildwood,FL,28.86542,-82.04058,Wildwood,6590
+Winter Garden,FL,28.56528,-81.58618,Winter Garden,40356
+Youngstown,FL,30.36436,-85.43826,Youngstown,4324
+Yulee,FL,30.6319,-81.60649,Yulee,11491
+Zellwood,FL,28.73111,-81.60118,Zellwood,2817
+Acworth,GA,34.06635,-84.67837,Acworth,22131
+Adairsville,GA,34.3687,-84.93411,Adairsville,4778
+Adel,GA,31.13727,-83.42408,Adel,5316
+Albany,GA,31.57851,-84.15574,Albany,74843
+Alma,GA,31.53937,-82.46236,Alma,3536
+Alpharetta,GA,34.07538,-84.29409,Alpharetta,63693
+Americus,GA,32.07239,-84.23269,Americus,16028
+Athens,GA,33.96095,-83.37794,Athens,127315
+Atlanta,GA,33.749,-84.38798,Atlanta,510823
+Attapulgus,GA,30.74932,-84.48568,Attapulgus,435
+Augusta,GA,33.47097,-81.97484,Augusta,43459
+Bainbridge,GA,30.9038,-84.57547,Bainbridge,12507
+Baxley,GA,31.77825,-82.34846,Baxley,4440
+Bethlehem,GA,33.93206,-83.71378,Bethlehem,671
+Blackshear,GA,31.30605,-82.24207,Blackshear,3581
+Bloomingdale,GA,32.13242,-81.299,Bloomingdale,2764
+Blythe,GA,33.29264,-82.20151,Blythe,701
+Braselton,GA,34.10927,-83.76267,Braselton,9476
+Bremen,GA,33.72122,-85.1455,Bremen,6355
+Brunswick,GA,31.15013,-81.49147,Brunswick,16157
+Buena Vista,GA,32.31904,-84.51714,Buena Vista,2206
+Byron,GA,32.65376,-83.75963,Byron,5105
+Cairo,GA,30.87751,-84.20214,Cairo,9752
+Calhoun,GA,34.50259,-84.95105,Calhoun,16309
+Camilla,GA,31.23129,-84.21046,Camilla,5089
+Carnesville,GA,34.36983,-83.23516,Carnesville,580
+Cartersville,GA,34.16533,-84.80231,Cartersville,20319
+Chatsworth,GA,34.76591,-84.76994,Chatsworth,4351
+Clarkesville,GA,34.6126,-83.52489,Clarkesville,1746
+Columbus,GA,32.46098,-84.98771,Columbus,206922
+Commerce,GA,34.204,-83.45711,Commerce,6762
+Conley,GA,33.64483,-84.32576,Conley,6228
+Cordele,GA,31.96351,-83.78239,Cordele,10943
+Crawfordville,GA,33.55402,-82.89598,Crawfordville,508
+Cusseta,GA,32.30543,-84.7727,Cusseta,11267
+Cuthbert,GA,31.77127,-84.78937,Cuthbert,3670
+Dacula,GA,33.98872,-83.89796,Dacula,5330
+Dalton,GA,34.7698,-84.97022,Dalton,33853
+Darien,GA,31.37023,-81.43399,Darien,1858
+Dawson,GA,31.77382,-84.448,Dawson,4353
+Dawsonville,GA,34.50259,-84.95105,Calhoun,16309
+Donalsonville,GA,31.04046,-84.87909,Donalsonville,2675
+Douglas,GA,31.50881,-82.84987,Douglas,11718
+Dublin,GA,32.54044,-82.90375,Dublin,16197
+Dudley,GA,32.54239,-83.07043,Dudley,570
+East Dublin,GA,32.54822,-82.87181,East Dublin,2392
+Eatonton,GA,33.3268,-83.3885,Eatonton,6520
+Elberton,GA,34.11159,-82.86863,Elberton,4453
+Ellabell,GA,32.12354,-81.48567,Ellabell,0
+Ellenwood,GA,33.61011,-84.28798,Ellenwood,0
+Emerson,GA,34.12704,-84.75549,Emerson,1535
+Fairburn,GA,33.56706,-84.58104,Fairburn,13967
+Folkston,GA,30.83095,-82.01131,Folkston,5247
+Forest Park,GA,33.62205,-84.36909,Forest Park,19383
+Forsyth,GA,33.0343,-83.93824,Forsyth,4013
+Fort Valley,GA,32.55376,-83.88741,Fort Valley,8597
+Fortson,GA,32.60708,-84.93715,Fortson,0
+Gainesville,GA,34.29788,-83.82407,Gainesville,38712
+Gordon,GA,32.88209,-83.33238,Gordon,1956
+Greensboro,GA,33.57568,-83.18238,Greensboro,3403
+Griffin,GA,33.24678,-84.26409,Griffin,23211
+Grovetown,GA,33.45042,-82.19818,Grovetown,13093
+Guyton,GA,32.3363,-81.3915,Guyton,1856
+Hahira,GA,30.99131,-83.37266,Hahira,2899
+Hampton,GA,33.38706,-84.28298,Hampton,7372
+Harlem,GA,33.41458,-82.31262,Harlem,2967
+Hawkinsville,GA,32.28377,-83.47212,Hawkinsville,5471
+Hazlehurst,GA,31.86963,-82.5943,Hazlehurst,4196
+Hephzibah,GA,33.31403,-82.09679,Hephzibah,3936
+Hogansville,GA,33.17318,-84.91494,Hogansville,3110
+Homerville,GA,31.0366,-82.74708,Homerville,2480
+Jackson,GA,32.65376,-83.75963,Byron,5105
+Jasper,GA,34.46787,-84.42909,Jasper,3762
+Jefferson,GA,34.11705,-83.57239,Jefferson,10195
+Jeffersonville,GA,34.11705,-83.57239,Jefferson,10195
+Jesup,GA,31.60785,-81.88634,Jesup,9633
+Kingsland,GA,30.79996,-81.68983,Kingsland,16487
+Lagrange,GA,33.03929,-85.03133,LaGrange,29588
+Lake Park,GA,30.68215,-83.17959,Lake Park,730
+Leesburg,GA,31.73212,-84.17074,Leesburg,2983
+Lithia Springs,GA,33.794,-84.66049,Lithia Springs,15491
+Lithonia,GA,33.71233,-84.10519,Lithonia,2022
+Louisville,GA,33.00154,-82.41124,Louisville,2358
+Lula,GA,34.3876,-83.66629,Lula,2879
+Lumber City,GA,31.92935,-82.67958,Lumber City,1254
+Macon,GA,32.84069,-83.6324,Macon,91351
+Madison,GA,33.59568,-83.46794,Madison,4026
+Marietta,GA,33.9526,-84.54993,Marietta,59067
+Mcdonough,GA,33.44734,-84.14686,McDonough,23417
+Metter,GA,32.39712,-82.06012,Metter,4111
+Midland,GA,32.57486,-84.82715,Midland,0
+Midway,GA,33.0682,-83.22349,Hardwick,3930
+Millen,GA,32.80405,-81.94928,Millen,2925
+Monroe,GA,33.79484,-83.71323,Monroe,13641
+Moultrie,GA,31.17991,-83.78906,Moultrie,14377
+Newnan,GA,33.38067,-84.79966,Newnan,37291
+Ocilla,GA,31.59447,-83.2513,Ocilla,3387
+Palmetto,GA,33.51789,-84.66965,Palmetto,4733
+Pelham,GA,31.12802,-84.15304,Pelham,3708
+Perry,GA,32.45821,-83.73157,Perry,15457
+Pinehurst,GA,32.196,-83.76295,Pinehurst,336
+Pooler,GA,32.11548,-81.24706,Pooler,23133
+Port Wentworth,GA,32.14909,-81.16317,Port Wentworth,7637
+Pulaski,GA,32.39018,-81.95678,Pulaski,203
+Rabun Gap,GA,34.96049,-83.39318,Rabun Gap,0
+Register,GA,32.36712,-81.884,Register,172
+Resaca,GA,34.58036,-84.94328,Resaca,775
+Richland,GA,32.08793,-84.66742,Richland,1496
+Richmond Hill,GA,31.93827,-81.30344,Richmond Hill,11935
+Rincon,GA,32.29603,-81.23539,Rincon,9843
+Ringgold,GA,34.91591,-85.10912,Ringgold,3700
+Rising Fawn,GA,34.76008,-85.53108,Rising Fawn,0
+Rockmart,GA,34.0026,-85.04161,Rockmart,4300
+Rome,GA,34.25704,-85.16467,Rome,36323
+Saint Marys,GA,30.73051,-81.54649,St. Marys,17968
+Savannah,GA,32.08354,-81.09983,Savannah,147780
+Soperton,GA,32.37712,-82.59236,Soperton,3087
+Statesboro,GA,32.44879,-81.78317,Statesboro,30721
+Stone Mountain,GA,33.80816,-84.1702,Stone Mountain,6109
+Surrency,GA,31.72381,-82.1979,Surrency,207
+Sycamore,GA,31.67435,-83.63739,Sycamore,674
+Sylvania,GA,32.75044,-81.63678,Sylvania,2538
+Tallapoosa,GA,33.74455,-85.28801,Tallapoosa,3171
+Taylorsville,GA,34.08621,-84.98744,Taylorsville,214
+Temple,GA,33.73705,-85.03244,Temple,4313
+Tennille,GA,32.93599,-82.81153,Tennille,1773
+Thomasville,GA,30.83658,-83.97878,Thomasville,18742
+Thomson,GA,33.47069,-82.50457,Thomson,6689
+Tifton,GA,31.45046,-83.5085,Tifton,16725
+Twin City,GA,32.58294,-82.15512,Twin City,1674
+Union Point,GA,33.61568,-83.0746,Union Point,1709
+Valdosta,GA,30.83334,-83.28032,Valdosta,55724
+Vidalia,GA,32.21769,-82.41346,Vidalia,10679
+Vienna,GA,32.09156,-83.79545,Vienna,3777
+Villa Rica,GA,33.73205,-84.91911,Villa Rica,14904
+Waco,GA,33.70288,-85.18328,Waco,518
+Wadley,GA,32.86682,-82.40402,Wadley,2031
+Warrenton,GA,33.40708,-82.66208,Warrenton,1812
+Waycross,GA,31.21368,-82.3557,Waycross,14053
+Waynesboro,GA,33.08987,-82.01567,Waynesboro,5704
+West Point,GA,32.87791,-85.18327,West Point,3728
+Whitesburg,GA,33.494,-84.91383,Whitesburg,596
+Wildwood,GA,34.96341,-85.41107,Wildwood,0
+Willacoochee,GA,31.34076,-83.04598,Willacoochee,1393
+Woodbine,GA,30.96396,-81.72416,Woodbine,1285
+Wrens,GA,33.20765,-82.39179,Wrens,2051
+Wrightsville,GA,32.72933,-82.71986,Wrightsville,3642
+Zebulon,GA,33.10235,-84.3427,Zebulon,1153
+Ainsworth,IA,41.28891,-91.55238,Ainsworth,571
+Algona,IA,43.06997,-94.23302,Algona,5470
+Altoona,IA,41.64416,-93.46466,Altoona,16984
+Ames,IA,42.03471,-93.61994,Ames,65060
+Anamosa,IA,42.10834,-91.28516,Anamosa,5469
+Ankeny,IA,41.72971,-93.60577,Ankeny,56764
+Atalissa,IA,41.57114,-91.16599,Atalissa,306
+Audubon,IA,41.71804,-94.93249,Audubon,2017
+Avoca,IA,41.47666,-95.33805,Avoca,1504
+Batavia,IA,40.99418,-92.1674,Batavia,516
+Bettendorf,IA,41.52448,-90.51569,Bettendorf,35505
+Bevington,IA,41.36055,-93.79078,Bevington,62
+Bondurant,IA,41.70054,-93.46216,Bondurant,4996
+Brooklyn,IA,41.73361,-92.44546,Brooklyn,1420
+Calmar,IA,43.18358,-91.86405,Calmar,960
+Carroll,IA,42.06582,-94.86693,Carroll,9968
+Cedar Falls,IA,42.52776,-92.44547,Cedar Falls,41255
+Cedar Rapids,IA,42.00833,-91.64407,Cedar Rapids,130405
+Center Point,IA,42.19083,-91.78518,Center Point,2521
+Centerville,IA,42.09276,-93.93551,Centerville,5745
+Chariton,IA,41.01389,-93.3066,Chariton,4214
+Charles City,IA,43.06636,-92.67241,Charles City,7455
+Clarence,IA,41.88891,-91.05654,Clarence,970
+Clear Lake,IA,43.13802,-93.37937,Clear Lake,7590
+Clinton,IA,41.84447,-90.18874,Clinton,26064
+Clive,IA,41.60304,-93.72411,Clive,15447
+Colfax,IA,41.67777,-93.2452,Colfax,2051
+Coralville,IA,41.6764,-91.58045,Coralville,20608
+Correctionville,IA,42.47499,-95.78557,Correctionville,811
+Council Bluffs,IA,41.26194,-95.86083,Council Bluffs,62597
+Cresco,IA,43.38136,-92.11405,Cresco,3833
+Creston,IA,41.0586,-94.36135,Creston,7854
+Davenport,IA,41.52364,-90.57764,Davenport,102582
+De Soto,IA,41.53166,-94.00967,De Soto,1089
+De Witt,IA,41.82336,-90.53819,De Witt,5242
+Decorah,IA,43.30331,-91.78571,Decorah,7907
+Delaware,IA,42.47527,-91.34542,Delaware,156
+Denison,IA,42.01777,-95.35528,Denison,8334
+Denver,IA,42.67137,-92.3374,Denver,1835
+Des Moines,IA,41.60054,-93.60911,Des Moines,214133
+Dows,IA,42.65664,-93.50104,Dows,514
+Dubuque,IA,42.50056,-90.66457,Dubuque,58799
+Duncombe,IA,42.47053,-93.99356,Duncombe,394
+Early,IA,42.46137,-95.15194,Early,532
+Eddyville,IA,41.1565,-92.63739,Eddyville,1012
+Ellsworth,IA,42.31276,-93.57882,Ellsworth,509
+Emmetsburg,IA,43.11274,-94.68304,Emmetsburg,3811
+Estherville,IA,43.40163,-94.83276,Estherville,6011
+Evansdale,IA,42.46915,-92.28102,Evansdale,4812
+Floyd,IA,43.12775,-92.7363,Floyd,328
+Forest City,IA,43.26246,-93.63716,Forest City,4018
+Fort Dodge,IA,42.49747,-94.16802,Fort Dodge,24649
+Fort Madison,IA,40.62976,-91.31515,Fort Madison,10717
+Garner,IA,43.10246,-93.60188,Garner,3107
+Greene,IA,42.89581,-92.80242,Greene,1120
+Grinnell,IA,41.74305,-92.72241,Grinnell,9141
+Guttenberg,IA,42.78582,-91.09957,Guttenberg,1861
+Hampton,IA,42.74192,-93.20242,Hampton,4290
+Hinton,IA,42.62777,-96.29169,Hinton,938
+Holland,IA,42.39887,-92.80048,Holland,280
+Holstein,IA,42.48915,-95.545,Holstein,1391
+Huxley,IA,41.89527,-93.60077,Huxley,3536
+Independence,IA,42.4686,-91.88934,Independence,6028
+Iowa City,IA,41.66113,-91.53017,Iowa City,74220
+Iowa Falls,IA,42.52248,-93.25131,Iowa Falls,5195
+Janesville,IA,42.64609,-92.46296,Janesville,954
+Jefferson,IA,42.01526,-94.37747,Jefferson,4204
+Latimer,IA,42.76331,-93.36826,Latimer,483
+Le Mars,IA,42.79416,-96.16558,Le Mars,9761
+Lime Springs,IA,43.44886,-92.28073,Lime Springs,490
+Manchester,IA,42.48415,-91.45543,Manchester,5073
+Manning,IA,41.90915,-95.06499,Manning,1472
+Manson,IA,42.52914,-94.53414,Manson,1615
+Maquoketa,IA,42.06891,-90.66569,Maquoketa,5989
+Marcus,IA,42.82582,-95.80751,Marcus,1070
+Marion,IA,42.03417,-91.59768,Marion,37330
+Marshalltown,IA,42.04943,-92.90798,Marshalltown,27620
+Mason City,IA,43.15357,-93.20104,Mason City,27366
+Mediapolis,IA,41.00809,-91.16404,Mediapolis,1574
+Milford,IA,43.32469,-95.15,Milford,3018
+Minden,IA,41.46694,-95.54278,Minden,594
+Missouri Valley,IA,41.55638,-95.88779,Missouri Valley,2695
+Monona,IA,43.05165,-91.3893,Monona,1500
+Monroe,IA,41.52221,-93.10187,Monroe,1831
+Monticello,IA,42.23834,-91.18709,Monticello,3825
+Mount Ayr,IA,40.71471,-94.23523,Mount Ayr,1686
+Mount Pleasant,IA,40.96364,-91.55794,Mount Pleasant,8433
+Muscatine,IA,41.42447,-91.04321,Muscatine,23968
+Neola,IA,41.44888,-95.61556,Neola,862
+Nevada,IA,42.02277,-93.45243,Nevada,6831
+New Hampton,IA,43.05914,-92.31768,New Hampton,3452
+New Virginia,IA,41.18222,-93.72883,New Virginia,485
+Newton,IA,41.69971,-93.04798,Newton,15125
+North Liberty,IA,41.74918,-91.59795,North Liberty,15931
+Northwood,IA,43.44412,-93.22104,Northwood,1995
+Odebolt,IA,42.31221,-95.25055,Odebolt,978
+Oelwein,IA,42.67332,-91.9135,Oelwein,6153
+Onawa,IA,42.02665,-96.09724,Onawa,2881
+Osceola,IA,41.03389,-93.7655,Osceola,4972
+Ottumwa,IA,41.02001,-92.4113,Ottumwa,24624
+Pacific Junction,IA,41.01861,-95.79917,Pacific Junction,457
+Parkersburg,IA,42.57748,-92.78686,Parkersburg,1960
+Pella,IA,41.40805,-92.91631,Pella,10363
+Peosta,IA,42.45056,-90.85041,Peosta,1618
+Percival,IA,40.74889,-95.81361,Percival,87
+Perry,IA,41.8386,-94.10718,Perry,8089
+Polk City,IA,41.77138,-93.713,Polk City,4323
+Postville,IA,43.0847,-91.5682,Postville,2131
+Red Oak,IA,41.00972,-95.22555,Red Oak,5472
+Riverside,IA,41.47974,-91.58128,Riverside,1045
+Rock Rapids,IA,43.42719,-96.17586,Rock Rapids,2602
+Rockwell City,IA,42.39526,-94.63387,Rockwell City,2141
+Sheffield,IA,42.8933,-93.2152,Sheffield,1140
+Shelby,IA,41.5161,-95.45028,Shelby,618
+Sheldon,IA,43.18109,-95.85613,Sheldon,5088
+Sibley,IA,43.39914,-95.75196,Sibley,2668
+Sigourney,IA,41.33334,-92.20463,Sigourney,2005
+Sioux Center,IA,43.07971,-96.17558,Sioux Center,7461
+Sioux City,IA,42.49999,-96.40031,Sioux City,82821
+Sloan,IA,42.23277,-96.22808,Sloan,979
+Spencer,IA,43.14136,-95.14444,Spencer,11212
+Spirit Lake,IA,43.42218,-95.10222,Spirit Lake,5018
+Storm Lake,IA,42.64109,-95.20972,Storm Lake,10910
+Story City,IA,42.18721,-93.59577,Story City,3438
+Stuart,IA,41.50332,-94.31857,Stuart,1602
+Tama,IA,41.96666,-92.57686,Tama,2819
+Tiffin,IA,41.70585,-91.66295,Tiffin,2657
+Tipton,IA,41.76974,-91.12793,Tipton,3200
+Toledo,IA,41.99555,-92.57686,Toledo,2202
+Underwood,IA,41.38694,-95.67667,Underwood,940
+Urbana,IA,42.22416,-91.87434,Urbana,1459
+Urbandale,IA,41.62666,-93.71217,Urbandale,44062
+Vinton,IA,42.16861,-92.02351,Vinton,5148
+Walcott,IA,41.58475,-90.77209,Walcott,1636
+Walnut,IA,41.47749,-95.22194,Walnut,776
+Wapello,IA,41.18142,-91.18543,Wapello,2041
+Washington,IA,41.29918,-91.69294,Washington,7408
+Waterloo,IA,42.49276,-92.34296,Waterloo,68460
+Webster City,IA,42.46942,-93.81605,Webster City,7814
+Welton,IA,41.90808,-90.59541,Welton,160
+West Burlington,IA,40.82504,-91.15654,West Burlington,3047
+West Liberty,IA,41.57002,-91.26377,West Liberty,3728
+Wever,IA,40.7106,-91.23098,Wever,0
+Williams,IA,42.48831,-93.54493,Williams,335
+Williamsburg,IA,41.66112,-92.00907,Williamsburg,3195
+American Falls,ID,42.78602,-112.85444,American Falls,4321
+Blackfoot,ID,43.19047,-112.34498,Blackfoot,11740
+Bliss,ID,42.92685,-114.94951,Bliss,305
+Boise,ID,43.6135,-116.20345,Boise,235684
+Bonners Ferry,ID,48.69133,-116.31631,Bonners Ferry,2549
+Caldwell,ID,43.66294,-116.68736,Caldwell,51686
+Council,ID,44.72989,-116.4382,Council,808
+Downey,ID,42.42853,-112.12441,Downey,616
+Dubois,ID,44.1763,-112.23082,Dubois,606
+Eden,ID,42.60575,-114.21086,Eden,405
+Fort Hall,ID,43.03325,-112.43831,Fort Hall,3201
+Franklin,ID,42.01354,-111.80717,Franklin,769
+Fruitland,ID,44.00766,-116.91655,Fruitland,5087
+Grangeville,ID,45.92655,-116.12237,Grangeville,3155
+Heyburn,ID,42.55852,-113.7639,Heyburn,3223
+Idaho Falls,ID,43.46658,-112.03414,Idaho Falls,59184
+Jerome,ID,42.72407,-114.51865,Jerome,11184
+Lewiston,ID,46.41655,-117.01766,Lewiston,32544
+Malad City,ID,42.19159,-112.2508,Malad City,2050
+Marsing,ID,43.54544,-116.8132,Marsing,1287
+Mccammon,ID,42.65047,-112.19302,McCammon,797
+Montpelier,ID,42.32215,-111.2977,Montpelier,2509
+Mountain Home,ID,43.13295,-115.6912,Mountain Home,13730
+Nampa,ID,43.54072,-116.56346,Nampa,89839
+Pocatello,ID,42.8713,-112.44553,Pocatello,54441
+Post Falls,ID,47.71796,-116.95159,Post Falls,30453
+Twin Falls,ID,42.56297,-114.46087,Twin Falls,47468
+Wilder,ID,43.67655,-116.91182,Wilder,1622
+Addison,IL,41.9317,-87.98896,Addison,37208
+Alsip,IL,41.66892,-87.73866,Alsip,19346
+Altamont,IL,39.06199,-88.74811,Altamont,2308
+Annawan,IL,41.39726,-89.90455,Annawan,858
+Atkinson,IL,41.42087,-90.01511,Atkinson,948
+Atlanta,IL,40.25948,-89.23342,Atlanta,1648
+Barry,IL,39.69421,-91.03902,Barry,1274
+Batavia,IL,41.85003,-88.31257,Batavia,26495
+Bedford Park,IL,41.76281,-87.80006,Bedford Park,577
+Bellwood,IL,41.88142,-87.88312,Bellwood,19308
+Belvidere,IL,42.26391,-88.84427,Belvidere,25132
+Bensenville,IL,41.95503,-87.94007,Bensenville,18440
+Benton,IL,37.99672,-88.92007,Benton,7041
+Berwyn,IL,41.85059,-87.79367,Berwyn,56368
+Bloomingdale,IL,41.95753,-88.0809,Bloomingdale,22254
+Bloomington,IL,40.4842,-88.99369,Bloomington,78292
+Bolingbrook,IL,41.69864,-88.0684,Bolingbrook,74306
+Bourbonnais,IL,41.15376,-87.88754,Bourbonnais,18569
+Bridgeview,IL,41.75003,-87.80422,Bridgeview,16407
+Brighton,IL,39.03977,-90.14066,Brighton,2198
+Burbank,IL,41.73392,-87.7795,Burbank,29128
+Carol Stream,IL,41.91253,-88.13479,Carol Stream,40356
+Carrollton,IL,39.30227,-90.40706,Carrollton,2429
+Casey,IL,39.2992,-87.99253,Casey,2709
+Champaign,IL,40.11642,-88.24338,Champaign,86096
+Channahon,IL,41.42948,-88.22867,Channahon,12594
+Cherry Valley,IL,42.23474,-88.94899,Cherry Valley,3098
+Chicago,IL,41.85003,-87.65005,Chicago,2664452
+Chicago Heights,IL,41.50615,-87.6356,Chicago Heights,30284
+Cicero,IL,41.84559,-87.75394,Cicero,83886
+Crest Hill,IL,41.55475,-88.09867,Crest Hill,21153
+Crete,IL,41.44448,-87.63143,Crete,8191
+Crystal Lake,IL,42.24113,-88.3162,Crystal Lake,40448
+Decatur,IL,39.84031,-88.9548,Decatur,73254
+Dekalb,IL,41.92947,-88.75036,DeKalb,43211
+Des Plaines,IL,42.03336,-87.8834,Des Plaines,58677
+Divernon,IL,39.56561,-89.65732,Divernon,1156
+Dixon,IL,41.83892,-89.47955,Dixon,15319
+Downs,IL,40.39698,-88.87063,Downs,988
+Dundee,IL,42.09808,-88.28286,West Dundee,7395
+Dwight,IL,41.09448,-88.42506,Dwight,4063
+East Saint Louis,IL,38.6245,-90.15094,East Saint Louis,27006
+Edwards,IL,40.74587,-89.74427,Edwards,0
+Effingham,IL,39.12004,-88.54338,Effingham,12604
+El Paso,IL,40.7392,-89.01646,El Paso,2798
+Elgin,IL,42.03725,-88.28119,Elgin,112111
+Elk Grove Village,IL,42.00392,-87.97035,Elk Grove Village,33238
+Elwood,IL,41.40392,-88.11172,Elwood,2258
+Fairfield,IL,42.21919,-88.06147,Fairfield,5255
+Farina,IL,38.83421,-88.77228,Farina,512
+Farmer City,IL,40.24337,-88.64257,Farmer City,2004
+Farmersville,IL,39.44339,-89.65176,Farmersville,703
+Flora,IL,38.66894,-88.4856,Flora,4944
+Frankfort,IL,41.49587,-87.84866,Frankfort,18653
+Franklin Park,IL,41.93531,-87.86562,Franklin Park,18312
+Galatia,IL,37.8406,-88.60922,Galatia,917
+Galesburg,IL,40.94782,-90.37124,Galesburg,31273
+Geneseo,IL,41.44809,-90.15428,Geneseo,6538
+Gilberts,IL,42.10336,-88.37286,Gilberts,7638
+Gilman,IL,40.7667,-87.99226,Gilman,1754
+Goodfield,IL,40.62976,-89.27481,Goodfield,945
+Granite City,IL,38.70144,-90.14872,Granite City,29054
+Grant Park,IL,41.24114,-87.64615,Grant Park,1289
+Grayville,IL,38.25755,-87.99364,Grayville,1626
+Greenup,IL,39.24782,-88.16337,Greenup,1495
+Greenville,IL,38.89227,-89.41314,Greenville,6666
+Gurnee,IL,42.3703,-87.90202,Gurnee,31056
+Hamel,IL,38.88894,-89.84538,Hamel,806
+Hampshire,IL,42.0978,-88.53036,Hampshire,6130
+Hanover Park,IL,41.99947,-88.14507,Hanover Park,38333
+Harrisburg,IL,37.73838,-88.54061,Harrisburg,8891
+Hartford,IL,38.83338,-90.09594,Hartford,1382
+Havana,IL,40.30004,-90.06095,Havana,3076
+Henry,IL,41.11142,-89.35648,Henry,2327
+Heyworth,IL,40.31337,-88.97369,Heyworth,2890
+HICKORY HILLS,IL,41.72559,-87.82506,Hickory Hills,14122
+Hillsdale,IL,41.61364,-90.1729,Hillsdale,510
+Hinsdale,IL,41.80086,-87.93701,Hinsdale,17628
+HOMER GLEN,IL,41.60003,-87.93811,Homer Glen,24395
+Hoopeston,IL,40.46726,-87.66836,Hoopeston,5220
+Ina,IL,38.15116,-88.90396,Ina,2360
+Itasca,IL,41.97503,-88.00729,Itasca,8798
+Jacksonville,IL,39.73394,-90.22901,Jacksonville,19103
+Joliet,IL,41.52519,-88.0834,Joliet,147861
+Kankakee,IL,41.12003,-87.86115,Kankakee,26676
+Knoxville,IL,40.90837,-90.28485,Knoxville,2836
+La Grange,IL,41.80503,-87.86923,La Grange,15723
+La Salle,IL,41.33337,-89.09175,La Salle,9609
+Lake Zurich,IL,42.19697,-88.09341,Lake Zurich,19993
+Lansing,IL,41.56476,-87.53893,Lansing,28349
+Le Roy,IL,40.35198,-88.76424,Le Roy,3582
+Lemont,IL,41.67364,-88.00173,Lemont,16788
+Lexington,IL,40.64142,-88.7834,Lexington,2059
+Libertyville,IL,42.28308,-87.95313,Libertyville,20436
+Lincoln,IL,40.14838,-89.36482,Lincoln,13966
+Litchfield,IL,39.17533,-89.65426,Litchfield,6897
+Lockport,IL,41.58948,-88.05784,Lockport,25175
+Lombard,IL,41.88003,-88.00784,Lombard,43797
+Loves Park,IL,42.32002,-89.05816,Loves Park,23455
+Macomb,IL,40.45921,-90.6718,Macomb,18547
+Mahomet,IL,40.19531,-88.40422,Mahomet,8056
+Manteno,IL,41.25059,-87.83143,Manteno,8999
+Marion,IL,37.73061,-88.93313,Marion,17803
+Marshall,IL,39.39143,-87.69364,Marshall,3880
+Martinsville,IL,39.33559,-87.88198,Martinsville,1135
+Mascoutah,IL,38.49033,-89.79315,Mascoutah,7975
+Mattoon,IL,39.48309,-88.37283,Mattoon,18113
+Mc Lean,IL,40.31448,-89.16981,McLean,815
+Mchenry,IL,42.33335,-88.26675,McHenry,26657
+Melrose Park,IL,41.90059,-87.85673,Melrose Park,25379
+Mendota,IL,41.54725,-89.11759,Mendota,7204
+Metropolis,IL,37.15117,-88.732,Metropolis,6334
+Midlothian,IL,41.62531,-87.71755,Midlothian,14847
+Minonk,IL,40.90448,-89.03452,Minonk,2053
+Minooka,IL,41.45531,-88.26173,Minooka,11243
+Mokena,IL,41.52614,-87.88922,Mokena,19923
+Monee,IL,41.42003,-87.74171,Monee,5082
+Monmouth,IL,40.91143,-90.64736,Monmouth,9291
+Monroe Center,IL,42.09836,-89.00065,Monroe Center,455
+Montgomery,IL,41.73058,-88.3459,Montgomery,19489
+Morris,IL,41.35725,-88.42118,Morris,14363
+Morrisonville,IL,39.42005,-89.45565,Morrisonville,1028
+Morton,IL,40.61282,-89.45926,Morton,16306
+Mount Vernon,IL,38.31727,-88.90312,Mount Vernon,15087
+Mulberry Grove,IL,38.92505,-89.26896,Mulberry Grove,598
+Naperville,IL,41.78586,-88.14729,Naperville,147100
+Nashville,IL,38.34366,-89.38064,Nashville,3132
+New Baden,IL,38.53505,-89.70065,New Baden,3313
+New Berlin,IL,39.72533,-89.91066,New Berlin,1350
+New Lenox,IL,41.51198,-87.96561,New Lenox,25800
+Normal,IL,40.5142,-88.99063,Normal,54373
+North Chicago,IL,42.32558,-87.84118,North Chicago,29491
+Oakwood,IL,40.11615,-87.77836,Oakwood,1532
+Oglesby,IL,41.29531,-89.05953,Oglesby,3647
+Okawville,IL,38.43422,-89.55037,Okawville,1399
+Olney,IL,38.73088,-88.08532,Olney,9005
+Oswego,IL,41.68281,-88.35146,Oswego,33955
+Ottawa,IL,41.34559,-88.84258,Ottawa,18342
+Palatine,IL,42.1103,-88.03424,Palatine,69308
+Pana,IL,39.38893,-89.08008,Pana,5607
+Pekin,IL,40.56754,-89.64066,Pekin,33223
+Peoria,IL,40.69365,-89.58899,Peoria,115070
+Peotone,IL,41.33226,-87.78532,Peotone,4120
+Peru,IL,41.32753,-89.12897,Peru,9952
+Plainfield,IL,41.62697,-88.20395,Plainfield,42527
+Plano,IL,41.66281,-88.53702,Plano,11282
+Poplar Grove,IL,42.36835,-88.82205,Poplar Grove,5139
+Posen,IL,41.6317,-87.68144,Posen,5992
+Princeton,IL,41.36809,-89.46481,Princeton,7594
+Rantoul,IL,40.30837,-88.15588,Rantoul,13008
+Riverdale,IL,41.63337,-87.6331,Riverdale,13536
+Riverton,IL,39.84422,-89.53954,Riverton,3462
+Rochelle,IL,41.92392,-89.06871,Rochelle,9309
+Rockford,IL,42.27113,-89.094,Rockford,148278
+Romeoville,IL,41.64753,-88.08951,Romeoville,39719
+Roscoe,IL,42.41335,-89.00927,Roscoe,10565
+Round Lake,IL,42.35336,-88.09341,Round Lake,18461
+Salem,IL,38.62699,-88.94562,Salem,7287
+Schiller Park,IL,41.95586,-87.8709,Schiller Park,11806
+Shannon,IL,42.15475,-89.73984,Shannon,712
+South Beloit,IL,42.49307,-89.03678,South Beloit,7680
+South Elgin,IL,41.99419,-88.2923,South Elgin,22365
+South Holland,IL,41.60087,-87.60699,South Holland,22043
+South Pekin,IL,40.49448,-89.65177,South Pekin,1120
+Springfield,IL,39.80172,-89.64371,Springfield,114394
+Stockton,IL,42.34974,-90.00679,Stockton,1792
+Sugar Grove,IL,41.76142,-88.44369,Sugar Grove,9512
+Tilton,IL,40.09531,-87.64752,Tilton,2626
+Tinley Park,IL,41.57337,-87.78449,Tinley Park,57143
+Tonica,IL,41.21587,-89.06675,Tonica,738
+Troy,IL,41.52003,-88.20173,Shorewood,16747
+Tuscola,IL,39.7992,-88.2831,Tuscola,4443
+University Park,IL,41.44298,-87.6836,University Park,7070
+Utica,IL,41.34059,-89.01008,Utica,977
+Vandalia,IL,38.9606,-89.09368,Vandalia,7112
+Villa Park,IL,41.88975,-87.98895,Villa Park,21969
+Virginia,IL,39.95116,-90.21234,Virginia,1516
+Wadsworth,IL,42.42863,-87.92397,Wadsworth,3739
+Warrenville,IL,41.81781,-88.1734,Warrenville,13317
+Waukegan,IL,42.36363,-87.84479,Waukegan,88475
+Wenona,IL,41.05253,-89.05036,Wenona,995
+West Chicago,IL,41.88475,-88.20396,West Chicago,27447
+West Frankfort,IL,37.89783,-88.93146,West Frankfort,8067
+Williamsville,IL,39.95422,-89.54871,Williamsville,1496
+Willow Springs,IL,41.74087,-87.86033,Willow Springs,5695
+Wilmington,IL,41.30781,-88.14672,Wilmington,5694
+Winnebago,IL,42.26613,-89.24122,Winnebago,3012
+Wood Dale,IL,41.96336,-87.97896,Wood Dale,13917
+Woodhull,IL,41.17893,-90.31596,Woodhull,788
+Yorkville,IL,41.64114,-88.44729,Yorkville,18451
+Angola,IN,41.63477,-84.99941,Angola,8644
+Ashley,IN,41.5262,-85.06678,Ashley,985
+Austin,IN,38.75839,-85.80803,Austin,4295
+Bloomfield,IN,39.02699,-86.93751,Bloomfield,2336
+Bloomington,IN,39.16533,-86.52639,Bloomington,84067
+Bluffton,IN,40.73866,-85.17164,Bluffton,10005
+Bourbon,IN,41.2956,-86.11639,Bourbon,1781
+Brazil,IN,39.52365,-87.12502,Brazil,8109
+Bristol,IN,41.72144,-85.81749,Bristol,1667
+Butler,IN,41.42977,-84.87135,Butler,2701
+Cambridge City,IN,39.81255,-85.17163,Cambridge City,1784
+Carlisle,IN,38.96838,-87.40557,Carlisle,692
+Chesterton,IN,41.61059,-87.0642,Chesterton,13433
+Cicero,IN,40.12393,-86.01332,Cicero,4891
+Clayton,IN,39.68921,-86.5225,Clayton,995
+Cloverdale,IN,39.51477,-86.7939,Cloverdale,2090
+Covington,IN,40.1417,-87.39474,Covington,2568
+Crawfordsville,IN,40.04115,-86.87445,Crawfordsville,16024
+Daleville,IN,40.12115,-85.55803,Daleville,1608
+Danville,IN,39.7606,-86.52639,Danville,9614
+Decatur,IN,40.8306,-84.92913,Decatur,9465
+Demotte,IN,41.19504,-87.19864,DeMotte,3814
+Dyer,IN,41.4942,-87.52171,Dyer,16051
+Edinburgh,IN,39.35422,-85.96666,Edinburgh,4546
+Elkhart,IN,41.68199,-85.97667,Elkhart,52348
+Evansville,IN,37.97476,-87.55585,Evansville,119943
+Fort Wayne,IN,41.1306,-85.12886,Fort Wayne,260326
+Fowler,IN,40.6167,-87.32085,Fowler,2274
+Frankfort,IN,40.27948,-86.51084,Frankfort,16060
+Fremont,IN,41.73088,-84.93274,Fremont,2153
+Gary,IN,41.59337,-87.34643,Gary,77156
+Gas City,IN,40.48726,-85.61303,Gas City,5968
+Gaston,IN,40.31393,-85.50053,Gaston,865
+Geneva,IN,40.59199,-84.95719,Geneva,1320
+Georgetown,IN,40.7406,-86.50473,Georgetown,4705
+Goshen,IN,41.58227,-85.83444,Goshen,32983
+Greenfield,IN,39.61366,-86.10665,Greenwood,55586
+Greensburg,IN,39.33727,-85.48358,Greensburg,11819
+Greenwood,IN,39.61366,-86.10665,Greenwood,55586
+Grovertown,IN,41.37504,-86.50473,Grovertown,0
+Hammond,IN,41.58337,-87.50004,Hammond,77614
+Hanna,IN,41.41199,-86.78002,Hanna,463
+Haubstadt,IN,38.20504,-87.57419,Haubstadt,1660
+Hebron,IN,41.31865,-87.20031,Hebron,3704
+Highland,IN,41.55365,-87.45198,Highland,22936
+Hobart,IN,41.53226,-87.25504,Hobart,28404
+Howe,IN,41.72144,-85.42054,Howe,807
+Huntington,IN,40.8831,-85.49748,Huntington,17095
+Indianapolis,IN,39.76838,-86.15804,Indianapolis,887642
+Jasper,IN,38.39144,-86.93111,Jasper,15451
+Kendallville,IN,41.44144,-85.26498,Kendallville,9927
+Knightstown,IN,39.7956,-85.52636,Knightstown,2120
+Kokomo,IN,40.48643,-86.1336,Kokomo,57995
+La Porte,IN,41.60774,-86.71389,La Porte,21916
+Lafayette,IN,40.4167,-86.87529,Lafayette,71111
+Lake Station,IN,41.57504,-87.23892,Lake Station,12054
+Lake Village,IN,41.13753,-87.44864,Lake Village,765
+Lawrenceburg,IN,39.09089,-84.84995,Lawrenceburg,4960
+Leavenworth,IN,38.19979,-86.34414,Leavenworth,231
+Lebanon,IN,40.04837,-86.46917,Lebanon,15892
+Logansport,IN,40.75448,-86.35667,Logansport,17793
+Madison,IN,38.73589,-85.37996,Madison,12040
+Marion,IN,40.55837,-85.65914,Marion,29081
+Martinsville,IN,39.42783,-86.42833,Martinsville,11690
+Medaryville,IN,41.0806,-86.89196,Medaryville,592
+Memphis,IN,38.4834,-85.76163,Memphis,695
+Merrillville,IN,41.48281,-87.33281,Merrillville,35224
+Michigan City,IN,41.70754,-86.89503,Michigan City,31459
+Middlebury,IN,41.67533,-85.7061,Middlebury,3562
+Mitchell,IN,38.73283,-86.4736,Mitchell,4252
+Monon,IN,40.86782,-86.8789,Monon,1746
+Mooresville,IN,39.61282,-86.37416,Mooresville,9623
+Muncie,IN,40.19338,-85.38636,Muncie,70087
+New Haven,IN,41.0706,-85.01441,New Haven,15709
+New Paris,IN,41.50033,-85.82805,New Paris,1494
+North Vernon,IN,39.00617,-85.62358,North Vernon,6619
+Pendleton,IN,39.99754,-85.74664,Pendleton,4219
+Peru,IN,40.75365,-86.06888,Peru,11060
+Pierceton,IN,41.20032,-85.70554,Pierceton,1027
+Pittsboro,IN,39.86393,-86.46694,Pittsboro,3205
+Plainfield,IN,39.70421,-86.39944,Plainfield,30590
+Plymouth,IN,41.34366,-86.30973,Plymouth,10035
+Portage,IN,41.57587,-87.17615,Portage,36738
+Remington,IN,40.76087,-87.15085,Remington,1163
+Rensselaer,IN,40.9367,-87.15086,Rensselaer,5927
+Richmond,IN,39.82894,-84.89024,Richmond,35854
+Rochester,IN,41.06476,-86.21583,Rochester,6065
+Rockport,IN,37.88311,-87.04944,Rockport,2223
+Rolling Prairie,IN,41.67088,-86.61585,Rolling Prairie,582
+Saint Croix,IN,38.22395,-86.58637,Saint Croix,0
+Saint Paul,IN,39.4281,-85.62831,Saint Paul,1031
+Seymour,IN,38.95922,-85.89025,Seymour,19478
+Shelbyville,IN,39.52144,-85.77692,Shelbyville,19133
+South Bend,IN,41.68338,-86.25001,South Bend,101516
+Spiceland,IN,39.83838,-85.43886,Spiceland,868
+Straughn,IN,39.80894,-85.29136,Straughn,219
+Taylorsville,IN,39.29588,-85.95083,Taylorsville,919
+Terre Haute,IN,39.4667,-87.41391,Terre Haute,60825
+Tipton,IN,40.28226,-86.0411,Tipton,5144
+Valparaiso,IN,41.47309,-87.06114,Valparaiso,32626
+Vincennes,IN,38.67727,-87.52863,Vincennes,18012
+Wanatah,IN,41.4306,-86.89836,Wanatah,1024
+Warren,IN,40.68282,-85.4272,Warren,1223
+Washington,IN,38.65922,-87.17279,Washington,12078
+Waterloo,IN,41.43199,-85.01997,Waterloo,2248
+West Lafayette,IN,40.42587,-86.90807,West Lafayette,45550
+Westville,IN,40.04282,-86.12749,Westfield,36738
+Whiteland,IN,39.55005,-86.07971,Whiteland,4320
+Whitestown,IN,39.99726,-86.34583,Whitestown,6013
+Winamac,IN,41.05143,-86.60306,Winamac,2402
+Woodburn,IN,41.12533,-84.8533,Woodburn,1611
+Yorktown,IN,40.17365,-85.49414,Yorktown,11231
+Abilene,KS,38.91722,-97.21391,Abilene,6558
+Alma,KS,39.01667,-96.28916,Alma,802
+Atchison,KS,39.56305,-95.12164,Atchison,10712
+Belle Plaine,KS,37.39391,-97.28115,Belle Plaine,1621
+Belleville,KS,39.82445,-97.63254,Belleville,1907
+Beloit,KS,39.45612,-98.10616,Beloit,3790
+Bunker Hill,KS,38.87584,-98.70397,Bunker Hill,97
+Chanute,KS,37.67921,-95.4572,Chanute,9252
+Cherryvale,KS,37.27034,-95.55248,Cherryvale,2230
+Clay Center,KS,37.51946,-96.77114,Clay Center,4300
+Coffeyville,KS,37.0373,-95.61637,Coffeyville,9669
+Colby,KS,39.39584,-101.05238,Colby,5417
+Concordia,KS,39.57084,-97.66254,Concordia,5218
+Cunningham,KS,37.64391,-98.43119,Cunningham,470
+Dodge City,KS,37.7528,-100.01708,Dodge City,27912
+Douglass,KS,37.51946,-97.01281,Douglass,1695
+Edgerton,KS,38.76473,-95.00802,Edgerton,1736
+El Dorado,KS,37.81724,-96.86225,El Dorado,12931
+Ellis,KS,38.93807,-99.56067,Ellis,2064
+Ellsworth,KS,38.73056,-98.22811,Ellsworth,3057
+Emporia,KS,38.4039,-96.18166,Emporia,24649
+Fairview,KS,39.84111,-95.72804,Fairview,254
+Florence,KS,38.24446,-96.92808,Florence,439
+Fort Scott,KS,37.83976,-94.7083,Fort Scott,7838
+Fredonia,KS,37.53394,-95.82665,Fredonia,2326
+Garden City,KS,37.97169,-100.87266,Garden City,27005
+Gardner,KS,38.81084,-94.92719,Gardner,20868
+Garnett,KS,38.28058,-95.24192,Garnett,3258
+Goodland,KS,39.35083,-101.71017,Goodland,4457
+Hanover,KS,39.89389,-96.87947,Hanover,668
+Hays,KS,38.87918,-99.32677,Hays,21092
+Hesston,KS,38.13834,-97.43143,Hesston,3813
+Hiawatha,KS,39.8525,-95.53582,Hiawatha,3095
+Holcomb,KS,37.98614,-100.98933,Holcomb,2163
+Hugoton,KS,37.1753,-101.3496,Hugoton,3964
+Iola,KS,37.92448,-95.39998,Iola,5470
+Johnson,KS,37.57057,-101.751,Johnson,1327
+Junction City,KS,39.02861,-96.8314,Junction City,24621
+Kansas City,KS,39.11417,-94.62746,Kansas City,152933
+Lakin,KS,37.94058,-101.25489,Lakin,2202
+Lawrence,KS,38.97167,-95.23525,Lawrence,93917
+Lebo,KS,38.41668,-95.85304,Lebo,905
+Lenexa,KS,38.95362,-94.73357,Lenexa,52490
+Leon,KS,37.6903,-96.78225,Leon,701
+Liberal,KS,37.04308,-100.921,Liberal,20746
+Maple Hill,KS,39.08472,-96.02805,Maple Hill,621
+Marysville,KS,39.84111,-96.64724,Marysville,3323
+Matfield Green,KS,38.15918,-96.56057,Matfield Green,45
+Mcpherson,KS,38.37084,-97.66421,McPherson,13144
+Meade,KS,37.28558,-100.34015,Meade,1624
+Medicine Lodge,KS,37.28113,-98.58036,Medicine Lodge,1988
+Moran,KS,37.91615,-95.17025,Moran,520
+Mullinville,KS,37.58613,-99.47567,Mullinville,255
+Newton,KS,38.04668,-97.34504,Newton,19216
+Norton,KS,39.83389,-99.89151,Norton,2841
+Oakley,KS,39.13334,-100.86376,Oakley,2045
+Oberlin,KS,39.81834,-100.5282,Oberlin,1761
+Olathe,KS,38.8814,-94.81913,Olathe,134305
+Ottawa,KS,38.61557,-95.26775,Ottawa,12387
+Overbrook,KS,38.78056,-95.5572,Overbrook,1024
+Parsons,KS,37.34034,-95.26108,Parsons,10090
+Phillipsburg,KS,39.75612,-99.32399,Phillipsburg,2524
+Pleasanton,KS,38.17781,-94.71135,Pleasanton,1175
+Powhattan,KS,39.76167,-95.62998,Powhattan,77
+Pratt,KS,37.64391,-98.73759,Pratt,6849
+Prescott,KS,38.70556,-97.42809,Gypsum,395
+Russell,KS,38.89527,-98.86103,Russell,4534
+Sabetha,KS,39.90222,-95.80082,Sabetha,2585
+Saint Marys,KS,39.19416,-96.0711,Saint Marys,2627
+Salina,KS,38.84028,-97.61142,Salina,47813
+Scott City,KS,38.48252,-100.90709,Scott City,3838
+Seneca,KS,39.83416,-96.06417,Seneca,2034
+Severy,KS,37.62225,-96.22805,Severy,237
+Smith Center,KS,39.77918,-98.78507,Smith Center,1616
+South Haven,KS,37.05197,-97.40532,South Haven,350
+South Hutchinson,KS,38.02807,-97.94033,South Hutchinson,2556
+Spearville,KS,37.85002,-99.75679,Spearville,805
+Strong City,KS,38.39724,-96.53695,Strong City,458
+Sublette,KS,37.48169,-100.84377,Sublette,1384
+Tecumseh,KS,39.04806,-95.57915,Tecumseh,0
+Tonganoxie,KS,39.10972,-95.08775,Tonganoxie,5248
+Topeka,KS,39.04833,-95.67804,Topeka,125963
+Tribune,KS,38.46974,-101.75267,Tribune,793
+Ulysses,KS,37.58141,-101.35517,Ulysses,6097
+Wakeeney,KS,39.02501,-99.87957,WaKeeney,1811
+Washington,KS,39.81806,-97.05086,Washington,1085
+Wathena,KS,39.75916,-94.94969,Wathena,1336
+Wellington,KS,37.2653,-97.37171,Wellington,7987
+Wellsville,KS,38.71834,-95.08164,Wellsville,1818
+Wichita,KS,37.69224,-97.33754,Wichita,396119
+Albany,KY,36.6909,-85.13468,Albany,2012
+Ashland,KY,38.47841,-82.63794,Ashland,21108
+Bardstown,KY,37.80923,-85.4669,Bardstown,13091
+Beaver Dam,KY,37.40199,-86.87583,Beaver Dam,3618
+Benton,KY,36.85728,-88.35031,Benton,4357
+Berea,KY,37.56869,-84.29632,Berea,14882
+Bowling Green,KY,36.99032,-86.4436,Bowling Green,63616
+Calvert City,KY,37.03339,-88.35004,Calvert City,2532
+Campbellsville,KY,37.3434,-85.34191,Campbellsville,11237
+Caneyville,KY,37.42422,-86.48831,Caneyville,620
+Catlettsburg,KY,38.4048,-82.60044,Catlettsburg,1808
+Columbia,KY,37.10284,-85.30635,Columbia,4644
+Corbin,KY,36.9487,-84.09688,Corbin,7389
+East Bernstadt,KY,37.18953,-84.11771,East Bernstadt,716
+Elizabethtown,KY,36.86561,-87.49117,Hopkinsville,32205
+Florence,KY,38.99895,-84.62661,Florence,32227
+Frankfort,KY,38.20091,-84.87328,Frankfort,28391
+Franklin,KY,36.72226,-86.57722,Franklin,8787
+Georgetown,KY,38.2098,-84.55883,Georgetown,32356
+Glencoe,KY,38.71451,-84.82273,Glencoe,359
+Glendale,KY,37.60173,-85.90552,Glendale,0
+Grayson,KY,38.33258,-82.9485,Grayson,4058
+Greenup,KY,38.57313,-82.83017,Greenup,1157
+Hanson,KY,37.41727,-87.48083,Hanson,736
+Henderson,KY,37.83615,-87.59001,Henderson,28890
+Hopkinsville,KY,36.86561,-87.49117,Hopkinsville,32205
+Horse Cave,KY,37.1795,-85.90692,Horse Cave,2344
+Isom,KY,37.18788,-82.89877,Isom,0
+Kuttawa,KY,37.05894,-88.13253,Kuttawa,661
+Lebanon Junction,KY,37.83451,-85.7319,Lebanon Junction,1917
+Lewisport,KY,37.937,-86.90221,Lewisport,1698
+Lexington,KY,37.98869,-84.47772,Lexington,320347
+London,KY,37.12898,-84.08326,London,8126
+Louisville,KY,38.25424,-85.75941,Louisville,624444
+Madisonville,KY,37.3281,-87.49889,Madisonville,19539
+Mayfield,KY,36.74172,-88.63672,Mayfield,10080
+Maysville,KY,38.64119,-83.74437,Maysville,8819
+Middlesboro,KY,36.60842,-83.71658,Middlesboro,10730
+Morehead,KY,37.27115,-87.17638,Morehead,7622
+Morgantown,KY,37.2256,-86.6836,Morgantown,2475
+Mortons Gap,KY,37.23671,-87.47528,Mortons Gap,852
+Mount Sterling,KY,38.05647,-83.94326,Mount Sterling,7208
+Mount Vernon,KY,38.05006,-85.54579,Mount Washington,14028
+Murray,KY,36.61033,-88.31476,Murray,18954
+Nicholasville,KY,37.88063,-84.573,Nicholasville,29754
+Oak Grove,KY,37.34421,-86.75471,Oak Grove,7989
+Owensboro,KY,37.77422,-87.11333,Owensboro,59042
+Paducah,KY,37.08339,-88.60005,Paducah,24864
+Pendleton,KY,38.46229,-85.30357,Pendleton,0
+Richmond,KY,37.74786,-84.29465,Richmond,33533
+Russell Springs,KY,37.05618,-85.08857,Russell Springs,2511
+Russellville,KY,36.84532,-86.88722,Russellville,7056
+Sadieville,KY,38.38924,-84.53744,Sadieville,332
+Scottsville,KY,36.75338,-86.19054,Scottsville,4411
+Shepherdsville,KY,37.9884,-85.71579,Shepherdsville,11967
+Simpsonville,KY,38.22257,-85.35523,Simpsonville,2702
+Smiths Grove,KY,37.05255,-86.20776,Smiths Grove,736
+Somerset,KY,37.09202,-84.60411,Somerset,11439
+Sonora,KY,37.52423,-85.89302,Sonora,487
+Sparta,KY,38.67701,-84.90689,Sparta,266
+Tollesboro,KY,38.55952,-83.57603,Tollesboro,0
+Vanceburg,KY,38.59924,-83.3188,Vanceburg,1448
+Waddy,KY,38.13702,-85.0744,Waddy,0
+Walton,KY,38.87562,-84.61022,Walton,3907
+Williamsburg,KY,36.74342,-84.15966,Williamsburg,5293
+Willisburg,KY,37.80979,-85.12635,Willisburg,287
+Winchester,KY,37.99008,-84.17965,Winchester,18446
+Alexandria,LA,31.31129,-92.44514,Alexandria,47889
+Amite,LA,30.72657,-90.50898,Amite,4640
+Arcadia,LA,32.54904,-92.92016,Arcadia,2861
+Baton Rouge,LA,30.44332,-91.18747,Baton Rouge,227470
+Belle Chasse,LA,29.85493,-89.99063,Belle Chasse,12679
+Belle Rose,LA,30.05048,-91.04149,Belle Rose,1902
+Berwick,LA,29.69465,-91.21899,Berwick,4765
+Bethany,LA,32.37321,-94.04269,Bethany,0
+Bossier City,LA,32.51599,-93.73212,Bossier City,68094
+Boyce,LA,31.39046,-92.66931,Boyce,979
+Breaux Bridge,LA,30.27353,-91.89928,Breaux Bridge,8395
+Broussard,LA,30.14715,-91.96123,Broussard,11303
+Bunkie,LA,30.95325,-92.18263,Bunkie,4066
+Calhoun,LA,32.51265,-92.35847,Calhoun,679
+Chalmette,LA,29.94296,-89.96537,Chalmette,16751
+Convent,LA,30.02076,-90.82982,Convent,711
+Coushatta,LA,32.01488,-93.34212,Coushatta,1852
+Crowley,LA,30.21409,-92.37458,Crowley,13144
+Cut Off,LA,29.54272,-90.33814,Cut Off,5976
+Delcambre,LA,29.94826,-91.98873,Delcambre,1866
+Delhi,LA,32.45764,-91.49317,Delhi,2900
+Delta,LA,32.3257,-90.92705,Delta,259
+Denham Springs,LA,30.4874,-90.95753,Denham Springs,10125
+Duson,LA,30.23576,-92.1854,Duson,1775
+Egan,LA,30.23687,-92.50597,Egan,631
+Eunice,LA,30.49437,-92.41763,Eunice,10310
+Farmerville,LA,32.77347,-92.4057,Farmerville,3862
+Franklin,LA,29.79604,-91.5015,Franklin,7302
+Frierson,LA,32.25183,-93.6899,Frierson,143
+Galliano,LA,29.44216,-90.29925,Galliano,7676
+Garyville,LA,30.05604,-90.61926,Garyville,2811
+Gonzales,LA,30.23853,-90.9201,Gonzales,10678
+Gramercy,LA,30.04742,-90.68981,Gramercy,3457
+Grand Coteau,LA,30.41992,-92.04651,Grand Coteau,938
+Gray,LA,29.69771,-90.78648,Gray,5584
+Greensburg,LA,30.83074,-90.67176,Greensburg,685
+Greenwood,LA,32.44293,-93.97296,Greenwood,3191
+Grosse Tete,LA,30.41103,-91.43372,Grosse Tete,631
+Hammond,LA,30.50463,-90.46293,Hammond,20480
+Haughton,LA,32.53265,-93.50406,Haughton,3334
+Hosston,LA,32.88764,-93.87851,Hosston,309
+Houma,LA,29.59577,-90.71953,Houma,34287
+Ida,LA,33.0043,-93.8949,Ida,215
+Iowa,LA,30.23687,-93.01376,Iowa,3219
+Jennings,LA,30.22243,-92.65708,Jennings,10180
+Jonesville,LA,31.62656,-91.81818,Jonesville,2181
+Kenner,LA,29.99409,-90.24174,Kenner,67091
+Kentwood,LA,30.93824,-90.50898,Kentwood,2340
+La Place,LA,30.06698,-90.48147,Laplace,29872
+Lafayette,LA,30.22409,-92.01984,Lafayette,121374
+Lake Charles,LA,30.21309,-93.2044,Lake Charles,76070
+Larose,LA,29.57244,-90.38175,Larose,7400
+Leesville,LA,31.14352,-93.261,Leesville,6333
+Livingston,LA,30.50213,-90.74787,Livingston,1917
+Mansfield,LA,32.03766,-93.70018,Mansfield,4946
+Mansura,LA,31.05797,-92.04901,Mansura,1385
+Marrero,LA,29.89937,-90.10035,Marrero,33141
+Mathews,LA,29.68632,-90.54675,Mathews,2209
+Minden,LA,32.61543,-93.28684,Minden,12690
+Monroe,LA,32.50931,-92.1193,Monroe,49598
+Morgan City,LA,29.69937,-91.20677,Morgan City,11835
+Natchitoches,LA,31.76072,-93.08627,Natchitoches,18365
+New Iberia,LA,30.00354,-91.81873,New Iberia,30754
+New Orleans,LA,29.95465,-90.07507,New Orleans,362701
+Oakdale,LA,30.81603,-92.66042,Oakdale,7710
+Opelousas,LA,30.53353,-92.08151,Opelousas,16591
+Pearl River,LA,30.37603,-89.7484,Pearl River,2530
+Plaquemine,LA,30.29005,-91.23497,Plaquemine,6871
+Port Allen,LA,30.45214,-91.21011,Port Allen,5130
+Port Barre,LA,30.5602,-91.95401,Port Barre,2119
+Raceland,LA,29.72743,-90.59898,Raceland,10193
+Rayne,LA,30.23493,-92.26846,Rayne,8016
+Rayville,LA,32.47736,-91.75485,Rayville,3664
+Reserve,LA,30.05381,-90.55175,Reserve,9766
+Roanoke,LA,30.23687,-92.74709,Roanoke,546
+Ruston,LA,32.52321,-92.63793,Ruston,22340
+Saint Francisville,LA,30.7799,-91.3765,Saint Francisville,1765
+Saint Gabriel,LA,30.2577,-91.09927,Saint Gabriel,6677
+Saint James,LA,29.98187,-90.83176,Saint James,828
+Saint Martinville,LA,30.1252,-91.83345,Saint Martinville,6114
+Saint Rose,LA,29.94687,-90.32313,Saint Rose,8122
+Schriever,LA,29.74215,-90.81037,Schriever,6853
+Shreveport,LA,32.52515,-93.75018,Shreveport,187593
+Slidell,LA,30.27519,-89.78117,Slidell,27942
+Sorrento,LA,30.18436,-90.85926,Sorrento,1582
+Springhill,LA,33.00597,-93.46684,Springhill,5097
+Starks,LA,30.31548,-93.66183,Starks,664
+Sulphur,LA,30.23659,-93.37738,Sulphur,20189
+Tallulah,LA,32.40848,-91.18678,Tallulah,6995
+Thibodaux,LA,29.79576,-90.82287,Thibodaux,14584
+Vidalia,LA,31.56544,-91.42595,Vidalia,4112
+Ville Platte,LA,30.68797,-92.27152,Ville Platte,7264
+Vinton,LA,30.19076,-93.58127,Vinton,3355
+Vivian,LA,32.87153,-93.9874,Vivian,3626
+West Monroe,LA,32.51848,-92.14764,West Monroe,12966
+Westwego,LA,29.90604,-90.1423,Westwego,8542
+Winnfield,LA,31.92558,-92.64131,Winnfield,4565
+Adams,MA,42.62425,-73.1176,Adams,5515
+Ayer,MA,42.5612,-71.58979,Ayer,2868
+Berlin,MA,42.3812,-71.63701,Berlin,2422
+Blandford,MA,42.18065,-72.92732,Blandford,393
+Boylston,MA,42.39176,-71.70368,Boylston,4078
+Bridgewater,MA,41.99038,-70.97504,Bridgewater,7841
+Charlton,MA,42.37787,-71.062,Charlestown,20397
+Chicopee,MA,42.1487,-72.60787,Chicopee,56741
+Fall River,MA,41.70149,-71.15505,Fall River,94000
+Framingham,MA,42.27926,-71.41617,Framingham,68318
+Lancaster,MA,42.45565,-71.67312,Lancaster,7509
+Lee,MA,42.30425,-73.24816,Lee,2051
+Leominster,MA,42.52509,-71.75979,Leominster,41569
+Lexington,MA,42.44732,-71.2245,Lexington,31394
+Ludlow,MA,42.16009,-72.47592,Ludlow,22201
+Methuen,MA,42.7262,-71.19089,Methuen,52044
+Millbury,MA,42.19398,-71.76007,Millbury,13606
+Natick,MA,42.28343,-71.3495,Natick,32276
+Newton Lower Falls,MA,42.32926,-71.25367,Newton Lower Falls,1246
+North Billerica,MA,42.58343,-71.2845,North Billerica,0
+North Oxford,MA,42.15009,-71.86841,North Oxford,0
+Norwood,MA,42.19454,-71.1995,Norwood,28602
+Orange,MA,42.59036,-72.30981,Orange,4018
+Peabody,MA,42.52787,-70.92866,Peabody,52504
+Plymouth,MA,41.95844,-70.66726,Plymouth,7494
+Salisbury,MA,42.85842,-70.93005,Amesbury,18313
+Seekonk,MA,41.80843,-71.337,Seekonk,13966
+Shrewsbury,MA,42.29593,-71.71285,Shrewsbury,33893
+Springfield,MA,42.10148,-72.58981,Springfield,154341
+Sturbridge,MA,42.10843,-72.07869,Sturbridge,2253
+Sutton,MA,42.1501,-71.76285,Sutton,9215
+Uxbridge,MA,42.07732,-71.62951,Uxbridge,12614
+Westborough,MA,42.26954,-71.61618,Westborough,4045
+Westminster,MA,42.54592,-71.91063,Westminster,7028
+Whately,MA,42.43981,-72.63481,Whately,1600
+Wrentham,MA,42.06677,-71.32811,Wrentham,11251
+Aberdeen,MD,39.50956,-76.16412,Aberdeen,15580
+Accident,MD,39.6287,-79.31976,Accident,316
+Baltimore,MD,39.29038,-76.61219,Baltimore,585708
+Beltsville,MD,39.03483,-76.90747,Beltsville,16772
+Big Pool,MD,39.62371,-78.01583,Big Pool,82
+Bladensburg,MD,38.93928,-76.93386,Bladensburg,9640
+Brandywine,MD,38.69678,-76.84775,Brandywine,6719
+Capitol Heights,MD,38.88511,-76.91581,Capitol Heights,4574
+Centreville,MD,39.04178,-76.06633,Centreville,4627
+Clinton,MD,38.76511,-76.89831,Clinton,35970
+Cumberland,MD,39.65287,-78.76252,Cumberland,20130
+Curtis Bay,MD,39.22677,-76.58802,Curtis Bay,3759
+Denton,MD,38.88456,-75.82716,Denton,4349
+Dundalk,MD,39.25066,-76.52052,Dundalk,63597
+Edgewood,MD,39.41872,-76.2944,Edgewood,25562
+Elkridge,MD,39.21261,-76.71358,Elkridge,15593
+Elkton,MD,39.60678,-75.83327,Elkton,15782
+Emmitsburg,MD,39.70454,-77.32693,Emmitsburg,3021
+Frederick,MD,39.41427,-77.41054,Frederick,69479
+Gaithersburg,MD,39.14344,-77.20137,Gaithersburg,67456
+Glen Burnie,MD,39.16261,-76.62469,Glen Burnie,67639
+Grantsville,MD,39.69508,-79.15114,Grantsville,765
+Hagerstown,MD,39.64176,-77.71999,Hagerstown,40432
+Hancock,MD,39.69898,-78.17973,Hancock,1550
+Hunt Valley,MD,39.49983,-76.64108,Hunt Valley,23915
+Hurlock,MD,38.62428,-75.85438,Hurlock,2092
+Hyattsville,MD,38.95594,-76.94553,Hyattsville,18501
+Jessup,MD,39.14927,-76.77525,Jessup,7137
+Mardela Springs,MD,38.45984,-75.7591,Mardela Springs,350
+Middle River,MD,39.33427,-76.43941,Middle River,25191
+Millersville,MD,39.05955,-76.64802,Millersville,0
+Newburg,MD,38.37735,-76.95331,Newburg,0
+North East,MD,39.60011,-75.94133,North East,3723
+Nottingham,MD,39.70039,-75.98245,Calvert,0
+Perryville,MD,39.56011,-76.07134,Perryville,4437
+Rockville,MD,39.084,-77.15276,Rockville,66980
+Salisbury,MD,38.36067,-75.59937,Salisbury,32899
+Thurmont,MD,39.62371,-77.41082,Thurmont,6454
+Upper Marlboro,MD,38.81595,-76.74969,Upper Marlboro,667
+Waldorf,MD,38.62456,-76.93914,Waldorf,67752
+Walkersville,MD,39.48621,-77.35193,Walkersville,5993
+Westover,MD,38.12401,-75.70632,Westover,0
+White Marsh,MD,39.38372,-76.43218,White Marsh,9513
+Williamsport,MD,39.60065,-77.82055,Williamsport,2162
+Auburn,ME,44.09785,-70.23117,Auburn,22871
+Augusta,ME,44.31062,-69.77949,Augusta,18899
+Baileyville,ME,45.15702,-67.40472,Woodland,952
+Bangor,ME,44.79884,-68.77265,Bangor,32391
+Biddeford,ME,43.49258,-70.45338,Biddeford,21282
+Brownville,ME,45.307,-69.03337,Brownville,1309
+Canaan,ME,44.76173,-69.56144,Canaan,2097
+Corinna,ME,44.92117,-69.26171,Corinna,2230
+Dover Foxcroft,ME,45.18339,-69.22699,Dover-Foxcroft,2528
+Fairfield,ME,44.5884,-69.59866,Fairfield,2638
+Farmington,ME,44.67062,-70.15117,Farmington,4288
+Greenville,ME,45.45949,-69.59061,Greenville,1257
+Holden,ME,44.75285,-68.67892,Holden,2939
+Houlton,ME,46.12616,-67.8403,Houlton,5002
+Kittery,ME,43.08814,-70.73616,Kittery,4562
+Liberty,ME,44.38924,-69.30282,Liberty,964
+Lincoln,ME,45.36228,-68.50502,Lincoln,2884
+Medway,ME,45.60894,-68.53086,Medway,1548
+Newport,ME,44.83534,-69.27394,Newport,1776
+Portland,ME,43.65737,-70.2589,Portland,66881
+Princeton,ME,45.22341,-67.57222,Princeton,927
+Richmond,ME,44.0873,-69.79893,Richmond,1760
+Scarborough,ME,43.57814,-70.32172,Scarborough,4403
+Sherman,ME,45.87116,-68.41781,Sherman,974
+Skowhegan,ME,44.76506,-69.71922,Skowhegan,6297
+Turner,ME,44.25646,-70.25617,Turner,5470
+Warren,ME,44.12036,-69.24005,Warren,3945
+West Paris,ME,44.32423,-70.57395,West Paris,1790
+Adrian,MI,41.89755,-84.03717,Adrian,20691
+Albion,MI,42.2431,-84.75303,Albion,8229
+Alma,MI,43.37892,-84.65973,Alma,9193
+Battle Creek,MI,42.3173,-85.17816,Battle Creek,51589
+Bay City,MI,43.59447,-83.88886,Bay City,33917
+Belleville,MI,42.20476,-83.48521,Belleville,3880
+Benton Harbor,MI,42.11671,-86.45419,Benton Harbor,9976
+Bessemer,MI,46.48134,-90.05295,Bessemer,1770
+Big Rapids,MI,43.69808,-85.48366,Big Rapids,10397
+Bridgeport,MI,43.35947,-83.88164,Bridgeport,6950
+Bridgman,MI,41.9431,-86.55697,Bridgman,2258
+Burton,MI,42.99947,-83.61634,Burton,28788
+Byron Center,MI,42.81225,-85.72281,Byron Center,5822
+Cadillac,MI,44.25195,-85.40116,Cadillac,10373
+Caledonia,MI,42.7892,-85.51669,Caledonia,1590
+Canton,MI,42.30865,-83.48216,Canton,86825
+Capac,MI,43.01253,-82.92799,Capac,1849
+Caro,MI,43.49073,-83.39885,Caro,4099
+Casco,MI,42.75253,-82.67158,Casco,0
+Cedar Springs,MI,43.22336,-85.55142,Cedar Springs,3624
+Champion,MI,46.51382,-87.96347,Champion,0
+Clare,MI,43.81947,-84.76863,Clare,3082
+Coopersville,MI,43.06391,-85.93477,Coopersville,4351
+Dearborn,MI,42.32226,-83.17631,Dearborn,95171
+Detroit,MI,42.33143,-83.04575,Detroit,645705
+Dewitt,MI,42.84226,-84.56915,DeWitt,4655
+Dexter,MI,42.33834,-83.88954,Dexter,4067
+Dundee,MI,41.95727,-83.65966,Dundee,3994
+Eagle,MI,42.80781,-84.7886,Eagle,123
+Escanaba,MI,45.74525,-87.06458,Escanaba,12334
+Fenton,MI,42.79781,-83.70495,Fenton,11442
+Flint,MI,43.01253,-83.68746,Flint,98310
+Fowlerville,MI,42.66059,-84.07301,Fowlerville,2895
+Gaylord,MI,45.02751,-84.67475,Gaylord,3660
+Grand Blanc,MI,42.92753,-83.62995,Grand Blanc,7993
+Grand Haven,MI,43.06307,-86.22839,Grand Haven,11062
+Grand Ledge,MI,42.75337,-84.74638,Grand Ledge,7791
+Grand Rapids,MI,42.96336,-85.66809,Grand Rapids,195097
+Grayling,MI,44.6614,-84.71475,Grayling,1844
+Gwinn,MI,46.28106,-87.44097,Gwinn,1917
+Hart,MI,43.69834,-86.36397,Hart,2098
+Holland,MI,42.78752,-86.10893,Holland,33742
+Holly,MI,42.79197,-83.62773,Holly,6169
+Houghton Lake,MI,44.31474,-84.76475,Houghton Lake,3427
+Howard City,MI,43.39558,-85.46782,Howard City,1792
+Hudsonville,MI,42.87086,-85.86504,Hudsonville,7324
+Imlay City,MI,43.02475,-83.07772,Imlay City,3573
+Ionia,MI,42.98725,-85.07112,Ionia,11372
+Iron Mountain,MI,45.82023,-88.06596,Iron Mountain,7504
+Ironwood,MI,46.45467,-90.17101,Ironwood,5002
+Ithaca,MI,43.2917,-84.6075,Ithaca,2834
+Jackson,MI,42.24587,-84.40135,Jackson,33133
+Kalamazoo,MI,42.29171,-85.58723,Kalamazoo,76041
+Lake Odessa,MI,42.78476,-85.13834,Lake Odessa,2029
+Lansing,MI,42.73253,-84.55553,Lansing,112644
+Lapeer,MI,43.05142,-83.31883,Lapeer,8790
+Lennon,MI,42.98445,-83.93002,Lennon,501
+Lincoln Park,MI,42.25059,-83.17854,Lincoln Park,37012
+Livonia,MI,42.36837,-83.35271,Livonia,94635
+Lowell,MI,42.93364,-85.34196,Lowell,3906
+Luna Pier,MI,41.80699,-83.44243,Luna Pier,1389
+Manistique,MI,45.95775,-86.24625,Manistique,2982
+Marlette,MI,43.32697,-83.08022,Marlette,1801
+Marquette,MI,46.54354,-87.39542,Marquette,21297
+Marshall,MI,42.27226,-84.96331,Marshall,7045
+Mattawan,MI,42.20948,-85.78445,Mattawan,1947
+Memphis,MI,42.89642,-82.76881,Memphis,1182
+Middleton,MI,43.18337,-84.70889,Middleton,0
+Milan,MI,42.08532,-83.68244,Milan,5983
+Monroe,MI,41.91643,-83.39771,Monroe,20092
+Mount Morris,MI,43.11864,-83.69496,Mount Morris,2964
+Mount Pleasant,MI,43.59781,-84.76751,Mount Pleasant,26060
+Muskegon,MI,43.23418,-86.24839,Muskegon,38401
+New Baltimore,MI,42.68114,-82.73686,New Baltimore,12354
+New Boston,MI,42.16254,-83.40299,New Boston,0
+Newberry,MI,46.355,-85.50956,Newberry,1455
+Newport,MI,42.00227,-83.30854,Newport,0
+Niles,MI,41.82977,-86.25418,Niles,11333
+Ottawa Lake,MI,41.77362,-83.72732,Ottawa Lake,0
+Parma,MI,42.25837,-84.59969,Parma,760
+Paw Paw,MI,42.21782,-85.89112,Paw Paw,3455
+Perry,MI,42.82642,-84.21941,Perry,2100
+Pinconning,MI,43.85363,-83.96499,Pinconning,1271
+Port Huron,MI,42.97086,-82.42491,Port Huron,29330
+Portland,MI,42.8692,-84.90305,Portland,3923
+Rapid River,MI,45.92691,-86.96708,Rapid River,0
+Redford,MI,42.38337,-83.2966,Redford,49936
+Reed City,MI,43.87502,-85.51005,Reed City,2390
+Riverview,MI,42.17421,-83.17937,Riverview,12181
+Rockford,MI,43.12003,-85.56003,Rockford,6134
+Romulus,MI,42.22226,-83.3966,Romulus,23417
+Roseville,MI,42.49726,-82.93714,Roseville,47637
+Saginaw,MI,43.41947,-83.95081,Saginaw,49347
+Saint Clair,MI,42.82087,-82.48602,Saint Clair,5485
+Saint Ignace,MI,45.86614,-84.72751,Saint Ignace,2452
+Sault Sainte Marie,MI,46.4953,-84.34532,Sault Ste. Marie,13827
+Sawyer,MI,41.88532,-86.58947,Sawyer,0
+Scottville,MI,43.95473,-86.28008,Scottville,1213
+Smiths Creek,MI,42.91392,-82.60381,Smiths Creek,0
+Stephenson,MI,45.41525,-87.60762,Stephenson,867
+Taylor,MI,42.24087,-83.26965,Taylor,61568
+Tekonsha,MI,42.09338,-84.98581,Tekonsha,704
+Three Rivers,MI,41.94394,-85.63249,Three Rivers,7752
+Traverse City,MI,44.76306,-85.62063,Traverse City,15218
+Trenton,MI,42.13949,-83.17826,Trenton,18380
+Wakefield,MI,46.47523,-89.93989,Wakefield,1725
+Warren,MI,42.49044,-83.01304,Warren,134056
+Wayland,MI,42.67392,-85.64474,Wayland,4166
+Wellston,MI,44.21695,-85.95785,Wellston,311
+West Branch,MI,44.27641,-84.23861,West Branch,2067
+White Pigeon,MI,41.79811,-85.64332,White Pigeon,1514
+Whitmore Lake,MI,42.4397,-83.7453,Whitmore Lake,6423
+Wixom,MI,42.52476,-83.53633,Wixom,13746
+Wyoming,MI,42.91336,-85.70531,Wyoming,75275
+Adrian,MN,43.63497,-95.9328,Adrian,1220
+Albert Lea,MN,43.64801,-93.36827,Albert Lea,17674
+Alden,MN,43.67023,-93.57605,Alden,646
+Alexandria,MN,45.88524,-95.37754,Alexandria,11843
+Andover,MN,45.2333,-93.29134,Andover,32213
+Anoka,MN,45.19774,-93.38718,Anoka,17350
+Appleton,MN,45.19691,-96.01977,Appleton,1341
+Austin,MN,43.66663,-92.97464,Austin,24563
+Belle Plaine,MN,44.62274,-93.76857,Belle Plaine,6918
+Bemidji,MN,47.47356,-94.88028,Bemidji,14594
+Blue Earth,MN,43.63746,-94.10218,Blue Earth,3236
+Brainerd,MN,46.35802,-94.20083,Brainerd,13371
+Buffalo,MN,45.17191,-93.87469,Buffalo,16026
+Byron,MN,44.03274,-92.64546,Byron,5328
+Caledonia,MN,43.63469,-91.49681,Caledonia,2787
+Cambridge,MN,45.57274,-93.22439,Cambridge,8451
+Carlton,MN,46.66383,-92.42491,Carlton,1048
+Chatfield,MN,43.84552,-92.18905,Chatfield,2799
+Chisago City,MN,45.37358,-92.88994,Chisago City,4932
+Circle Pines,MN,45.14858,-93.15161,Circle Pines,4958
+Clara City,MN,44.95496,-95.3664,Clara City,1320
+Clearwater,MN,45.41941,-94.04887,Clearwater,1783
+Cloquet,MN,46.72161,-92.45936,Cloquet,12075
+Cohasset,MN,47.26356,-93.62022,Cohasset,2745
+Cokato,MN,45.0758,-94.18998,Cokato,2727
+Dakota,MN,43.91358,-91.35986,Dakota,317
+Delano,MN,45.04191,-93.78913,Delano,5875
+Detroit Lakes,MN,46.81718,-95.84533,Detroit Lakes,9002
+Duluth,MN,46.78327,-92.10658,Duluth,86110
+DUNDAS,MN,44.42941,-93.20188,Dundas,1481
+Elk River,MN,45.30385,-93.56718,Elk River,23963
+Ellendale,MN,43.87274,-93.30132,Ellendale,691
+Erskine,MN,47.66746,-96.01004,Erskine,487
+Eyota,MN,43.9883,-92.2285,Eyota,2032
+Fairmont,MN,43.65218,-94.46108,Fairmont,10221
+Faribault,MN,44.29496,-93.26883,Faribault,23650
+Fergus Falls,MN,46.28302,-96.07756,Fergus Falls,13281
+Forest Lake,MN,45.27886,-92.98522,Forest Lake,19618
+Gaylord,MN,44.55302,-94.22053,Gaylord,2245
+Glencoe,MN,44.76913,-94.15164,Glencoe,5521
+Glyndon,MN,46.87524,-96.57896,Glyndon,1380
+Hastings,MN,44.7433,-92.85243,Hastings,22554
+Heron Lake,MN,43.79496,-95.32028,Heron Lake,676
+Hinckley,MN,46.01134,-92.94437,Hinckley,1806
+Hugo,MN,45.15997,-92.99327,Hugo,14388
+Hutchinson,MN,44.88774,-94.36971,Hutchinson,13913
+International Falls,MN,48.60105,-93.41098,International Falls,6158
+Inver Grove Heights,MN,44.84802,-93.04272,Inver Grove Heights,34857
+Isanti,MN,45.49024,-93.24773,Isanti,5464
+Ivanhoe,MN,44.4633,-96.24726,Ivanhoe,550
+Jackson,MN,43.62079,-94.9886,Jackson,3234
+Janesville,MN,44.11608,-93.708,Janesville,2254
+Kasson,MN,44.02996,-92.75074,Kasson,6123
+Kimball,MN,45.31246,-94.30027,Kimball,774
+Lake City,MN,44.44968,-92.2682,Lake City,5027
+Lake Park,MN,46.88635,-96.0945,Lake Park,779
+Lakeville,MN,44.64969,-93.24272,Lakeville,60633
+Little Falls,MN,45.97635,-94.3625,Little Falls,8649
+Luverne,MN,43.65414,-96.21281,Luverne,4677
+Mankato,MN,44.15906,-94.00915,Mankato,41044
+Melrose,MN,45.67469,-94.80752,Melrose,3616
+Milaca,MN,45.7558,-93.65441,Milaca,2883
+Minneapolis,MN,44.97997,-93.26384,Minneapolis,410939
+Minnesota City,MN,44.09385,-91.7496,Minnesota City,200
+Moose Lake,MN,46.45411,-92.76187,Moose Lake,2748
+Mora,MN,45.8769,-93.29384,Mora,3462
+Motley,MN,46.33663,-94.64612,Motley,646
+Mountain Lake,MN,43.93885,-94.92971,Mountain Lake,2117
+New Prague,MN,44.5433,-93.57607,New Prague,7582
+New Ulm,MN,44.31246,-94.46053,New Ulm,13327
+New York Mills,MN,46.51802,-95.37615,New York Mills,1225
+North Branch,MN,45.51135,-92.98022,North Branch,10215
+Northfield,MN,44.4583,-93.1616,Northfield,20380
+Norwood Young America,MN,44.77357,-93.92163,Norwood Young America,3677
+Ogilvie,MN,45.83218,-93.42634,Ogilvie,352
+Oronoco,MN,44.16608,-92.53491,Oronoco,1446
+Ortonville,MN,45.30469,-96.44478,Ortonville,1815
+Owatonna,MN,44.08385,-93.22604,Owatonna,25725
+Park Rapids,MN,46.92218,-95.05863,Park Rapids,3947
+Paynesville,MN,45.38052,-94.71195,Paynesville,2433
+Perham,MN,46.5944,-95.57254,Perham,3278
+Pillager,MN,46.32997,-94.47417,Pillager,453
+Pine City,MN,45.82607,-92.96854,Pine City,3078
+Pipestone,MN,44.00053,-96.31753,Pipestone,4141
+Plainview,MN,44.16497,-92.17156,Plainview,3237
+Princeton,MN,45.56997,-93.58163,Princeton,4680
+Randall,MN,46.09108,-94.50362,Randall,624
+Red Wing,MN,44.56247,-92.5338,Red Wing,16445
+Redwood Falls,MN,44.5394,-95.11694,Redwood Falls,5061
+Rochester,MN,44.02163,-92.4699,Rochester,112225
+Rogers,MN,45.18885,-93.55301,Rogers,12562
+Roseau,MN,48.84609,-95.76277,Roseau,2715
+Rothsay,MN,46.47496,-96.28062,Rothsay,485
+Rush City,MN,45.68551,-92.96549,Rush City,3072
+Rushford,MN,43.8083,-91.75293,Rushford,1712
+Saint Charles,MN,43.96941,-92.06433,Saint Charles,3735
+Saint Cloud,MN,45.5608,-94.16249,Saint Cloud,65842
+Saint James,MN,43.98246,-94.62692,Saint James,4605
+Saint Joseph,MN,45.56496,-94.31833,Saint Joseph,6534
+Saint Michael,MN,45.20996,-93.66496,Saint Michael,16399
+Saint Paul,MN,44.94441,-93.09327,Saint Paul,303176
+Saint Peter,MN,44.32358,-93.95801,Saint Peter,11196
+Sauk Centre,MN,45.73747,-94.95252,Sauk Centre,4357
+Sauk Rapids,MN,45.59191,-94.1661,Sauk Rapids,13424
+Savage,MN,44.77913,-93.33634,Savage,30391
+Shakopee,MN,44.79802,-93.5269,Shakopee,39981
+Sherburn,MN,43.65218,-94.72692,Sherburn,1089
+Slayton,MN,43.98774,-95.75585,Slayton,2053
+Sleepy Eye,MN,44.29718,-94.72415,Sleepy Eye,3443
+South Saint Paul,MN,44.89274,-93.03494,South Saint Paul,20160
+Stacy,MN,45.39802,-92.98744,Stacy,1470
+Stewart,MN,44.72468,-94.48582,Stewart,550
+Stewartville,MN,43.85552,-92.48851,Stewartville,6037
+Stillwater,MN,45.05636,-92.80604,Stillwater,18924
+Thief River Falls,MN,48.11914,-96.18115,Thief River Falls,8752
+Truman,MN,43.82773,-94.43719,Truman,1069
+Two Harbors,MN,47.02271,-91.67073,Two Harbors,3578
+Waconia,MN,44.8508,-93.78691,Waconia,11968
+Waite Park,MN,45.55719,-94.22416,Waite Park,7517
+Wanamingo,MN,44.30441,-92.79047,Wanamingo,1081
+Willmar,MN,45.12191,-95.04334,Willmar,19638
+Windom,MN,43.86635,-95.11694,Windom,4550
+Worthington,MN,43.61996,-95.5964,Worthington,13090
+Zumbrota,MN,44.29413,-92.66908,Zumbrota,3365
+Alexandria,MO,40.35949,-91.45543,Alexandria,153
+Aurora,MO,36.97089,-93.71798,Aurora,7477
+Barnhart,MO,38.34422,-90.39345,Barnhart,5682
+Bates City,MO,39.00612,-94.07245,Bates City,220
+Bethany,MO,40.26833,-94.02829,Bethany,3149
+Bevier,MO,39.74698,-92.56408,Bevier,703
+Bloomsdale,MO,38.0095,-90.2179,Bloomsdale,529
+Bois D Arc,MO,37.25644,-93.5077,Bois D'Arc,0
+Bolivar,MO,37.61448,-93.41047,Bolivar,10714
+Boonville,MO,38.97364,-92.74324,Boonville,8403
+Bowling Green,MO,39.34199,-91.19514,Bowling Green,5388
+Bridgeton,MO,38.767,-90.41151,Bridgeton,11786
+Brookfield,MO,39.78447,-93.07353,Brookfield,4358
+Cabool,MO,37.12394,-92.10127,Cabool,2130
+California,MO,38.62753,-92.56658,California,4396
+Cameron,MO,39.74028,-94.24106,Cameron,9836
+Canton,MO,40.1295,-91.51852,Canton,2377
+Cardwell,MO,36.04701,-90.29288,Cardwell,687
+Carthage,MO,37.17645,-94.31022,Carthage,14319
+Center,MO,39.5081,-91.52877,Center,506
+Charleston,MO,36.92089,-89.35063,Charleston,5815
+Chillicothe,MO,39.79529,-93.55244,Chillicothe,9487
+Clinton,MO,38.36863,-93.77827,Clinton,8899
+Collins,MO,37.89115,-93.62298,Collins,155
+Columbia,MO,38.95171,-92.33407,Columbia,129330
+Concordia,MO,38.98335,-93.56855,Concordia,2390
+Cuba,MO,38.06282,-91.40348,Cuba,3374
+Dearborn,MO,39.52194,-94.76996,Dearborn,506
+Deerfield,MO,37.83865,-94.50607,Deerfield,80
+Dexter,MO,36.79589,-89.95787,Dexter,7992
+Eagleville,MO,40.46917,-93.98717,Eagleville,305
+Eldon,MO,38.34836,-92.58158,Eldon,4632
+Ellsinore,MO,36.93422,-90.74679,Ellsinore,449
+Eolia,MO,39.23588,-91.00819,Eolia,512
+Fair Grove,MO,37.38393,-93.1513,Fair Grove,1459
+Faucett,MO,39.6,-94.79746,Faucett,0
+Fenton,MO,38.51311,-90.43595,Fenton,4052
+Forest City,MO,39.9825,-95.19192,Forest City,253
+Foristell,MO,38.81505,-90.95597,Foristell,520
+Fredericktown,MO,37.55978,-90.29401,Fredericktown,4076
+Fulton,MO,38.84671,-91.94796,Fulton,12939
+Gallatin,MO,39.91445,-93.96217,Gallatin,1744
+Glasgow,MO,39.22725,-92.84658,Glasgow,1103
+Grain Valley,MO,39.01501,-94.19856,Grain Valley,13379
+Grandview,MO,38.88584,-94.53301,Grandview,25256
+Hamilton,MO,39.74362,-93.99827,Hamilton,1711
+Hannibal,MO,39.70838,-91.35848,Hannibal,17839
+Harrisonville,MO,38.65334,-94.34884,Harrisonville,9986
+Hayti,MO,36.23368,-89.74953,Hayti,2787
+Hazelwood,MO,38.77144,-90.37095,Hazelwood,25661
+Herculaneum,MO,38.26839,-90.38012,Herculaneum,3935
+Higginsville,MO,39.07251,-93.71716,Higginsville,4662
+Holt,MO,39.45278,-94.34217,Holt,471
+Jackson,MO,37.38227,-89.66621,Jackson,14869
+Jamestown,MO,36.80534,-93.46658,Galena,409
+Jasper,MO,37.33616,-94.30134,Jasper,928
+Jefferson City,MO,38.5767,-92.17352,Jefferson City,42595
+Jonesburg,MO,38.85338,-91.30599,Jonesburg,729
+Joplin,MO,37.08423,-94.51328,Joplin,51818
+Kansas City,MO,39.09973,-94.57857,Kansas City,475378
+Kearney,MO,39.36778,-94.36217,Kearney,9423
+King City,MO,40.05138,-94.52412,King City,1006
+Kingdom City,MO,38.95282,-91.93907,Kingdom City,130
+Koshkonong,MO,36.59589,-91.6457,Koshkonong,213
+La Plata,MO,40.02337,-92.49158,La Plata,1336
+Laddonia,MO,39.24254,-91.64544,Laddonia,510
+Lamar,MO,37.49505,-94.27661,Lamar,4361
+Lancaster,MO,37.69893,-93.79604,Stockton,1859
+Lathrop,MO,39.54834,-94.32995,Lathrop,2049
+Lebanon,MO,37.6806,-92.66379,Lebanon,14688
+Liberty,MO,39.24611,-94.41912,Liberty,30450
+Louisiana,MO,39.44894,-91.05153,Louisiana,3296
+Lowry City,MO,38.14003,-93.72688,Lowry City,624
+Macon,MO,39.74226,-92.47269,Macon,5436
+Malta Bend,MO,39.19335,-93.36299,Malta Bend,251
+Mansfield,MO,37.10672,-92.58072,Mansfield,1261
+Marston,MO,36.51895,-89.61258,Marston,477
+Maryville,MO,40.3461,-94.87247,Maryville,11879
+Matthews,MO,36.75922,-89.58675,Matthews,628
+Mexico,MO,39.16976,-91.88295,Mexico,11660
+Milan,MO,40.20224,-93.12521,Milan,1852
+Mineral Point,MO,37.94477,-90.7243,Mineral Point,347
+Moberly,MO,39.41837,-92.43824,Moberly,13919
+Monett,MO,36.92895,-93.92771,Monett,8988
+Mound City,MO,38.62727,-90.19789,St. Louis,279695
+Mount Vernon,MO,37.10367,-93.81854,Mount Vernon,4537
+Mountain View,MO,36.99533,-91.70376,Mountain View,2673
+Neelyville,MO,36.56172,-90.50622,Neelyville,471
+Nelson,MO,39.16672,-90.78096,Elsberry,1986
+Neosho,MO,36.86896,-94.368,Neosho,12156
+Nevada,MO,37.83921,-94.35467,Nevada,8253
+New Florence,MO,38.91032,-91.44822,New Florence,728
+New London,MO,39.58532,-91.40098,New London,969
+New Madrid,MO,36.58645,-89.52785,New Madrid,3011
+Newburg,MO,37.91421,-91.90266,Newburg,452
+Norwood,MO,37.10839,-92.41489,Norwood,641
+Oak Grove,MO,39.00501,-94.12939,Oak Grove,7937
+Owensville,MO,38.55811,-91.01209,Washington,14050
+Ozark,MO,37.02089,-93.20602,Ozark,19120
+Pacific,MO,38.482,-90.74152,Pacific,7161
+Palmyra,MO,39.79421,-91.52321,Palmyra,3616
+Park Hills,MO,37.85422,-90.51818,Park Hills,8692
+Peculiar,MO,38.71918,-94.45856,Peculiar,4885
+Perryville,MO,37.72422,-89.86122,Perryville,8398
+Pevely,MO,38.28339,-90.39512,Pevely,5652
+Platte City,MO,39.37028,-94.78246,Platte City,4833
+Poplar Bluff,MO,36.757,-90.39289,Poplar Bluff,17266
+Purdy,MO,36.81729,-93.92076,Purdy,1103
+Queen City,MO,40.4092,-92.56769,Queen City,593
+Qulin,MO,36.59589,-90.24732,Qulin,453
+Republic,MO,37.12005,-93.48019,Republic,16005
+Rich Hill,MO,38.09642,-94.36106,Rich Hill,1336
+Richland,MO,37.85698,-92.40434,Richland,1826
+Ridgedale,MO,36.50395,-93.22379,Ridgedale,0
+Rock Port,MO,40.41111,-95.51693,Rock Port,1232
+Rogersville,MO,37.117,-93.05573,Rogersville,3374
+Rolla,MO,37.95143,-91.77127,Rolla,20019
+Saint Charles,MO,38.78394,-90.48123,Saint Charles,65794
+Saint James,MO,37.99726,-91.61432,Saint James,4216
+Saint Joseph,MO,39.76861,-94.84663,Saint Joseph,76780
+Saint Louis,MO,38.62727,-90.19789,St. Louis,279695
+Saint Peters,MO,38.80033,-90.62651,Saint Peters,52575
+Saint Robert,MO,37.8281,-92.17767,Saint Robert,4340
+Sainte Genevieve,MO,37.98144,-90.04178,Sainte Genevieve,4410
+Salem,MO,37.6456,-91.53598,Salem,4992
+Sarcoxie,MO,37.06923,-94.1166,Sarcoxie,1301
+Savannah,MO,39.94166,-94.83025,Savannah,5108
+Scott City,MO,37.21672,-89.52453,Scott City,4526
+Sedalia,MO,38.70446,-93.22826,Sedalia,21516
+Seymour,MO,37.14644,-92.76878,Seymour,1967
+Shelbina,MO,39.69393,-92.04295,Shelbina,1639
+Sikeston,MO,36.87672,-89.58786,Sikeston,16436
+Slater,MO,39.21808,-93.06909,Slater,1832
+Springfield,MO,37.21533,-93.29824,Springfield,170188
+Steele,MO,36.08396,-89.82925,Steele,2103
+Strafford,MO,37.26838,-93.11713,Strafford,2361
+Sullivan,MO,38.2081,-91.16042,Sullivan,7135
+Tarkio,MO,40.44028,-95.37776,Tarkio,1477
+Taylor,MO,39.9381,-91.52377,Taylor,0
+Trenton,MO,40.0789,-93.61661,Trenton,5896
+Unionville,MO,40.47696,-93.00326,Unionville,1815
+Villa Ridge,MO,38.47255,-90.8868,Villa Ridge,2636
+Warrensburg,MO,38.76279,-93.73605,Warrensburg,19927
+Warrenton,MO,38.81144,-91.14154,Warrenton,8106
+Wayland,MO,40.39449,-91.58321,Wayland,501
+Waynesville,MO,37.82865,-92.20072,Waynesville,5374
+West Plains,MO,36.72812,-91.85237,West Plains,12285
+Willow Springs,MO,36.99228,-91.96987,Willow Springs,2150
+Windsor,MO,38.53224,-93.52215,Windsor,2808
+Winston,MO,39.87,-94.13995,Winston,255
+Batesville,MS,34.3115,-89.94426,Batesville,7385
+Beaumont,MS,31.16935,-88.92004,Beaumont,942
+Belden,MS,34.31038,-88.78839,Belden,0
+Biloxi,MS,30.39603,-88.88531,Biloxi,45637
+Brookhaven,MS,31.57906,-90.44065,Brookhaven,12414
+Buckatunna,MS,31.53905,-88.52892,Buckatunna,516
+Byhalia,MS,34.87232,-89.69064,Byhalia,1255
+Byram,MS,32.17932,-90.24537,Byram,11509
+Canton,MS,32.61264,-90.03675,Canton,13676
+Carthage,MS,32.73264,-89.53618,Carthage,4899
+Cleveland,MS,33.744,-90.72482,Cleveland,12327
+Coldwater,MS,32.71486,-89.21423,Coldwater,1608
+Collins,MS,31.64544,-89.55535,Collins,2570
+Columbia,MS,31.25184,-89.83758,Columbia,6229
+Columbus,MS,33.49567,-88.42726,Columbus,23168
+Como,MS,34.51066,-89.93981,Como,1245
+Corinth,MS,34.93425,-88.52227,Corinth,14866
+Ecru,MS,34.35316,-89.02312,Ecru,966
+Ellisville,MS,31.60405,-89.19561,Ellisville,4573
+Florence,MS,32.15348,-90.1312,Florence,4363
+Flowood,MS,32.30959,-90.13898,Flowood,8705
+Forest,MS,32.36459,-89.47423,Forest,5695
+Greenville,MS,33.40898,-91.05978,Greenville,32156
+Greenwood,MS,33.51623,-90.17953,Greenwood,15431
+Grenada,MS,33.769,-89.80842,Grenada,12900
+Gulfport,MS,30.36742,-89.09282,Gulfport,71856
+Guntown,MS,34.44316,-88.65978,Guntown,2608
+Hattiesburg,MS,31.32712,-89.29034,Hattiesburg,46805
+Heidelberg,MS,31.88682,-88.98394,Heidelberg,684
+Holly Springs,MS,31.31573,-89.97786,Holly Springs,7901
+Houston,MS,33.89845,-88.99923,Houston,3544
+Indianola,MS,33.45095,-90.65509,Indianola,9943
+Jackson,MS,32.29876,-90.18481,Jackson,153701
+Kosciusko,MS,33.058,-89.58956,Kosciusko,7187
+Lake,MS,32.3432,-89.32868,Lake,324
+Lauderdale,MS,32.52069,-88.5117,Lauderdale,442
+Laurel,MS,31.69405,-89.13061,Laurel,18837
+Lawrence,MS,32.32514,-89.23284,Lawrence,0
+Leland,MS,33.40539,-90.8976,Leland,4188
+Louisville,MS,33.12374,-89.05506,Louisville,6314
+Lucedale,MS,30.92519,-88.59002,Lucedale,3011
+Lyon,MS,34.21789,-90.54204,Lyon,330
+Madison,MS,32.46181,-90.11536,Madison,25799
+Magee,MS,31.87377,-89.73369,Magee,4368
+Mathiston,MS,33.54012,-89.12423,Mathiston,676
+Mccomb,MS,31.24379,-90.45315,McComb,12661
+Meridian,MS,32.36431,-88.70366,Meridian,39661
+Morton,MS,32.35376,-89.65452,Morton,3439
+Moss Point,MS,30.41159,-88.53446,Moss Point,13654
+Mount Pleasant,MS,31.69655,-89.6973,Mount Pleasant,0
+Natchez,MS,31.56017,-91.40329,Natchez,15128
+New Albany,MS,34.49427,-89.00784,New Albany,8830
+New Augusta,MS,31.20263,-89.03668,New Augusta,641
+Newton,MS,32.32126,-89.16339,Newton,3356
+Oakland,MS,34.05567,-89.91648,Oakland,514
+Ocean Springs,MS,30.41131,-88.82781,Ocean Springs,17636
+Okolona,MS,34.00178,-88.75533,Okolona,2638
+Olive Branch,MS,34.96176,-89.82953,Olive Branch,36010
+Oxford,MS,34.3665,-89.51925,Oxford,22314
+Pearl,MS,32.27459,-90.13203,Pearl,26462
+Pelahatchie,MS,32.31292,-89.79841,Pelahatchie,1356
+Picayune,MS,30.52556,-89.67788,Picayune,10675
+Pickens,MS,32.88374,-89.97147,Pickens,1075
+Poplarville,MS,30.84019,-89.53423,Poplarville,2985
+Purvis,MS,31.14324,-89.40979,Purvis,2335
+Red Banks,MS,34.82815,-89.56453,Red Banks,0
+Richland,MS,32.23904,-90.15842,Richland,7087
+Saltillo,MS,34.37649,-88.68172,Saltillo,5004
+Sandersville,MS,31.7867,-89.03453,Sandersville,721
+Scooba,MS,32.82819,-88.47643,Scooba,702
+Senatobia,MS,34.6176,-89.9687,Senatobia,7963
+Shannon,MS,34.11622,-88.71172,Shannon,1771
+Shelby,MS,33.95094,-90.76788,Shelby,2123
+Sherman,MS,34.35927,-88.84117,Sherman,677
+Terry,MS,32.09626,-90.29426,Terry,1103
+Tillatoba,MS,33.98484,-89.89676,Tillatoba,91
+Tishomingo,MS,34.63676,-88.23171,Tishomingo,338
+Toomsuba,MS,32.41847,-88.50698,Toomsuba,773
+Tunica,MS,34.68455,-90.38288,Tunica,981
+Tupelo,MS,34.25807,-88.70464,Tupelo,35680
+Vicksburg,MS,32.35265,-90.87788,Vicksburg,23131
+Walnut,MS,34.9462,-88.89978,Walnut,764
+Water Valley,MS,34.1515,-89.63147,Water Valley,3380
+West Point,MS,33.60762,-88.65033,West Point,10990
+Wiggins,MS,30.85824,-89.13533,Wiggins,4550
+Winona,MS,33.48207,-89.72814,Winona,4439
+Belgrade,MT,45.77604,-111.1769,Belgrade,8029
+Big Timber,MT,45.83494,-109.95546,Big Timber,1648
+Billings,MT,45.78329,-108.50069,Billings,117116
+Boulder,MT,46.23659,-112.12083,Boulder,1207
+Butte,MT,46.00382,-112.53474,Butte,34190
+Chinook,MT,48.59,-109.23128,Chinook,1228
+Columbia Falls,MT,48.37246,-114.18152,Columbia Falls,5093
+Columbus,MT,48.37246,-114.18152,Columbia Falls,5093
+Conrad,MT,48.17025,-111.94613,Conrad,2593
+Deer Lodge,MT,46.39576,-112.73004,Deer Lodge,2965
+Dillon,MT,45.21631,-112.63752,Dillon,4210
+Glendive,MT,47.10529,-104.71246,Glendive,5490
+Great Falls,MT,47.50024,-111.30081,Great Falls,59638
+Hardin,MT,45.73248,-107.61203,Hardin,3800
+Helena,MT,46.59271,-112.03611,Helena,32091
+Laurel,MT,45.66912,-108.77153,Laurel,6943
+Lewistown,MT,47.06247,-109.42824,Lewistown,5874
+Livingston,MT,45.66244,-110.56104,Livingston,7302
+Lolo,MT,46.75881,-114.08094,Lolo,3892
+Miles City,MT,46.40834,-105.84056,Miles City,8796
+Milltown,MT,46.87131,-113.88177,Milltown,0
+Missoula,MT,46.87215,-113.994,Missoula,71022
+Moore,MT,46.97552,-109.69685,Moore,200
+Park City,MT,45.63272,-108.91793,Park City,983
+Plentywood,MT,48.77475,-104.56246,Plentywood,1923
+Shelby,MT,48.50526,-111.85697,Shelby,3268
+Sidney,MT,47.71668,-104.15633,Sidney,6828
+Superior,MT,47.19159,-114.8918,Superior,839
+Three Forks,MT,45.89243,-111.55219,Three Forks,1926
+Whitehall,MT,45.87076,-112.09749,Whitehall,1094
+Ahoskie,NC,36.28682,-76.98468,Ahoskie,4910
+Apex,NC,35.73265,-78.85029,Apex,45585
+Asheboro,NC,35.70791,-79.81364,Asheboro,26103
+Belhaven,NC,35.54017,-76.62299,Belhaven,1602
+Bethel,NC,35.8071,-77.37886,Bethel,1620
+Bladenboro,NC,34.53878,-78.78752,Bladenboro,1726
+Burgaw,NC,34.55211,-77.9261,Burgaw,4100
+Candler,NC,35.5365,-82.69291,Candler,0
+Candor,NC,35.29514,-79.74532,Candor,838
+Charlotte,NC,35.22709,-80.84313,Charlotte,911311
+Chocowinity,NC,35.51266,-77.10051,Chocowinity,821
+Clinton,NC,34.99795,-78.32333,Clinton,8767
+Colfax,NC,36.11264,-80.01448,Colfax,0
+Columbia,NC,35.73347,-79.65253,Ramseur,1701
+Conover,NC,35.70652,-81.21869,Conover,8248
+Creedmoor,NC,36.12237,-78.68611,Creedmoor,4425
+Delco,NC,34.31572,-78.22472,Delco,348
+Denver,NC,35.53125,-81.0298,Denver,2309
+Dunn,NC,35.30627,-78.6089,Dunn,9723
+Durham,NC,35.99403,-78.89862,Durham,257636
+Edenton,NC,36.05794,-76.60772,Edenton,4849
+Elizabeth City,NC,36.2946,-76.25105,Elizabeth City,17988
+Elkin,NC,36.2443,-80.8484,Elkin,4060
+Evergreen,NC,34.296,-78.21778,Evergreen,420
+Farmville,NC,35.59544,-77.58525,Farmville,4758
+Fayetteville,NC,35.05266,-78.87836,Fayetteville,201963
+Flat Rock,NC,35.27123,-82.44151,Flat Rock,3313
+Garner,NC,35.71126,-78.61417,Garner,28053
+Gastonia,NC,35.26208,-81.1873,Gastonia,74543
+Goldsboro,NC,35.38488,-77.99277,Goldsboro,35826
+Graham,NC,36.06903,-79.40058,Graham,14647
+Grantsboro,NC,35.14044,-76.84244,Grantsboro,662
+Greensboro,NC,36.07264,-79.79198,Greensboro,285342
+Greenville,NC,35.61266,-77.36635,Greenville,90597
+Hamptonville,NC,36.09847,-80.76035,Hamptonville,0
+Harrisburg,NC,35.32395,-80.65784,Harrisburg,14539
+Haw River,NC,36.09153,-79.36419,Haw River,2402
+Hendersonville,NC,35.31873,-82.46095,Hendersonville,13814
+Hertford,NC,36.19016,-76.46605,Hertford,2148
+Hickory,NC,35.73319,-81.3412,Hickory,40374
+High Point,NC,35.95569,-80.00532,High Point,110268
+Hope Mills,NC,34.97044,-78.94531,Hope Mills,16163
+Jacksonville,NC,34.75405,-77.43024,Jacksonville,67357
+Jonesville,NC,36.2393,-80.84452,Jonesville,2257
+Kannapolis,NC,35.48736,-80.62173,Kannapolis,46144
+Kenly,NC,35.59627,-78.12416,Kenly,1450
+Kernersville,NC,36.11986,-80.07365,Kernersville,23811
+Kinston,NC,35.26266,-77.58164,Kinston,21337
+Leland,NC,34.25628,-78.04471,Leland,17924
+Lewiston Woodville,NC,36.12293,-77.17663,Lewiston Woodville,508
+Lexington,NC,35.82403,-80.25338,Lexington,19326
+Lillington,NC,35.39933,-78.81585,Lillington,3476
+Linwood,NC,35.75069,-80.31783,Linwood,0
+Lumberton,NC,34.61834,-79.01045,Lumberton,21667
+Marion,NC,35.68401,-82.00927,Marion,7861
+Maxton,NC,34.73516,-79.34893,Maxton,2451
+Mc Leansville,NC,36.10736,-79.65864,McLeansville,1021
+Mebane,NC,36.09597,-79.26696,Mebane,13698
+Midland,NC,35.22737,-80.50062,Midland,3379
+Mocksville,NC,35.89403,-80.56145,Mocksville,5151
+Monroe,NC,34.98543,-80.54951,Monroe,34623
+Morehead City,NC,34.72294,-76.72604,Morehead City,9347
+Mount Airy,NC,36.4993,-80.60729,Mount Airy,10354
+New Bern,NC,35.10849,-77.04411,New Bern,30070
+Newport,NC,34.78655,-76.85911,Newport,4723
+Newton,NC,34.23556,-77.94604,Wilmington,115933
+Oak City,NC,35.96377,-77.30802,Oak City,300
+Pilot Mountain,NC,36.38653,-80.4695,Pilot Mountain,1465
+Pinetops,NC,35.78849,-77.63775,Pinetops,1319
+Pleasant Hill,NC,35.87347,-79.48169,Pleasant Hill,1087
+Plymouth,NC,35.86683,-76.74856,Plymouth,3658
+Princeton,NC,35.46599,-78.16055,Princeton,1284
+Raeford,NC,34.981,-79.2242,Raeford,4860
+Raleigh,NC,35.7721,-78.63861,Raleigh,482295
+Reidsville,NC,36.35486,-79.66447,Reidsville,14067
+Rich Square,NC,36.27404,-77.28441,Rich Square,901
+Richlands,NC,34.89933,-77.54663,Richlands,1689
+Riegelwood,NC,34.33989,-78.22528,Riegelwood,579
+Rocky Mount,NC,35.93821,-77.79053,Rocky Mount,55806
+Rocky Point,NC,34.43517,-77.88776,Rocky Point,1602
+Rural Hall,NC,36.24042,-80.29338,Rural Hall,3126
+Saint Pauls,NC,34.80655,-78.97114,Saint Pauls,2035
+Salisbury,NC,35.67097,-80.47423,Salisbury,34017
+Saluda,NC,35.23623,-82.34928,Saluda,707
+Sanford,NC,35.47988,-79.1803,Sanford,29144
+Seaboard,NC,36.49015,-77.44136,Seaboard,587
+Selma,NC,35.53655,-78.28444,Selma,6307
+Shelby,NC,35.29235,-81.53565,Shelby,20189
+Siler City,NC,35.72347,-79.46224,Siler City,8396
+Spring Hope,NC,35.94515,-78.11193,Spring Hope,1313
+Spring Lake,NC,35.16794,-78.97281,Spring Lake,13234
+Statesville,NC,35.78264,-80.8873,Statesville,26221
+Stedman,NC,35.0135,-78.69391,Stedman,1045
+Stokesdale,NC,36.23708,-79.97948,Stokesdale,5340
+Supply,NC,34.01767,-78.2675,Supply,0
+Swansboro,NC,34.68766,-77.11912,Swansboro,3149
+Tar Heel,NC,34.73322,-78.79002,Tar Heel,146
+Troutman,NC,35.70069,-80.88813,Troutman,2544
+Union Grove,NC,35.66516,-76.6091,Union Grove,0
+Vanceboro,NC,35.3085,-77.15412,Vanceboro,1000
+Wade,NC,35.16294,-78.73613,Wade,560
+Wadesboro,NC,34.96821,-80.07673,Wadesboro,5584
+Wake Forest,NC,35.97987,-78.50972,Wake Forest,38199
+Warsaw,NC,34.99933,-78.0911,Warsaw,3175
+Waynesville,NC,35.48871,-82.98875,Waynesville,9809
+Whitakers,NC,36.10543,-77.71275,Whitakers,725
+Whiteville,NC,34.33878,-78.70307,Whiteville,5589
+Whitsett,NC,36.07125,-79.56447,Whitsett,623
+Wilkesboro,NC,36.14596,-81.16064,Wilkesboro,3531
+Williamston,NC,35.8546,-77.05551,Williamston,5508
+Wilmington,NC,34.23556,-77.94604,Wilmington,115933
+Wilson,NC,35.72127,-77.91554,Wilson,49643
+Windsor,NC,35.99849,-76.94606,Windsor,3785
+Winnabow,NC,34.14934,-78.0936,Winnabow,0
+Winston Salem,NC,36.09986,-80.24422,Winston-Salem,241218
+Winton,NC,36.39571,-76.9319,Winton,745
+Youngsville,NC,36.02487,-78.47444,Youngsville,1217
+Alexander,ND,47.84308,-103.6427,Alexander,252
+Beach,ND,46.91807,-104.00437,Beach,1115
+Belfield,ND,46.88529,-103.19962,Belfield,1055
+Bismarck,ND,46.80833,-100.78374,Bismarck,75092
+Bowman,ND,46.18306,-103.39491,Bowman,1744
+Carpio,ND,48.44252,-101.71461,Carpio,149
+Carrington,ND,47.44972,-99.12622,Carrington,2072
+Casselton,ND,46.90053,-97.2112,Casselton,2521
+Devils Lake,ND,48.11278,-98.86512,Devils Lake,7351
+Dickinson,ND,46.87918,-102.78962,Dickinson,23765
+Drayton,ND,48.5711,-97.17785,Drayton,785
+Dunseith,ND,48.81306,-100.06097,Dunseith,797
+Fargo,ND,46.87719,-96.7898,Fargo,118523
+Fessenden,ND,47.64917,-99.62929,Fessenden,472
+Grand Forks,ND,47.92526,-97.03285,Grand Forks,57011
+Grassy Butte,ND,47.39251,-103.24797,Grassy Butte,0
+Hankinson,ND,46.06968,-96.90175,Hankinson,908
+Harwood,ND,46.97941,-96.88064,Harwood,788
+Jamestown,ND,46.91054,-98.70844,Jamestown,15422
+Kenmare,ND,48.67475,-102.08266,Kenmare,1083
+Killdeer,ND,47.37196,-102.75408,Killdeer,1254
+Leeds,ND,48.28889,-99.43764,Leeds,445
+Mandan,ND,46.82666,-100.88958,Mandan,21382
+Minot,ND,48.23251,-101.29627,Minot,49450
+New Salem,ND,46.845,-101.41125,New Salem,896
+New Town,ND,47.98085,-102.49018,New Town,2521
+Oakes,ND,46.13858,-98.09038,Oakes,1797
+Pembina,ND,48.96638,-97.24368,Pembina,565
+Richardton,ND,46.8839,-102.31573,Richardton,563
+Rugby,ND,48.36889,-99.99625,Rugby,2846
+Stanley,ND,48.31724,-102.39045,Stanley,2721
+Steele,ND,46.85471,-99.91594,Steele,709
+Sterling,ND,46.81388,-100.2915,Sterling,0
+Tioga,ND,48.39724,-102.93824,Tioga,1643
+Tower City,ND,46.92275,-97.67399,Tower City,258
+Valley City,ND,46.92331,-98.00315,Valley City,6669
+Wahpeton,ND,46.26524,-96.60591,Wahpeton,7899
+Watford City,ND,47.80224,-103.28325,Watford City,6708
+West Fargo,ND,46.87497,-96.90036,West Fargo,33597
+Williston,ND,48.14697,-103.61797,Williston,26977
+Wilton,ND,47.1586,-100.78347,Wilton,725
+Alda,NE,40.87112,-98.46812,Alda,655
+Alliance,NE,42.10163,-102.87215,Alliance,8522
+Alma,NE,40.09751,-99.36204,Alma,1146
+Aurora,NE,40.86723,-98.00422,Aurora,4496
+Beatrice,NE,40.26806,-96.74697,Beatrice,12388
+Bennet,NE,40.68,-96.5064,Bennet,845
+Big Springs,NE,41.06138,-102.07435,Big Springs,392
+Broken Bow,NE,41.40195,-99.63928,Broken Bow,3551
+Burwell,NE,41.78167,-99.13315,Burwell,1211
+Cairo,NE,41.00112,-98.60757,Cairo,807
+Cambridge,NE,40.28195,-100.16569,Cambridge,1051
+Central City,NE,41.11585,-98.00172,Central City,2886
+Chadron,NE,42.82942,-102.99991,Chadron,5775
+Columbus,NE,41.42973,-97.36838,Columbus,22797
+Cozad,NE,40.85973,-99.98734,Cozad,3863
+Crete,NE,40.62778,-96.96142,Crete,7037
+Doniphan,NE,40.77196,-98.36951,Doniphan,847
+Eagle,NE,40.81667,-96.43029,Eagle,1047
+Elgin,NE,41.98334,-98.08368,Elgin,632
+Elm Creek,NE,40.71945,-99.37204,Elm Creek,958
+Fairmont,NE,40.63695,-97.58533,Fairmont,538
+Falls City,NE,40.06084,-95.60193,Falls City,4198
+Fremont,NE,41.43333,-96.49808,Fremont,26474
+Geneva,NE,40.52695,-97.59588,Geneva,2131
+Genoa,NE,41.44862,-97.73061,Genoa,958
+Gibbon,NE,40.74835,-98.8448,Gibbon,1879
+Gordon,NE,42.80472,-102.20322,Gordon,1531
+Gothenburg,NE,40.92945,-100.16068,Gothenburg,3514
+Grand Island,NE,40.92501,-98.34201,Grand Island,51440
+Greenwood,NE,40.96278,-96.44112,Greenwood,571
+Gretna,NE,41.14083,-96.23974,Gretna,5046
+Hastings,NE,40.58612,-98.38839,Hastings,24924
+Hebron,NE,40.16639,-97.58588,Hebron,1543
+Henderson,NE,40.77973,-97.81227,Henderson,997
+Hershey,NE,41.15861,-101.00265,Hershey,666
+Holdrege,NE,40.44029,-99.36982,Holdrege,5561
+Jackson,NE,41.38946,-97.49477,Duncan,368
+Laurel,NE,42.42944,-97.08977,Laurel,935
+Lexington,NE,40.78084,-99.7415,Lexington,10075
+Lincoln,NE,40.8,-96.66696,Lincoln,294757
+Milford,NE,40.77445,-97.05059,Milford,2107
+Norfolk,NE,42.02834,-97.417,Norfolk,24366
+North Platte,NE,41.12389,-100.76542,North Platte,24194
+Ogallala,NE,41.12805,-101.71962,Ogallala,4570
+Omaha,NE,41.25626,-95.94043,Omaha,486051
+Oneill,NE,42.45778,-98.64759,O'Neill,3653
+Ord,NE,41.60334,-98.9262,Ord,2061
+Overton,NE,40.73862,-99.53761,Overton,573
+Palmyra,NE,40.70445,-96.38751,Palmyra,559
+Plainview,NE,42.34973,-97.79201,Plainview,1221
+Roca,NE,40.6575,-96.65807,Roca,266
+Saint Paul,NE,41.21473,-98.45812,Saint Paul,2290
+Schuyler,NE,41.44723,-97.05948,Schuyler,6171
+Scottsbluff,NE,41.86663,-103.66717,Scottsbluff,14802
+Seward,NE,40.90695,-97.09892,Seward,7167
+Shelby,NE,41.19224,-97.42532,Shelby,685
+Sidney,NE,41.14276,-102.97798,Sidney,6942
+South Sioux City,NE,42.47388,-96.41364,South Sioux City,13319
+Superior,NE,40.02085,-98.07004,Superior,1884
+Syracuse,NE,40.65722,-96.1864,Syracuse,1993
+Tecumseh,NE,40.36667,-96.19612,Tecumseh,1626
+Trenton,NE,40.17555,-101.01294,Trenton,561
+Valentine,NE,42.87278,-100.55097,Valentine,2836
+Valley,NE,41.31278,-96.34614,Valley,2117
+Waco,NE,40.89696,-97.46338,Waco,244
+Wahoo,NE,41.21139,-96.6203,Wahoo,4511
+Wayne,NE,42.23056,-97.01782,Wayne,5569
+West Point,NE,41.84167,-96.70864,West Point,3368
+Wisner,NE,41.98722,-96.91421,Wisner,1184
+Wood River,NE,40.82057,-98.60007,Wood River,1367
+York,NE,40.86807,-97.592,York,7864
+Auburn,NH,43.00453,-71.3484,Auburn,5089
+Barrington,NH,43.22286,-71.04701,Barrington,8417
+Bow,NH,43.13203,-71.54924,Bow,0
+Candia,NH,43.07786,-71.27673,Candia,4405
+Concord,NH,43.20814,-71.53757,Concord,43976
+Enfield,NH,43.64063,-72.14398,Enfield,1540
+Epping,NH,43.03342,-71.07423,Epping,1681
+Gorham,NH,44.38784,-71.17313,Gorham,1600
+Greenland,NH,43.0362,-70.83283,Greenland,3417
+Hudson,NH,42.76481,-71.43979,Hudson,7336
+Lebanon,NH,43.64229,-72.25176,Lebanon,13579
+Londonderry,NH,42.86509,-71.37395,Londonderry,11037
+Merrimack,NH,42.86509,-71.4934,Merrimack,26726
+New Hampton,NH,43.60563,-71.65424,New Hampton,351
+Northwood,NH,43.19425,-71.1509,Northwood,3877
+Portsmouth,NH,43.07704,-70.75766,Portsmouth,21530
+Raymond,NH,43.0362,-71.1834,Raymond,2855
+Walpole,NH,43.07952,-72.42592,Walpole,605
+Warner,NH,43.28063,-71.81675,Warner,444
+West Chesterfield,NH,42.90425,-72.51564,West Chesterfield,0
+Avenel,NJ,40.58038,-74.28515,Avenel,17011
+Bloomsbury,NJ,40.65399,-75.08656,Bloomsbury,848
+Bordentown,NJ,40.14622,-74.71183,Bordentown,3882
+Bound Brook,NJ,40.56844,-74.53849,Bound Brook,10497
+Budd Lake,NJ,40.87121,-74.73405,Budd Lake,8968
+Burlington,NJ,40.07122,-74.86489,Burlington,9808
+Carlstadt,NJ,40.84038,-74.0907,Carlstadt,6279
+Carteret,NJ,40.57733,-74.2282,Carteret,24170
+Cherry Hill,NJ,39.93484,-75.03073,Cherry Hill,70475
+Clementon,NJ,39.8115,-74.98294,Clementon,4947
+Clinton,NJ,40.63677,-74.90989,Clinton,2657
+Columbia,NJ,40.78788,-74.38821,Florham Park,11835
+Cranbury,NJ,40.31622,-74.51376,Cranbury,2181
+Delaware,NJ,40.89288,-75.06462,Delaware,150
+East Brunswick,NJ,40.42788,-74.41598,East Brunswick,48495
+East Rutherford,NJ,40.83399,-74.09709,East Rutherford,9164
+Edison,NJ,40.51872,-74.4121,Edison,102548
+Elizabeth,NJ,40.66399,-74.2107,Elizabeth,129007
+Elizabethport,NJ,40.6501,-74.18709,Elizabethport,0
+Fairfield,NJ,40.88371,-74.30598,Fairfield,7063
+Flemington,NJ,40.51233,-74.85933,Flemington,4641
+Franklinville,NJ,40.82232,-74.15987,Nutley,27572
+Hampton,NJ,40.70704,-74.956,Hampton,1361
+Hillsborough,NJ,40.4776,-74.62682,Hillsborough,38303
+Jersey City,NJ,40.72816,-74.07764,Jersey City,264290
+Kearny,NJ,40.76843,-74.14542,Kearny,42137
+Ledgewood,NJ,40.88121,-74.65599,Ledgewood,0
+Linden,NJ,40.62205,-74.24459,Linden,42021
+Mahwah,NJ,41.08871,-74.14376,Mahwah,24062
+Monmouth Junction,NJ,40.379,-74.54654,Monmouth Junction,2887
+Monroe Township,NJ,40.31789,-74.41182,Monroe Township,0
+Montague,NJ,41.30315,-74.7935,Montague,0
+Mount Holly,NJ,39.99289,-74.78766,Mount Holly,10804
+Mount Laurel,NJ,39.934,-74.891,Mount Laurel,41864
+Newark,NJ,40.73566,-74.17237,Newark,281944
+Newfield,NJ,39.54688,-75.02636,Newfield,1534
+North Bergen,NJ,40.80427,-74.01208,North Bergen,63484
+North Brunswick,NJ,40.454,-74.482,North Brunswick,43905
+Palisades Park,NJ,40.84816,-73.99764,Palisades Park,20743
+Palmyra,NJ,40.00706,-75.02823,Palmyra,7314
+Paulsboro,NJ,39.83039,-75.24046,Paulsboro,5989
+Penns Grove,NJ,39.72956,-75.46797,Penns Grove,4945
+Pennsauken,NJ,39.95622,-75.05795,Pennsauken,36332
+Perth Amboy,NJ,40.50677,-74.26542,Perth Amboy,52682
+Phillipsburg,NJ,40.69371,-75.19018,Phillipsburg,14515
+Richwood,NJ,39.72261,-75.16546,Richwood,3459
+Ridgefield,NJ,40.83427,-74.00875,Ridgefield,11373
+Ringoes,NJ,40.42899,-74.86767,Ringoes,0
+Riverton,NJ,40.0115,-75.01489,Riverton,2748
+Roebling,NJ,40.11594,-74.78627,Roebling,3715
+Rosenhayn,NJ,39.47817,-75.13129,Rosenhayn,1098
+Secaucus,NJ,40.78955,-74.05653,Secaucus,19104
+South Amboy,NJ,40.47788,-74.2907,South Amboy,8846
+South Plainfield,NJ,40.57927,-74.41154,South Plainfield,24290
+Thorofare,NJ,39.84234,-75.19629,West Deptford Township,0
+Trenton,NJ,40.21705,-74.74294,Trenton,89620
+Vineland,NJ,39.48623,-75.02573,Vineland,60818
+Woodbridge,NJ,40.5576,-74.28459,Woodbridge,19265
+Alamogordo,NM,32.89953,-105.96027,Alamogordo,30753
+Albuquerque,NM,35.08449,-106.65114,Albuquerque,564559
+Algodones,NM,35.38059,-106.47919,Algodones,814
+Artesia,NM,32.84233,-104.4033,Artesia,12036
+Aztec,NM,36.82223,-107.99285,Aztec,6147
+Belen,NM,34.66284,-106.77642,Belen,7152
+Bernalillo,NM,35.30004,-106.55114,Bernalillo,8843
+Carlsbad,NM,32.42067,-104.22884,Carlsbad,28957
+Carrizozo,NM,33.64174,-105.87721,Carrizozo,941
+Casa Blanca,NM,35.0456,-107.47144,Casa Blanca,0
+Clayton,NM,36.45169,-103.1841,Clayton,2774
+Clines Corners,NM,35.0095,-105.66918,Clines Corners,0
+Clovis,NM,34.4048,-103.20523,Clovis,39480
+Deming,NM,32.2687,-107.75864,Deming,14522
+Eunice,NM,32.43734,-103.15908,Eunice,3136
+Farmington,NM,36.72806,-108.21869,Farmington,42871
+Flora Vista,NM,36.79445,-108.08035,Flora Vista,2191
+Gallup,NM,35.52808,-108.74258,Gallup,23240
+Hatch,NM,32.66536,-107.15307,Hatch,1600
+Hobbs,NM,32.70261,-103.13604,Hobbs,38416
+Jal,NM,32.11318,-103.19351,Jal,2201
+Jamestown,NM,35.4708,-108.44206,Jamestown,0
+Las Cruces,NM,32.31232,-106.77834,Las Cruces,101643
+Las Vegas,NM,35.59393,-105.2239,Las Vegas,13386
+Lemitar,NM,34.15979,-106.91031,Lemitar,330
+Logan,NM,35.36533,-103.41079,Logan,966
+Lordsburg,NM,32.35036,-108.70866,Lordsburg,2531
+Los Lunas,NM,34.80617,-106.73336,Los Lunas,15336
+Loving,NM,32.28623,-104.09577,Loving,1409
+Lovington,NM,32.94401,-103.34855,Lovington,11800
+Melrose,NM,34.43035,-103.63246,Melrose,644
+Milan,NM,35.16976,-107.89089,Milan,3250
+Moriarty,NM,34.99005,-106.04919,Moriarty,1806
+Portales,NM,34.18619,-103.3344,Portales,11995
+Raton,NM,36.90336,-104.43915,Raton,6187
+Roswell,NM,33.39437,-104.52491,Roswell,48544
+San Jon,NM,35.10756,-103.32856,San Jon,203
+Santa Rosa,NM,34.93867,-104.68249,Santa Rosa,2675
+Santa Teresa,NM,31.85594,-106.63916,Santa Teresa,4258
+Springer,NM,36.36114,-104.59527,Springer,943
+Tatum,NM,33.25706,-103.31773,Tatum,857
+Texico,NM,34.38869,-103.05134,Texico,1119
+Tinnie,NM,33.37065,-105.22637,Tinnie,0
+Tucumcari,NM,35.17191,-103.72686,Tucumcari,5025
+Tularosa,NM,33.07397,-106.0186,Tularosa,2864
+Vado,NM,32.11176,-106.6625,Vado,3194
+Vaughn,NM,34.60173,-105.20833,Vaughn,413
+Battle Mountain,NV,40.64213,-116.93427,Battle Mountain,3635
+Carlin,NV,40.71381,-116.10397,Carlin,2302
+Carson City,NV,39.1638,-119.7674,Carson City,58639
+Elko,NV,40.83242,-115.76312,Elko,20279
+Ely,NV,39.24744,-114.88863,Ely,4134
+Fallon,NV,39.47353,-118.77737,Fallon,8458
+Fernley,NV,39.60797,-119.25183,Fernley,19418
+Gardnerville,NV,38.9413,-119.74962,Gardnerville,5656
+Hawthorne,NV,38.52464,-118.62458,Hawthorne,3269
+Henderson,NV,36.0397,-114.98194,Henderson,285667
+Imlay,NV,40.66074,-118.15042,Imlay,171
+Indian Springs,NV,36.56968,-115.67058,Indian Springs,991
+Jackpot,NV,41.98324,-114.67476,Jackpot,1195
+Jean,NV,35.77887,-115.32388,Jean,0
+Las Vegas,NV,36.17497,-115.13722,Las Vegas,641903
+Lovelock,NV,40.17935,-118.47348,Lovelock,1878
+MC DERMITT,NV,41.99739,-117.7182,McDermitt,172
+Mesquite,NV,36.80553,-114.06719,Mesquite,17496
+Minden,NV,38.95407,-119.76573,Minden,3001
+Moapa,NV,36.6758,-114.62082,Moapa,0
+North Las Vegas,NV,36.19886,-115.1175,North Las Vegas,234807
+Reno,NV,39.52963,-119.8138,Reno,264165
+Searchlight,NV,35.46527,-114.9197,Searchlight,539
+Sparks,NV,39.53491,-119.75269,Sparks,96094
+Tonopah,NV,38.06716,-117.23008,Tonopah,2478
+Wells,NV,41.11159,-114.96449,Wells,1261
+West Wendover,NV,40.7391,-114.07335,West Wendover,4294
+Winnemucca,NV,40.97296,-117.73568,Winnemucca,7887
+Yerington,NV,38.98575,-119.16293,Yerington,3064
+Albany,NY,42.65258,-73.75623,Albany,101228
+Apalachin,NY,42.06952,-76.15465,Apalachin,1131
+Avon,NY,42.91201,-77.74556,Avon,3319
+Bath,NY,42.33702,-77.31776,Bath,5635
+Belmont,NY,42.22312,-78.03445,Belmont,939
+Bergen,NY,43.08534,-77.94223,Bergen,1133
+Binghamton,NY,42.09869,-75.91797,Binghamton,46032
+Brewerton,NY,43.23812,-76.14076,Brewerton,4029
+Bronx,NY,40.84985,-73.86641,The Bronx,1385108
+Buffalo,NY,42.88645,-78.87837,Buffalo,258071
+Campbell,NY,42.23313,-77.19747,Campbell,713
+Canaan,NY,42.41203,-73.44706,Canaan,0
+Canajoharie,NY,42.90563,-74.57181,Canajoharie,2163
+Canastota,NY,43.07951,-75.75074,Canastota,4661
+Castle Creek,NY,42.22758,-75.91825,Castle Creek,0
+Castleton On Hudson,NY,42.51841,-73.75123,Castleton-on-Hudson,1473
+Cayuta,NY,42.28174,-76.69689,Cayuta,0
+Central Square,NY,43.28674,-76.14604,Central Square,1813
+Champlain,NY,44.98643,-73.44653,Champlain,1074
+Clifton Park,NY,42.86563,-73.77095,Clifton Park,36705
+Copiague,NY,40.68149,-73.39984,Copiague,22993
+Corfu,NY,42.96006,-78.40558,Corfu,695
+Dansville,NY,42.5609,-77.69611,Dansville,4550
+East Syracuse,NY,43.06534,-76.07853,East Syracuse,3010
+Elmira,NY,42.0898,-76.80773,Elmira,28213
+Fort Ann,NY,43.41424,-73.48761,Fort Ann,476
+Fort Edward,NY,43.26702,-73.58456,Fort Edward,3277
+Fultonville,NY,42.94785,-74.37041,Fultonville,788
+Gansevoort,NY,43.19618,-73.65178,Gansevoort,0
+Glenmont,NY,42.6048,-73.76957,Glenmont,0
+Harpursville,NY,42.17841,-75.62463,Harpursville,0
+Henrietta,NY,43.05923,-77.61222,Henrietta,42581
+Hogansburg,NY,44.97394,-74.66324,Hogansburg,0
+Horseheads,NY,42.16702,-76.82051,Horseheads,6616
+Irving,NY,42.56756,-79.11282,Irving,0
+Islandia,NY,40.80426,-73.169,Islandia,3382
+Jamestown,NY,42.097,-79.23533,Jamestown,30075
+Jordan,NY,43.06534,-76.47299,Jordan,1333
+La Fayette,NY,42.89229,-76.1052,LaFayette,0
+Lancaster,NY,42.90061,-78.67031,Lancaster,10258
+Lewis,NY,44.27505,-73.56569,Lewis,0
+Limestone,NY,42.02729,-78.62947,Limestone,389
+Liverpool,NY,43.10646,-76.2177,Liverpool,2294
+Livingston,NY,42.14203,-73.77791,Livingston,0
+Mc Graw,NY,42.59618,-76.09326,McGraw,1020
+Medford,NY,40.8176,-73.00011,Medford,24142
+Montezuma,NY,43.01006,-76.70328,Montezuma,0
+Montgomery,NY,41.52759,-74.23682,Montgomery,4609
+New Hampton,NY,41.41093,-74.4071,New Hampton,0
+Newburgh,NY,41.50343,-74.01042,Newburgh,28290
+Niagara Falls,NY,43.0945,-79.05671,Niagara Falls,48916
+Nichols,NY,42.02174,-76.36688,Nichols,485
+Oneonta,NY,42.45286,-75.06377,Oneonta,13862
+Otego,NY,42.45286,-75.06377,Oneonta,13862
+Painted Post,NY,42.16202,-77.09414,Painted Post,1997
+Parish,NY,43.40618,-76.12576,Parish,438
+Peru,NY,44.57838,-73.5268,Peru,1591
+Phelps,NY,42.95756,-77.05747,Phelps,1945
+Plattsburgh,NY,44.69949,-73.45291,Plattsburgh,19806
+Pulaski,NY,43.56701,-76.1277,Pulaski,2310
+Queensbury,NY,43.37729,-73.61317,Queensbury,27703
+Randolph,NY,42.16201,-78.97532,Randolph,1286
+Red Creek,NY,43.24729,-76.72356,Red Creek,513
+Ripley,NY,42.267,-79.7106,Ripley,872
+Rochester,NY,43.15478,-77.61556,Rochester,209802
+Rome,NY,43.21285,-75.45573,Rome,32573
+Salamanca,NY,42.15784,-78.71503,Salamanca,5586
+Sanborn,NY,43.13672,-78.88476,Sanborn,1645
+Sangerfield,NY,42.91396,-75.37906,Sangerfield,0
+Schenectady,NY,42.81424,-73.93957,Schenectady,65305
+Seneca Falls,NY,42.91062,-76.79662,Seneca Falls,6681
+Syracuse,NY,43.04812,-76.14742,Syracuse,144142
+Ticonderoga,NY,43.84867,-73.42345,Ticonderoga,3382
+Tully,NY,42.79812,-76.10937,Tully,870
+Utica,NY,43.1009,-75.23266,Utica,61100
+Waterloo,NY,42.90479,-76.86274,Waterloo,5036
+Watertown,NY,43.97478,-75.91076,Watertown,26780
+Weedsport,NY,43.04868,-76.56272,Weedsport,1761
+West Coxsackie,NY,42.36064,-73.81679,West Coxsackie,0
+Wolcott,NY,43.22062,-76.81496,Wolcott,1645
+Yorkshire,NY,42.53006,-78.4728,Yorkshire,1180
+Akron,OH,41.08144,-81.51901,Akron,197542
+Alvada,OH,41.05033,-83.40187,Alvada,0
+Amherst,OH,41.39782,-82.22238,Amherst,12135
+Anna,OH,40.39449,-84.17272,Anna,1545
+Ashland,OH,40.86867,-82.31822,Ashland,20317
+Ashville,OH,39.71562,-82.95296,Ashville,4190
+Austinburg,OH,41.772,-80.85453,Austinburg,516
+Avon,OH,41.45171,-82.03542,Avon,22544
+Barberton,OH,41.01283,-81.60512,Barberton,26234
+Beaverdam,OH,40.83339,-83.97661,Beaverdam,369
+Bedford,OH,41.39311,-81.53651,Bedford,12747
+Bellefontaine,OH,40.36116,-83.75966,Bellefontaine,13117
+Bellville,OH,40.62006,-82.51072,Bellville,1871
+Belmont,OH,39.7295,-84.13966,Belmont,519
+Berea,OH,41.36616,-81.8543,Berea,18874
+Bidwell,OH,38.91869,-82.29904,Bidwell,0
+Bradner,OH,41.32422,-83.43854,Bradner,1019
+Broadview Heights,OH,41.31394,-81.68513,Broadview Heights,19229
+Brookpark,OH,41.39838,-81.80458,Brook Park,18809
+Brookville,OH,39.83672,-84.41134,Brookville,5900
+Bucyrus,OH,40.80839,-82.97546,Bucyrus,11916
+Burbank,OH,40.98867,-81.99487,Burbank,208
+Caldwell,OH,39.74785,-81.51651,Caldwell,1690
+Cambridge,OH,40.03118,-81.58846,Cambridge,10402
+Canton,OH,40.79895,-81.37845,Canton,71885
+Carey,OH,40.95256,-83.38242,Carey,3586
+Carroll,OH,39.79895,-82.701,Carroll,520
+Carrollton,OH,39.67228,-84.25216,West Carrollton City,13297
+Chillicothe,OH,39.33312,-82.9824,Chillicothe,21727
+Cincinnati,OH,39.12711,-84.51439,Cincinnati,311097
+Circleville,OH,39.60062,-82.94601,Circleville,13857
+Cleveland,OH,41.4995,-81.69541,Cleveland,365379
+Clyde,OH,41.30422,-82.97519,Clyde,6260
+Columbus,OH,39.96118,-82.99879,Columbus,913175
+Conneaut,OH,41.94756,-80.55424,Conneaut,12712
+Coolville,OH,39.22174,-81.79736,Coolville,493
+Coshocton,OH,40.27202,-81.85958,Coshocton,11121
+Dalton,OH,40.79894,-81.69541,Dalton,1850
+Dayton,OH,39.75895,-84.19161,Dayton,135512
+Delaware,OH,40.29867,-83.06797,Delaware,37995
+Delphos,OH,40.84338,-84.34162,Delphos,7023
+Delta,OH,41.57366,-84.00522,Delta,3121
+Diamond,OH,41.09895,-81.02287,Diamond,0
+Dover,OH,41.45532,-81.91792,Westlake,32428
+Eaton,OH,39.74394,-84.63662,Eaton,8217
+Edon,OH,41.55644,-84.76885,Edon,818
+Elyria,OH,41.36838,-82.10765,Elyria,53775
+Etna,OH,39.95729,-82.68183,Etna,1215
+Fairborn,OH,39.82089,-84.01938,Fairborn,33452
+Findlay,OH,41.04422,-83.64993,Findlay,41149
+Franklin,OH,39.96118,-82.99879,Columbus,913175
+Fremont,OH,41.35033,-83.12186,Fremont,16297
+Galion,OH,40.73367,-82.7899,Galion,10127
+Gallipolis,OH,38.8098,-82.20237,Gallipolis,3469
+Geneva,OH,39.66201,-82.43349,Geneva,6447
+Genoa,OH,40.78284,-81.46651,Genoa,2331
+Girard,OH,41.15395,-80.70147,Girard,9599
+Grafton,OH,41.27255,-82.05459,Grafton,6165
+Greenville,OH,40.10283,-84.63301,Greenville,13006
+Groveport,OH,39.8784,-82.88379,Groveport,5737
+Hannibal,OH,39.6673,-80.87204,Hannibal,411
+Harrison,OH,39.262,-84.81995,Harrison,9897
+Hebron,OH,39.96173,-82.49127,Hebron,2409
+Holland,OH,41.62172,-83.7116,Holland,1699
+Hubbard,OH,41.15645,-80.56924,Hubbard,7650
+Ironton,OH,38.53675,-82.68294,Ironton,10900
+Jackson,OH,39.05202,-82.63655,Jackson,6243
+Jeffersonville,OH,39.65367,-83.56381,Jeffersonville,1192
+Kent,OH,41.15367,-81.35789,Kent,29810
+Kingsville,OH,41.89089,-80.67619,Kingsville,0
+Lancaster,OH,39.71368,-82.59933,Lancaster,39766
+Lebanon,OH,39.43534,-84.20299,Lebanon,20623
+Lima,OH,40.74255,-84.10523,Lima,37873
+Lockbourne,OH,39.80923,-82.9724,Lockbourne,247
+London,OH,39.88645,-83.44825,London,10060
+Lore City,OH,39.98479,-81.45845,Lore City,319
+Lowellville,OH,41.03534,-80.53646,Lowellville,1107
+Madison,OH,41.77116,-81.04982,Madison,3182
+Malvern,OH,40.69173,-81.18121,Malvern,1155
+Mansfield,OH,40.75839,-82.51545,Mansfield,46830
+Mantua,OH,41.28394,-81.22399,Mantua,1021
+Marengo,OH,40.40089,-82.81073,Marengo,346
+Marietta,OH,39.41535,-81.45484,Marietta,13900
+Marion,OH,40.58867,-83.12852,Marion,36363
+Mason,OH,39.36006,-84.30994,Mason,32662
+Massillon,OH,40.79672,-81.52151,Massillon,32252
+Maumee,OH,41.56283,-83.65382,Maumee,13940
+Mendon,OH,40.67338,-84.51884,Mendon,650
+Middletown,OH,39.51506,-84.39828,Middletown,48760
+Millbury,OH,41.56616,-83.42465,Millbury,1249
+Millersport,OH,39.90006,-82.53405,Millersport,1049
+Monroe,OH,39.44034,-84.36216,Monroe,13393
+Monroeville,OH,41.24422,-82.69629,Monroeville,1370
+Montpelier,OH,41.5845,-84.60551,Montpelier,3993
+Mount Eaton,OH,40.6945,-81.70318,Mount Eaton,242
+Mount Gilead,OH,40.54923,-82.8274,Mount Gilead,3653
+Napoleon,OH,41.39227,-84.12522,Napoleon,8595
+New Carlisle,OH,39.93617,-84.02549,New Carlisle,5693
+New Concord,OH,39.99368,-81.73402,New Concord,2343
+New Paris,OH,40.12839,-83.95966,Saint Paris,2089
+New Philadelphia,OH,40.48979,-81.44567,New Philadelphia,17484
+New Springfield,OH,40.91728,-80.60618,New Springfield,0
+Newcomerstown,OH,40.27229,-81.60595,Newcomerstown,3794
+Newton Falls,OH,41.18839,-80.97815,Newton Falls,4654
+North Baltimore,OH,41.18283,-83.67827,North Baltimore,3545
+North Canton,OH,40.87589,-81.40234,North Canton,17441
+North Jackson,OH,41.10006,-80.85731,North Jackson,0
+North Lima,OH,40.94839,-80.65896,North Lima,0
+Norwalk,OH,41.24255,-82.61573,Norwalk,16827
+Oregon,OH,41.64366,-83.48688,Oregon,20102
+Orrville,OH,40.84367,-81.76402,Orrville,8491
+Parkman,OH,41.37061,-81.0651,Parkman,0
+Paulding,OH,41.13811,-84.58051,Paulding,3488
+Perrysburg,OH,41.557,-83.62716,Perrysburg,21423
+Port Clinton,OH,41.512,-82.93769,Port Clinton,5957
+Quaker City,OH,39.97007,-81.29928,Quaker City,490
+Ravenna,OH,41.15756,-81.24205,Ravenna,11619
+Richfield,OH,41.23978,-81.63818,Richfield,3702
+Rittman,OH,40.97811,-81.78208,Rittman,6580
+Rockbridge,OH,39.57979,-82.5221,Rockbridge,182
+Rossford,OH,41.60977,-83.56438,Rossford,6512
+Sandusky,OH,41.44894,-82.70796,Sandusky,25212
+Sardinia,OH,39.00784,-83.80854,Sardinia,957
+Seville,OH,41.01006,-81.86236,Seville,2340
+Shelby,OH,40.88145,-82.66184,Shelby,9058
+Sidney,OH,40.28422,-84.1555,Sidney,20858
+South Vienna,OH,39.927,-83.61242,South Vienna,379
+Springfield,OH,39.92423,-83.80882,Springfield,59680
+Steubenville,OH,40.36979,-80.63396,Steubenville,18219
+Strasburg,OH,40.59478,-81.52679,Strasburg,2679
+Sunbury,OH,40.24256,-82.85907,Sunbury,5097
+Tiffin,OH,41.1145,-83.17797,Tiffin,17687
+Tipp City,OH,39.95839,-84.17216,Tipp City,9899
+Toledo,OH,41.66394,-83.55521,Toledo,265638
+Troy,OH,40.0395,-84.20328,Troy,25659
+Twinsburg,OH,41.31256,-81.44011,Twinsburg,18872
+Upper Sandusky,OH,40.82728,-83.28131,Upper Sandusky,6527
+Vandalia,OH,39.89061,-84.19883,Vandalia,15106
+Wadsworth,OH,41.02561,-81.72985,Wadsworth,21860
+Wapakoneta,OH,40.56783,-84.19356,Wapakoneta,9823
+Warren,OH,41.23756,-80.81842,Warren,40245
+Waterville,OH,41.50089,-83.71827,Waterville,5514
+Wauseon,OH,41.54922,-84.14161,Wauseon,7316
+Waverly,OH,39.12673,-82.98546,Waverly,4274
+West Unity,OH,41.58616,-84.43495,West Unity,1645
+Willard,OH,41.05311,-82.72629,Willard,6063
+Willoughby,OH,41.63977,-81.4065,Willoughby,22631
+Wilmington,OH,39.44534,-83.82854,Wilmington,12449
+Wooster,OH,40.80517,-81.93646,Wooster,26749
+Youngstown,OH,41.09978,-80.64952,Youngstown,64628
+Zanesville,OH,39.94035,-82.01319,Zanesville,25498
+Ada,OK,34.77453,-96.67834,Ada,17303
+Afton,OK,36.69369,-94.96302,Afton,1050
+Allen,OK,34.87898,-96.41251,Allen,935
+Altus,OK,34.63813,-99.33398,Altus,19214
+Alva,OK,36.80499,-98.66718,Alva,5180
+Anadarko,OK,35.07256,-98.24366,Anadarko,6717
+Ardmore,OK,34.17426,-97.14363,Ardmore,25176
+Arnett,OK,36.13504,-99.77484,Arnett,532
+Atoka,OK,34.38593,-96.12833,Atoka,3065
+Bartlesville,OK,36.74731,-95.98082,Bartlesville,36595
+Big Cabin,OK,36.53787,-95.22136,Big Cabin,262
+Billings,OK,36.52892,-97.44394,Billings,510
+Blackwell,OK,36.80448,-97.28282,Blackwell,6875
+Boise City,OK,36.72947,-102.51324,Boise City,1127
+Braman,OK,36.92364,-97.33366,Braman,212
+Broken Arrow,OK,36.0526,-95.79082,Broken Arrow,106563
+Broken Bow,OK,34.02928,-94.7391,Broken Bow,4131
+Calera,OK,33.93454,-96.4286,Calera,2247
+Calumet,OK,35.60116,-98.11867,Calumet,564
+CHANDLER,OK,35.70173,-96.88086,Chandler,3175
+Checotah,OK,35.4701,-95.52304,Checotah,3261
+Cherokee,OK,36.75447,-98.35674,Cherokee,1560
+Chickasha,OK,35.05257,-97.93643,Chickasha,16488
+Choctaw,OK,35.49756,-97.26892,Choctaw,12179
+Chouteau,OK,36.18593,-95.34302,Chouteau,2092
+Clinton,OK,35.51561,-98.96731,Clinton,9565
+Copan,OK,36.89758,-95.92609,Copan,741
+Davis,OK,34.50453,-97.11946,Davis,2794
+Dewey,OK,36.79592,-95.93554,Dewey,3499
+Drumright,OK,35.9884,-96.60113,Drumright,2880
+Duncan,OK,34.5023,-97.95781,Duncan,23231
+Durant,OK,33.99399,-96.37082,Durant,17286
+Edmond,OK,35.65283,-97.4781,Edmond,90092
+El Reno,OK,35.53227,-97.95505,El Reno,18516
+Elk City,OK,35.41199,-99.40426,Elk City,12717
+Enid,OK,36.39559,-97.87839,Enid,51776
+Erick,OK,35.21533,-99.86649,Erick,1093
+Eufaula,OK,35.28722,-95.5825,Eufaula,2936
+Geary,OK,35.63116,-98.31729,Geary,1305
+Grant,OK,33.94316,-95.51357,Grant,289
+Guthrie,OK,35.87894,-97.42532,Guthrie,11270
+Guymon,OK,36.6828,-101.48155,Guymon,11921
+Heavener,OK,34.88927,-94.60078,Heavener,3340
+Hennessey,OK,36.1092,-97.89867,Hennessey,2199
+Henryetta,OK,35.43983,-95.98194,Henryetta,5765
+Hinton,OK,35.47144,-98.35562,Hinton,3244
+Hooker,OK,36.86003,-101.2135,Hooker,1996
+Hugo,OK,34.01066,-95.50968,Hugo,5224
+Idabel,OK,33.89566,-94.82633,Idabel,7007
+Kingfisher,OK,35.86143,-97.93172,Kingfisher,4865
+Kiowa,OK,34.72065,-95.89916,Kiowa,695
+Lawton,OK,34.60869,-98.39033,Lawton,96655
+Lindsay,OK,34.8348,-97.60253,Lindsay,2830
+Madill,OK,34.09038,-96.77167,Madill,3923
+Marietta,OK,33.93704,-97.11668,Marietta,2729
+Marlow,OK,34.64813,-97.95809,Marlow,4594
+McAlester,OK,34.93343,-95.76971,McAlester,18310
+Muldrow,OK,35.4062,-94.59883,Muldrow,3282
+Muskogee,OK,35.74788,-95.36969,Muskogee,38456
+Newcastle,OK,35.24729,-97.59976,Newcastle,9438
+Newkirk,OK,36.88225,-97.05337,Newkirk,2253
+Ninnekah,OK,34.94785,-97.92393,Ninnekah,1036
+Norman,OK,35.22257,-97.43948,Norman,128026
+Nowata,OK,36.70065,-95.63803,Nowata,3743
+Okemah,OK,35.43259,-96.30501,Okemah,3247
+Oklahoma City,OK,35.46756,-97.51643,Oklahoma City,681054
+Okmulgee,OK,35.62344,-95.96055,Okmulgee,12244
+Oologah,OK,36.44704,-95.70832,Oologah,1179
+Pauls Valley,OK,34.74008,-97.22225,Pauls Valley,6152
+Pawnee,OK,36.33783,-96.80392,Pawnee,2160
+Perkins,OK,35.97394,-97.03364,Perkins,2857
+Perry,OK,36.28949,-97.2881,Perry,5097
+Poteau,OK,35.05371,-94.62356,Poteau,8732
+Pryor,OK,36.30843,-95.31691,Pryor,8708
+Randlett,OK,34.17731,-98.46367,Randlett,425
+Red Rock,OK,36.45921,-97.17893,Red Rock,284
+Roland,OK,35.4212,-94.51466,Roland,3529
+S Coffeyville,OK,36.99452,-95.62026,South Coffeyville,772
+Sapulpa,OK,35.9987,-96.11417,Sapulpa,20579
+Sayre,OK,35.29116,-99.6401,Sayre,4773
+Seiling,OK,36.1481,-98.92426,Seiling,882
+Seminole,OK,35.22452,-96.67057,Seminole,7522
+Shattuck,OK,36.27614,-99.88276,Shattuck,1385
+Shawnee,OK,35.32729,-96.9253,Shawnee,31286
+Springer,OK,34.31454,-97.14279,Springer,702
+Stillwater,OK,36.11561,-97.05837,Stillwater,48967
+Stringtown,OK,34.46676,-96.05333,Stringtown,403
+Stroud,OK,35.74868,-96.65807,Stroud,2767
+Texhoma,OK,36.50503,-101.78294,Texhoma,969
+Thackerville,OK,33.79344,-97.14307,Thackerville,467
+Thomas,OK,35.74422,-98.74758,Thomas,1244
+Tonkawa,OK,36.67837,-97.31004,Tonkawa,3126
+Tulsa,OK,36.15398,-95.99277,Tulsa,413066
+Tupelo,OK,34.60481,-96.42417,Tupelo,315
+Union City,OK,35.39172,-97.94144,Union City,1942
+Valliant,OK,34.00233,-95.09384,Valliant,746
+Vinita,OK,36.63869,-95.15413,Vinita,5643
+Walters,OK,34.35981,-98.30783,Walters,2502
+Warner,OK,35.49426,-95.30552,Warner,1623
+Watonga,OK,35.84477,-98.41313,Watonga,3008
+Watts,OK,36.10925,-94.57022,Watts,311
+Waurika,OK,34.16704,-97.99754,Waurika,1988
+Weatherford,OK,35.52616,-98.70757,Weatherford,12126
+Webbers Falls,OK,35.51093,-95.12996,Webbers Falls,601
+Welch,OK,36.87369,-95.0958,Welch,611
+Woodward,OK,36.43365,-99.39039,Woodward,12993
+Wynnewood,OK,34.64342,-97.16447,Wynnewood,2223
+Yukon,OK,35.50672,-97.76254,Yukon,25892
+Albany,OR,44.63651,-123.10593,Albany,52175
+Aurora,OR,45.23095,-122.75593,Aurora,979
+Baker City,OR,44.77487,-117.83438,Baker City,9752
+Boardman,OR,45.83986,-119.70058,Boardman,3354
+Halsey,OR,44.38401,-123.10981,Halsey,942
+Hermiston,OR,45.84041,-119.28946,Hermiston,17201
+Huntington,OR,44.35127,-117.26657,Huntington,437
+La Grande,OR,45.32458,-118.08772,La Grande,13074
+Madras,OR,44.63345,-121.12949,Madras,6662
+Ontario,OR,44.02655,-116.96294,Ontario,10999
+Pendleton,OR,45.67207,-118.7886,Pendleton,16881
+Portland,OR,45.52345,-122.67621,Portland,652503
+Salem,OR,44.9429,-123.0351,Salem,175535
+Stanfield,OR,45.78041,-119.21724,Stanfield,2082
+Troutdale,OR,45.53929,-122.38731,Troutdale,16631
+Umatilla,OR,45.91735,-119.34252,Umatilla,7009
+Wasco,OR,45.59179,-120.69811,Wasco,389
+Alexandria,PA,40.55646,-78.09778,Alexandria,330
+Allentown,PA,40.60843,-75.49018,Allentown,120207
+Altoona,PA,40.51868,-78.39474,Altoona,45344
+Annville,PA,40.32954,-76.51524,Annville,4767
+Ashland,PA,40.78175,-76.34578,Ashland,2734
+Avis,PA,41.18479,-77.31386,Avis,1508
+Baden,PA,40.63507,-80.22812,Baden,4037
+Bedford,PA,40.01869,-78.50391,Bedford,2742
+Bellefonte,PA,40.91339,-77.77833,Bellefonte,6248
+Bensalem,PA,40.10455,-74.95128,Bensalem,60427
+Bentleyville,PA,40.11674,-80.00839,Bentleyville,2525
+Bethel,PA,40.47454,-76.29134,Bethel,499
+Blairsville,PA,40.43118,-79.26087,Blairsville,3321
+Blakeslee,PA,41.09259,-75.59269,Blakeslee,0
+Bloomsburg,PA,41.0037,-76.45495,Bloomsburg,14585
+Blossburg,PA,41.67952,-77.06386,Blossburg,1516
+Bowmansville,PA,40.19676,-76.01744,Bowmansville,2077
+Breezewood,PA,39.99925,-78.23862,Breezewood,0
+Brogue,PA,39.87177,-76.48302,Brogue,0
+Brookville,PA,41.16117,-79.08309,Brookville,3868
+Carlisle,PA,40.20148,-77.18887,Carlisle,19143
+Chambersburg,PA,39.93759,-77.6611,Chambersburg,20691
+Clairton,PA,40.29229,-79.88171,Clairton,6681
+Claysburg,PA,40.29674,-78.44974,Claysburg,1625
+Clearfield,PA,41.02728,-78.43919,Clearfield,6030
+Cochranton,PA,41.52005,-80.04839,Cochranton,1109
+Coopersburg,PA,40.51149,-75.39046,Coopersburg,2421
+Coudersport,PA,41.77479,-78.02056,Coudersport,2482
+Croydon,PA,40.08733,-74.9035,Croydon,9950
+Dalton,PA,41.53424,-75.73603,Dalton,1209
+Donegal,PA,40.11257,-79.38254,Donegal,119
+Douglassville,PA,40.25787,-75.7263,Douglassville,448
+Drums,PA,41.01814,-75.99493,Drums,0
+Du Bois,PA,41.11923,-78.76003,DuBois,7597
+Duncannon,PA,40.39814,-77.02303,Duncannon,1487
+Duncansville,PA,40.42341,-78.4339,Duncansville,1204
+East Berlin,PA,39.9376,-76.97859,East Berlin,1534
+East Earl,PA,40.1101,-76.03272,East Earl,1144
+East Freedom,PA,40.35757,-78.42974,East Freedom,972
+Ebensburg,PA,40.48507,-78.72474,Ebensburg,3203
+Eighty Four,PA,40.18174,-80.13311,Eighty Four,657
+Elverson,PA,40.15676,-75.83271,Elverson,1314
+Emlenton,PA,41.17728,-79.70783,Emlenton,600
+Erie,PA,42.12922,-80.08506,Erie,99475
+Etters,PA,40.15259,-76.75025,Goldsboro,938
+Everett,PA,40.01147,-78.37335,Everett,1759
+Fairless Hills,PA,40.17955,-74.85516,Fairless Hills,8466
+Falls Creek,PA,41.14506,-78.80447,Falls Creek,1019
+Fayetteville,PA,39.9112,-77.54999,Fayetteville,3128
+Feasterville Trevose,PA,40.15242,-74.98655,Feasterville-Trevose,0
+Fleetwood,PA,40.45398,-75.81798,Fleetwood,4085
+Gap,PA,39.98732,-76.02051,Gap,1931
+Gettysburg,PA,39.83093,-77.2311,Gettysburg,7608
+Gouldsboro,PA,41.24453,-75.45602,Gouldsboro,890
+Greencastle,PA,39.79037,-77.72777,Greencastle,4043
+Greentown,PA,41.32176,-75.30546,Greentown,0
+Hamburg,PA,40.55565,-75.98188,Hamburg,4398
+Harford,PA,41.7823,-75.70158,Harford,0
+Harrisburg,PA,40.2737,-76.88442,Harrisburg,50183
+Harrisville,PA,41.13673,-80.00922,Harrisville,880
+Hazleton,PA,40.95842,-75.97465,Hazleton,24825
+Hermitage,PA,41.23339,-80.44868,Hermitage,16028
+Hershey,PA,40.28592,-76.65025,Hershey,14257
+Jim Thorpe,PA,40.87592,-75.73241,Jim Thorpe,4641
+Jonestown,PA,40.4137,-76.4783,Jonestown,1958
+Kane,PA,41.66284,-78.81114,Kane,3610
+King Of Prussia,PA,40.08927,-75.39602,King of Prussia,19936
+Kutztown,PA,40.51732,-75.77742,Kutztown,5028
+Lake Ariel,PA,41.45397,-75.38268,Lake Ariel,0
+Lamar,PA,41.01618,-77.5311,Lamar,562
+Lancaster,PA,40.03788,-76.30551,Lancaster,59339
+Lawrenceville,PA,40.46757,-79.96061,Lawrenceville,638
+Lebanon,PA,40.34093,-76.41135,Lebanon,25534
+Leesport,PA,40.44704,-75.96632,Leesport,1883
+Leola,PA,40.08787,-76.18495,Leola,7214
+Levittown,PA,40.15511,-74.82877,Levittown,52983
+Liberty,PA,40.32535,-79.85616,Liberty,2520
+Lock Haven,PA,41.13701,-77.44693,Lock Haven,9604
+Loganton,PA,41.03424,-77.30664,Loganton,470
+Loretto,PA,40.50313,-78.6303,Loretto,1376
+Manheim,PA,40.16343,-76.39496,Manheim,4870
+Marietta,PA,40.05704,-76.55219,Marietta,2608
+Mc Kees Rocks,PA,40.46562,-80.06561,McKees Rocks,6010
+Mechanicsburg,PA,40.21426,-77.00859,Mechanicsburg,8999
+Mercersburg,PA,39.82787,-77.90333,Mercersburg,1558
+Middlebury Center,PA,41.84368,-77.27442,Middlebury Center,0
+Middletown,PA,40.19981,-76.73108,Middletown,9117
+Mifflintown,PA,40.5698,-77.39693,Mifflintown,926
+Mifflinville,PA,41.03231,-76.30799,Mifflinville,1253
+Milesburg,PA,40.94173,-77.785,Milesburg,1100
+Mill Hall,PA,41.10729,-77.48443,Mill Hall,1615
+Milroy,PA,40.71396,-77.59055,Milroy,1498
+Milton,PA,41.01203,-76.84774,Milton,6928
+Monaca,PA,40.68729,-80.27145,Monaca,5649
+Monroeton,PA,41.71258,-76.47466,Monroeton,565
+Monroeville,PA,40.42118,-79.7881,Monroeville,28176
+Morrisville,PA,40.2115,-74.78794,Morrisville,8605
+Mount Morris,PA,39.73313,-80.06784,Mount Morris,737
+Mountain Top,PA,41.16953,-75.87742,Mountain Top,10982
+Mountville,PA,40.03926,-76.4308,Mountville,2854
+Muncy,PA,41.20564,-76.78552,Muncy,2433
+Myerstown,PA,40.37454,-76.30273,Myerstown,3140
+Nanty Glo,PA,40.47229,-78.83336,Nanty Glo,2901
+Natrona Heights,PA,40.6234,-79.72977,Natrona Heights,10927
+New Alexandria,PA,40.39868,-79.42198,New Alexandria,560
+New Cumberland,PA,40.23231,-76.8847,New Cumberland,7295
+New Milford,PA,41.87258,-75.72713,New Milford,866
+New Stanton,PA,40.21924,-79.60948,New Stanton,2129
+Newburg,PA,40.13731,-77.55471,Newburg,340
+North East,PA,42.21561,-79.83422,North East,4172
+Orwigsburg,PA,40.65481,-76.10077,Orwigsburg,3002
+Perryopolis,PA,40.08702,-79.7506,Perryopolis,1728
+Philadelphia,PA,39.95238,-75.16362,Philadelphia,1573916
+Pine Grove,PA,41.15784,-80.08867,Grove City,8193
+Pittsburgh,PA,40.44062,-79.99589,Pittsburgh,304391
+Pittston,PA,41.32591,-75.78936,Pittston,7651
+Plainfield,PA,40.20314,-77.28998,Plainfield,399
+Portersville,PA,40.92284,-80.14228,Portersville,236
+Reedsville,PA,40.66396,-77.59583,Reedsville,641
+Ronks,PA,40.02621,-76.16857,Ronks,362
+Saint Thomas,PA,39.91759,-77.79777,Saint Thomas,0
+Sayre,PA,41.97896,-76.5155,Sayre,5424
+Sharon Hill,PA,39.9065,-75.27157,Sharon Hill,5702
+Shippensburg,PA,40.05065,-77.52026,Shippensburg,5559
+Shippenville,PA,41.25034,-79.45949,Shippenville,454
+Shoemakersville,PA,40.50093,-75.96993,Shoemakersville,1369
+Slippery Rock,PA,41.06395,-80.05645,Slippery Rock,3613
+Smithton,PA,40.15396,-79.74115,Smithton,381
+Snow Shoe,PA,41.03089,-77.94945,Snow Shoe,776
+Somerset,PA,40.00841,-79.07808,Somerset,6032
+Stockertown,PA,40.75399,-75.26212,Stockertown,916
+Strasburg,PA,39.98316,-76.18412,Strasburg,2906
+Tafton,PA,41.40453,-75.18295,Tafton,0
+Tamaqua,PA,40.79731,-75.96937,Tamaqua,6829
+Towanda,PA,41.76758,-76.44272,Towanda,2812
+Troy,PA,40.91506,-78.2164,Troy,1454
+Tunkhannock,PA,41.53869,-75.94659,Tunkhannock,1780
+Uniontown,PA,39.90008,-79.71643,Uniontown,9990
+Verona,PA,40.50646,-79.8431,Verona,2442
+Warren,PA,41.84395,-79.14504,Warren,9334
+Waterfall,PA,40.12758,-78.06278,Waterfall,0
+Wayne,PA,40.044,-75.38769,Wayne,30892
+Waynesburg,PA,41.20202,-77.26442,Jersey Shore,4279
+White Haven,PA,41.06064,-75.77408,White Haven,1097
+Wrightsville,PA,40.02565,-76.52997,Wrightsville,2290
+Wysox,PA,41.77452,-76.39938,Wysox,0
+York,PA,39.9626,-76.72774,York,43992
+York Springs,PA,40.00898,-77.11554,York Springs,838
+Johnston,RI,41.82186,-71.50675,Johnston,29247
+West Greenwich,RI,41.637,-71.66004,West Greenwich,6135
+Abbeville,SC,34.17817,-82.37901,Abbeville,5191
+Aiken,SC,33.56042,-81.71955,Aiken,30604
+Anderson,SC,34.50344,-82.65013,Anderson,27335
+Aynor,SC,33.99989,-79.19949,Aynor,667
+Batesburg,SC,33.91014,-81.53733,Batesburg-Leesville,5441
+Beech Island,SC,33.42736,-81.89095,Beech Island,0
+Bennettsville,SC,34.61738,-79.68478,Bennettsville,8605
+Bishopville,SC,34.21821,-80.24841,Bishopville,3274
+Blacksburg,SC,35.12124,-81.51592,Blacksburg,1883
+Blythewood,SC,34.21432,-80.97398,Blythewood,2782
+Bowman,SC,33.34877,-80.68287,Bowman,934
+Branchville,SC,33.25127,-80.81565,Branchville,989
+Campobello,SC,35.11567,-82.15011,Campobello,526
+Cayce,SC,33.96571,-81.07398,Cayce,13619
+Charleston,SC,32.77632,-79.93275,Charleston,132609
+Chesnee,SC,35.14845,-81.86094,Chesnee,899
+Clinton,SC,34.47263,-81.88066,Clinton,8637
+Columbia,SC,34.00071,-81.03481,Columbia,142416
+Conway,SC,33.836,-79.04781,Conway,21053
+Cowpens,SC,35.01679,-81.80399,Cowpens,2267
+Darlington,SC,34.29988,-79.87617,Darlington,6155
+Dillon,SC,34.41655,-79.37116,Dillon,6677
+Duncan,SC,34.9379,-82.14511,Duncan,3317
+Elgin,SC,34.67293,-80.71896,Elgin,2607
+Enoree,SC,34.65652,-81.9651,Enoree,665
+Fair Play,SC,34.51121,-82.98543,Fair Play,687
+Florence,SC,34.19543,-79.76256,Florence,38228
+Fort Mill,SC,35.00737,-80.94508,Fort Mill,13662
+Fountain Inn,SC,34.68901,-82.19567,Fountain Inn,8317
+Gaffney,SC,35.07179,-81.64982,Gaffney,12566
+Gaston,SC,33.8171,-81.10093,Gaston,1658
+Georgetown,SC,33.37683,-79.2945,Georgetown,9062
+Gilbert,SC,33.92431,-81.39371,Gilbert,604
+Graniteville,SC,33.56375,-81.80789,Graniteville,2614
+Greenville,SC,34.85262,-82.39401,Greenville,64579
+Greenwood,SC,34.1954,-82.16179,Greenwood,23260
+Greer,SC,34.93873,-82.22706,Greer,28365
+Hardeeville,SC,32.28714,-81.08067,Hardeeville,5301
+Harleyville,SC,33.21461,-80.44787,Harleyville,694
+Hartsville,SC,34.37404,-80.0734,Hartsville,7826
+Hemingway,SC,33.75378,-79.44756,Hemingway,432
+Honea Path,SC,34.4465,-82.39151,Honea Path,3707
+Inman,SC,35.04706,-82.09011,Inman,2273
+Jamestown,SC,33.286,-79.69257,Jamestown,80
+Johns Island,SC,32.769,-80.102,Johns Island,0
+Ladson,SC,32.98573,-80.10981,Ladson,13790
+Lancaster,SC,34.72043,-80.7709,Lancaster,8956
+Latta,SC,34.3371,-79.43116,Latta,1351
+Laurens,SC,34.49901,-82.01426,Laurens,9166
+Leesville,SC,33.91014,-81.53733,Batesburg-Leesville,5441
+Lexington,SC,33.98154,-81.23621,Lexington,20138
+Longs,SC,33.93851,-78.73307,Longs,0
+Loris,SC,34.05628,-78.8903,Loris,2591
+Lugoff,SC,34.22737,-80.68925,Lugoff,7434
+Manning,SC,33.69516,-80.21091,Manning,4037
+Marion,SC,34.17822,-79.40061,Marion,6714
+Moncks Corner,SC,33.19632,-80.01429,Moncks Corner,9873
+Newberry,SC,34.27458,-81.61872,Newberry,10331
+North Augusta,SC,33.5018,-81.96512,North Augusta,22522
+North Charleston,SC,32.85462,-79.97481,North Charleston,108304
+Orangeburg,SC,33.49182,-80.85565,Orangeburg,13460
+Pageland,SC,34.77321,-80.39173,Pageland,2746
+Pelzer,SC,34.64234,-82.45596,Pelzer,91
+Piedmont,SC,34.70234,-82.46457,Piedmont,5103
+Prosperity,SC,34.20931,-81.53316,Prosperity,1200
+Ravenel,SC,32.76323,-80.2501,Ravenel,2600
+Richburg,SC,34.71597,-81.01953,Richburg,264
+Rock Hill,SC,34.92487,-81.02508,Rock Hill,71548
+Roebuck,SC,34.87957,-81.96621,Roebuck,2200
+Round O,SC,32.93712,-80.54094,Round O,0
+Saint George,SC,33.186,-80.57565,Saint George,2084
+Saint Matthews,SC,33.66488,-80.77787,Saint Matthews,2021
+Saint Stephen,SC,33.40433,-79.92174,Saint Stephen,1697
+Simpsonville,SC,34.73706,-82.25428,Simpsonville,20736
+Society Hill,SC,34.51266,-79.8509,Society Hill,548
+Spartanburg,SC,34.94957,-81.93205,Spartanburg,37867
+Summerton,SC,33.60822,-80.3512,Summerton,965
+Summerville,SC,33.0185,-80.17565,Summerville,48848
+Sumter,SC,33.92044,-80.34147,Sumter,40816
+Timmonsville,SC,34.13488,-79.93979,Timmonsville,2378
+Townville,SC,34.17817,-82.37901,Abbeville,5191
+Travelers Rest,SC,34.96762,-82.44345,Travelers Rest,4994
+Trenton,SC,33.74402,-81.84067,Trenton,191
+Walterboro,SC,32.90517,-80.66677,Walterboro,5278
+West Columbia,SC,33.99349,-81.07398,West Columbia,16060
+Williston,SC,33.40265,-81.42011,Williston,3028
+Winnsboro,SC,34.3807,-81.08648,Winnsboro,3351
+Yemassee,SC,32.69018,-80.85066,Yemassee,981
+Aberdeen,SD,45.4647,-98.48648,Aberdeen,28102
+Belle Fourche,SD,44.67137,-103.85215,Belle Fourche,5696
+Beresford,SD,43.08054,-96.77366,Beresford,1976
+Blunt,SD,44.5122,-99.99207,Blunt,359
+Box Elder,SD,44.11249,-103.06823,Box Elder,9289
+Brandon,SD,43.5947,-96.57199,Brandon,9856
+Brookings,SD,44.31136,-96.79839,Brookings,23657
+Burbank,SD,42.74528,-96.82921,Burbank,0
+Chamberlain,SD,43.81083,-99.33066,Chamberlain,2386
+Colman,SD,43.98247,-96.8145,Colman,576
+Elk Point,SD,42.68333,-96.68365,Elk Point,2075
+Fort Pierre,SD,44.35359,-100.37374,Fort Pierre,2117
+Freeman,SD,43.35249,-97.43729,Freeman,1287
+Harrisburg,SD,43.43137,-96.69727,Harrisburg,5498
+Hartford,SD,43.62303,-96.94255,Hartford,3025
+Hermosa,SD,43.83971,-103.19102,Hermosa,392
+Hot Springs,SD,43.43165,-103.47436,Hot Springs,3532
+Huron,SD,44.36332,-98.21426,Huron,13313
+Kadoka,SD,43.83388,-101.50987,Kadoka,707
+Kimball,SD,43.74667,-98.95843,Kimball,686
+Lennox,SD,43.35415,-96.892,Lennox,2272
+Milbank,SD,45.21913,-96.63562,Milbank,3192
+Mitchell,SD,43.70943,-98.0298,Mitchell,15669
+Murdo,SD,43.88832,-100.71291,Murdo,458
+New Underwood,SD,44.09332,-102.83628,New Underwood,672
+North Sioux City,SD,42.52722,-96.48309,North Sioux City,2731
+Piedmont,SD,44.23165,-103.38908,Piedmont,827
+Pierre,SD,44.36832,-100.35097,Pierre,14091
+Plankinton,SD,43.71555,-98.48509,Plankinton,714
+Rapid City,SD,44.08054,-103.23101,Rapid City,73569
+Selby,SD,45.50638,-100.03207,Selby,634
+Sioux Falls,SD,43.54369,-96.72796,Sioux Falls,171544
+Spencer,SD,43.72748,-97.59312,Spencer,151
+Summit,SD,45.30441,-97.03647,Summit,291
+Tea,SD,43.44637,-96.83588,Tea,4839
+Vivian,SD,43.92693,-100.29208,Vivian,119
+Volga,SD,44.32358,-96.92645,Volga,1865
+Watertown,SD,44.89941,-97.11507,Watertown,22073
+Winfred,SD,43.9972,-97.36229,Winfred,52
+Wolsey,SD,44.40776,-98.47482,Wolsey,398
+Yankton,SD,42.87111,-97.39728,Yankton,14557
+Antioch,TN,35.00508,-85.6583,New Hope,1067
+Ardmore,TN,34.99203,-86.84667,Ardmore,1213
+Athens,TN,35.44285,-84.59299,Athens,13688
+Baxter,TN,36.15367,-85.64359,Baxter,1384
+Bristol,TN,36.59511,-82.18874,Bristol,26666
+Bulls Gap,TN,36.25704,-83.086,Bulls Gap,724
+Cedar Grove,TN,35.64424,-86.62611,Cedar Grove,0
+Charleston,TN,35.2873,-84.75827,Charleston,676
+Chattanooga,TN,35.04563,-85.30968,Chattanooga,181099
+Christiana,TN,35.71007,-86.39944,Christiana,9830
+Clarksville,TN,36.52977,-87.35945,Clarksville,166722
+Cleveland,TN,35.15952,-84.87661,Cleveland,43898
+Clinton,TN,36.10341,-84.13186,Clinton,10049
+Columbia,TN,35.61507,-87.03528,Columbia,36800
+Cookeville,TN,36.16284,-85.50164,Cookeville,32113
+Cornersville,TN,35.36146,-86.83972,Cornersville,1222
+Cross Plains,TN,36.54866,-86.69611,Cross Plains,1722
+Crossville,TN,35.94896,-85.0269,Crossville,11411
+Crump,TN,35.22175,-88.31809,Crump,1400
+Cumberland City,TN,36.39339,-87.63641,Cumberland City,302
+Dandridge,TN,36.01537,-83.41489,Dandridge,2924
+Dayton,TN,35.49396,-85.01245,Dayton,7384
+Denmark,TN,36.33839,-87.72919,Denmark,0
+Dickson,TN,36.077,-87.38779,Dickson,15359
+Dyersburg,TN,36.03452,-89.38563,Dyersburg,16781
+Fairview,TN,35.98201,-87.1214,Fairview,8331
+Fayetteville,TN,35.15203,-86.57055,Fayetteville,7121
+Franklin,TN,35.92506,-86.86889,Franklin,72639
+Goodlettsville,TN,36.32311,-86.71333,Goodlettsville,16994
+Gordonsville,TN,36.17256,-85.92971,Gordonsville,1204
+Greeneville,TN,36.16316,-82.83099,Greeneville,15094
+Hartford,TN,35.81676,-83.14321,Hartford,0
+Heiskell,TN,36.08175,-84.0538,Heiskell,0
+Hillsboro,TN,35.41258,-85.97026,Hillsboro,450
+Holladay,TN,35.87062,-88.14587,Holladay,0
+Hurricane Mills,TN,35.97117,-87.78197,Hurricane Mills,0
+Jackson,TN,35.61452,-88.81395,Jackson,66975
+Jasper,TN,35.07424,-85.62608,Jasper,3312
+Joelton,TN,36.31311,-86.86528,Joelton,0
+Kingsport,TN,36.54843,-82.56182,Kingsport,53014
+Kingston,TN,35.88091,-84.50854,Kingston,5846
+Kingston Springs,TN,36.102,-87.11501,Kingston Springs,2770
+Knoxville,TN,35.96064,-83.92074,Knoxville,190740
+Kodak,TN,35.97453,-83.62684,Kodak,0
+La Vergne,TN,36.01562,-86.58194,La Vergne,34794
+Lawrenceburg,TN,35.2423,-87.33474,Lawrenceburg,10569
+Lebanon,TN,36.20811,-86.2911,Lebanon,30262
+Lenoir City,TN,35.7973,-84.25603,Lenoir City,9091
+Loudon,TN,35.73285,-84.33381,Loudon,5731
+Manchester,TN,35.48174,-86.0886,Manchester,10517
+Maryville,TN,35.75647,-83.97046,Maryville,28464
+Mason,TN,35.41175,-89.53285,Mason,1597
+Mc Donald,TN,35.11341,-84.98273,McDonald,0
+Memphis,TN,35.14953,-90.04898,Memphis,633104
+Monteagle,TN,35.24008,-85.8397,Monteagle,1177
+Morrison,TN,35.60285,-85.91971,Morrison,699
+Morristown,TN,36.21398,-83.29489,Morristown,29478
+Mosheim,TN,36.18954,-82.95849,Mosheim,2343
+Mount Juliet,TN,36.20005,-86.51861,Mount Juliet,31540
+Murfreesboro,TN,35.84562,-86.39027,Murfreesboro,165430
+Nashville,TN,36.16589,-86.78444,Nashville,689447
+Newport,TN,35.96704,-83.18766,Newport,6834
+Niota,TN,35.51341,-84.54521,Niota,718
+Paris,TN,36.302,-88.32671,Paris,10150
+Pioneer,TN,36.41758,-84.3141,Pioneer,0
+Pleasant View,TN,36.39422,-87.03667,Pleasant View,4295
+Portland,TN,36.58171,-86.51638,Portland,12323
+Pulaski,TN,35.1998,-87.03084,Pulaski,7617
+Ramer,TN,35.06953,-88.62227,Ramer,318
+Ripley,TN,35.74536,-89.5298,Ripley,8176
+Selmer,TN,35.17008,-88.59227,Selmer,4488
+Smyrna,TN,35.98284,-86.5186,Smyrna,46607
+Stanton,TN,35.4623,-89.40202,Stanton,427
+Sweetwater,TN,35.60146,-84.46104,Sweetwater,5931
+Tazewell,TN,36.45425,-83.56935,Tazewell,2288
+Unicoi,TN,36.19539,-82.34958,Unicoi,3561
+Union City,TN,36.42423,-89.05701,Union City,10573
+White House,TN,36.47032,-86.65138,White House,11226
+White Pine,TN,36.10759,-83.28683,White Pine,2244
+Wildersville,TN,35.78145,-88.36032,Wildersville,0
+Abbott,TX,31.88488,-97.07334,Abbott,358
+Abilene,TX,32.44874,-99.73314,Abilene,125182
+Aledo,TX,32.69596,-97.60225,Aledo,3412
+Alice,TX,27.75225,-98.06972,Alice,19408
+Alvarado,TX,32.40653,-97.21168,Alvarado,4015
+Alvord,TX,33.35845,-97.69475,Alvord,1403
+Amarillo,TX,35.222,-101.8313,Amarillo,198645
+Anahuac,TX,29.773,-94.6827,Anahuac,2324
+Andrews,TX,32.31872,-102.54572,Andrews,13816
+Anna,TX,33.349,-96.5486,Anna,11463
+Anthony,TX,31.99927,-106.60555,Anthony,5517
+Asherton,TX,28.44193,-99.76033,Asherton,1084
+Aspermont,TX,33.13343,-100.22733,Aspermont,868
+Aubrey,TX,33.30428,-96.98612,Aubrey,3352
+Austin,TX,30.26715,-97.74306,Austin,974447
+Azle,TX,32.89513,-97.54586,Azle,11693
+Baird,TX,32.39402,-99.39424,Baird,1483
+Ballinger,TX,31.73821,-99.94731,Ballinger,3767
+Bangs,TX,31.7171,-99.13255,Bangs,1581
+Bastrop,TX,30.11049,-97.31527,Bastrop,8231
+Beaumont,TX,30.08605,-94.10185,Beaumont,115282
+Beeville,TX,28.40095,-97.74974,Beeville,13277
+Belton,TX,31.05601,-97.46445,Belton,20547
+Benjamin,TX,33.58398,-99.79231,Benjamin,267
+Big Lake,TX,31.19154,-101.46039,Big Lake,3315
+Big Spring,TX,32.2504,-101.47874,Big Spring,28862
+Blanco,TX,30.09799,-98.42141,Blanco,1889
+Bogata,TX,33.47067,-95.21384,Bogata,1111
+Borger,TX,35.66782,-101.39739,Borger,12964
+Bowie,TX,33.559,-97.84865,Bowie,5126
+Brady,TX,31.13517,-99.33506,Brady,5549
+Breckenridge,TX,32.75568,-98.90229,Breckenridge,5590
+Brenham,TX,30.16688,-96.39774,Brenham,16579
+Bridgeport,TX,33.21012,-97.75476,Bridgeport,6381
+Bronte,TX,31.88737,-100.29176,Bronte,972
+Brownfield,TX,33.1812,-102.27435,Brownfield,9736
+Brownsville,TX,25.90175,-97.49748,Brownsville,186738
+Brownwood,TX,31.70932,-98.99116,Brownwood,19031
+Bryan,TX,30.67436,-96.36996,Bryan,82118
+Buda,TX,30.08521,-97.84028,Buda,13705
+Buffalo,TX,31.46379,-96.05802,Buffalo,1887
+Buna,TX,30.43298,-93.9624,Buna,2142
+Burnet,TX,30.75824,-98.22836,Burnet,6239
+Caddo Mills,TX,33.06567,-96.22776,Caddo Mills,1470
+Caldwell,TX,30.53132,-96.69303,Caldwell,4283
+Cameron,TX,30.85325,-96.97693,Cameron,5460
+Canadian,TX,35.91282,-100.38208,Canadian,3013
+Canton,TX,32.55652,-95.8633,Canton,3752
+Canutillo,TX,31.91149,-106.60027,Canutillo,6321
+Canyon,TX,34.98033,-101.9188,Canyon,14887
+Carrizo Springs,TX,28.52193,-99.86061,Carrizo Springs,5898
+Carrollton,TX,32.95373,-96.89028,Carrollton,133168
+Carthage,TX,32.15738,-94.33742,Carthage,6844
+Castroville,TX,29.35579,-98.87864,Castroville,2931
+Catarina,TX,28.34555,-99.61338,Catarina,118
+Cedar Creek,TX,30.08716,-97.50083,Cedar Creek,0
+Centerville,TX,31.25796,-95.97829,Centerville,903
+Chappell Hill,TX,30.14272,-96.25691,Chappell Hill,0
+Childress,TX,34.42645,-100.204,Childress,6101
+Chillicothe,TX,34.25647,-99.51676,Chillicothe,660
+Cisco,TX,32.38819,-98.97923,Cisco,3791
+Clarendon,TX,34.93783,-100.8882,Clarendon,1944
+Claude,TX,35.11172,-101.36322,Claude,1224
+Clifton,TX,31.78238,-97.57669,Clifton,3361
+Clint,TX,31.59234,-106.22414,Clint,1146
+Clyde,TX,32.40596,-99.49369,Clyde,3771
+Coleman,TX,31.82737,-99.42645,Coleman,4393
+Colorado City,TX,32.38817,-100.86456,Colorado City,4117
+Comanche,TX,31.89737,-98.60366,Comanche,4197
+Combes,TX,26.24869,-97.73388,Combes,3059
+Comfort,TX,29.96771,-98.90503,Comfort,2363
+Converse,TX,29.51801,-98.31612,Converse,21987
+Corpus Christi,TX,27.80058,-97.39638,Corpus Christi,316239
+Corrigan,TX,30.99686,-94.82715,Corrigan,1539
+Corsicana,TX,32.09543,-96.46887,Corsicana,23952
+Cotulla,TX,28.43693,-99.23503,Cotulla,4216
+Crane,TX,31.39736,-102.35014,Crane,3895
+Cross Plains,TX,32.12625,-99.16534,Cross Plains,970
+Crowell,TX,33.98397,-99.72482,Crowell,866
+Cuero,TX,29.09387,-97.28916,Cuero,7115
+Daingerfield,TX,33.03179,-94.72187,Daingerfield,2452
+Dalhart,TX,36.05948,-102.51325,Dalhart,8370
+Dallas,TX,32.78306,-96.80667,Dallas,1326087
+De Leon,TX,32.11097,-98.53588,De Leon,2150
+Decatur,TX,33.23428,-97.58614,Decatur,6521
+Del Rio,TX,29.36273,-100.89676,Del Rio,36153
+Denison,TX,33.75566,-96.53666,Denison,23150
+Denton,TX,33.21484,-97.13307,Denton,131044
+Denver City,TX,32.96455,-102.8291,Denver City,4864
+Devine,TX,29.13996,-98.90531,Devine,4705
+Diboll,TX,31.18713,-94.78104,Diboll,5400
+Dilley,TX,28.66748,-99.17059,Dilley,4223
+Donna,TX,26.17035,-98.05195,Donna,16523
+Dripping Springs,TX,30.19021,-98.08668,Dripping Springs,2483
+Dublin,TX,32.08514,-98.34199,Dublin,3664
+Dumas,TX,35.86559,-101.97324,Dumas,15001
+Eagle Pass,TX,28.70914,-100.49952,Eagle Pass,28765
+Early,TX,31.7421,-98.94561,Early,2833
+Eastland,TX,32.40152,-98.81756,Eastland,3825
+Eden,TX,31.21628,-99.84563,Eden,2786
+Edinburg,TX,26.30174,-98.16334,Edinburg,84497
+El Paso,TX,31.75872,-106.48693,El Paso,678815
+Electra,TX,34.02926,-98.91896,Electra,2711
+Elgin,TX,30.34965,-97.37027,Elgin,9039
+Elmendorf,TX,29.25607,-98.33279,Elmendorf,1688
+Encinal,TX,28.04112,-99.35448,Encinal,592
+Ennis,TX,32.32931,-96.62527,Ennis,19007
+Fabens,TX,31.50234,-106.15859,Fabens,8257
+Fairfield,TX,31.72461,-96.16525,Fairfield,2912
+Falfurrias,TX,27.22699,-98.14417,Falfurrias,4962
+Flatonia,TX,29.68773,-97.1086,Flatonia,1401
+Floresville,TX,29.13358,-98.15612,Floresville,7321
+Fort Stockton,TX,30.89404,-102.87932,Fort Stockton,8649
+Fort Worth,TX,32.72541,-97.32085,Fort Worth,1008106
+Franklin,TX,31.75872,-106.48693,El Paso,678815
+Freer,TX,27.8828,-98.61779,Freer,2732
+Friona,TX,34.64173,-102.7241,Friona,3894
+Fritch,TX,35.63977,-101.60323,Fritch,2066
+Gainesville,TX,33.62594,-97.13335,Gainesville,16292
+Garland,TX,32.91262,-96.63888,Garland,236897
+Gatesville,TX,31.43516,-97.74391,Gatesville,15724
+George West,TX,28.3325,-98.11751,George West,2631
+Georgetown,TX,30.63269,-97.67723,Georgetown,63716
+Giddings,TX,30.18272,-96.93637,Giddings,5064
+Glen Rose,TX,32.23459,-97.75531,Glen Rose,2580
+Godley,TX,32.44903,-97.52669,Godley,1069
+Goldthwaite,TX,31.44989,-98.57088,Goldthwaite,1860
+Gonzales,TX,29.50163,-97.45249,Gonzales,7544
+Gordon,TX,32.54846,-98.36922,Gordon,471
+Granbury,TX,32.44208,-97.7942,Granbury,9386
+Grand Prairie,TX,32.74596,-96.99778,Grand Prairie,187809
+Haltom City,TX,32.79957,-97.26918,Haltom City,44206
+Hamilton,TX,31.70377,-98.12392,Hamilton,2937
+Hamshire,TX,29.86161,-94.31241,Hamshire,0
+Hankamer,TX,29.85828,-94.62686,Hankamer,0
+Harlingen,TX,26.19063,-97.6961,Harlingen,65774
+Harrold,TX,34.08065,-99.0323,Harrold,0
+Haskell,TX,33.1576,-99.7337,Haskell,3226
+Haslet,TX,32.97485,-97.3478,Haslet,1786
+Hawley,TX,32.61206,-99.81426,Hawley,614
+Hearne,TX,30.87852,-96.59303,Hearne,4456
+Hebbronville,TX,27.30688,-98.68032,Hebbronville,4558
+Henrietta,TX,33.81732,-98.19532,Henrietta,3014
+Hereford,TX,34.81521,-102.39932,Hereford,15021
+Hermleigh,TX,32.63511,-100.75928,Hermleigh,345
+Hewitt,TX,31.46239,-97.19584,Hewitt,14252
+Hidalgo,TX,26.10035,-98.26307,Hidalgo,13709
+Hillsboro,TX,32.01099,-97.13001,Hillsboro,8321
+Hondo,TX,29.34746,-99.14142,Hondo,9119
+Hooks,TX,33.46623,-94.28853,Hooks,2744
+Horseshoe Bay,TX,30.54429,-98.37394,Horseshoe Bay,3560
+Huntsville,TX,30.72353,-95.55078,Huntsville,40938
+Hutchins,TX,32.6493,-96.71305,Hutchins,5727
+Hutto,TX,30.5427,-97.54667,Hutto,22722
+Idalou,TX,33.66647,-101.68294,Idalou,2337
+Ingleside,TX,27.8778,-97.21166,Ingleside,9695
+Iowa Park,TX,33.95148,-98.66867,Iowa Park,6344
+Irving,TX,32.81402,-96.94889,Irving,236607
+Italy,TX,32.18404,-96.88472,Italy,1897
+Jacksboro,TX,33.21845,-98.15866,Jacksboro,4424
+Jacksonville,TX,31.96378,-95.2705,Jacksonville,14884
+Jarrell,TX,30.82491,-97.60445,Jarrell,1171
+Jasper,TX,30.9202,-93.99658,Jasper,7619
+Jefferson,TX,30.09299,-93.73655,Orange,19347
+Joaquin,TX,31.96578,-94.05499,Joaquin,817
+Jourdanton,TX,28.91803,-98.54641,Jourdanton,4275
+Junction,TX,30.48936,-99.77201,Junction,2444
+Karnes City,TX,28.88498,-97.90084,Karnes City,3371
+Kemp,TX,32.44264,-96.22998,Kemp,1256
+Kermit,TX,31.85763,-103.09267,Kermit,6434
+Killeen,TX,31.11712,-97.7278,Killeen,140806
+Kingsville,TX,27.51587,-97.85611,Kingsville,26225
+Kosse,TX,31.30768,-96.63192,Kosse,462
+Kyle,TX,29.98911,-97.87723,Kyle,35733
+La Feria,TX,26.15896,-97.82389,La Feria,7338
+La Vernia,TX,29.35635,-98.11556,La Vernia,1261
+La Villa,TX,26.29868,-97.92861,La Villa,2600
+Lamesa,TX,32.7376,-101.95099,Lamesa,9427
+Lampasas,TX,31.06378,-98.1817,Lampasas,7687
+Laredo,TX,27.50641,-99.50754,Laredo,256153
+Leakey,TX,29.72884,-99.76145,Leakey,424
+Lenorah,TX,32.30456,-101.87625,Lenorah,0
+Liberty,TX,30.05799,-94.79548,Liberty,9039
+Liberty Hill,TX,30.66491,-97.92252,Liberty Hill,1389
+Lindale,TX,32.5157,-95.4094,Lindale,5692
+Littlefield,TX,33.91731,-102.3249,Littlefield,6090
+Livingston,TX,30.71103,-94.93299,Livingston,5172
+Llano,TX,30.75935,-98.67504,Llano,3341
+Longview,TX,32.5007,-94.74049,Longview,82287
+Lorena,TX,31.38656,-97.21556,Lorena,1737
+Lott,TX,31.20351,-97.03666,Lott,726
+Lubbock,TX,33.57786,-101.85517,Lubbock,249042
+Lufkin,TX,31.33824,-94.7291,Lufkin,36333
+Luling,TX,29.68051,-97.6475,Luling,5764
+Lumberton,TX,30.26577,-94.19963,Lumberton,12421
+Lytle,TX,29.23329,-98.79641,Lytle,2869
+Madisonville,TX,30.94991,-95.91162,Madisonville,4637
+Marble Falls,TX,30.57841,-98.27507,Marble Falls,6281
+Marion,TX,29.57134,-98.14029,Marion,1111
+Marlin,TX,31.30629,-96.89804,Marlin,5682
+Marshall,TX,32.54487,-94.36742,Marshall,23820
+Mason,TX,30.74879,-99.23061,Mason,2139
+Mathis,TX,28.09446,-97.82805,Mathis,5037
+Maxwell,TX,29.88105,-97.79334,Maxwell,0
+Mcallen,TX,26.20341,-98.23001,McAllen,140269
+Memphis,TX,34.72478,-100.53401,Memphis,2138
+Mentone,TX,31.70513,-103.59935,Mentone,19
+Mercedes,TX,26.1498,-97.91361,Mercedes,16657
+Meridian,TX,31.92321,-97.65669,Meridian,1427
+Merkel,TX,32.47068,-100.01287,Merkel,2615
+Mesquite,TX,32.7668,-96.59916,Mesquite,144788
+Mexia,TX,31.67989,-96.4822,Mexia,7406
+Midland,TX,31.99735,-102.07791,Midland,132524
+Midlothian,TX,32.48236,-96.99445,Midlothian,22318
+Milford,TX,32.1246,-96.94528,Milford,739
+Millsap,TX,32.74819,-98.00921,Millsap,427
+Mineral Wells,TX,32.80846,-98.11282,Mineral Wells,14754
+Mission,TX,26.21591,-98.32529,Mission,83298
+Monahans,TX,31.5943,-102.89265,Monahans,7690
+Moore,TX,29.05524,-99.01031,Moore,475
+Morton,TX,33.7251,-102.75938,Morton,1892
+Mount Enterprise,TX,31.91795,-94.68104,Mount Enterprise,444
+Mount Pleasant,TX,33.15679,-94.96827,Mount Pleasant,16051
+Mount Vernon,TX,33.18873,-95.22133,Mount Vernon,2753
+Muleshoe,TX,34.22647,-102.72383,Muleshoe,5185
+Nacogdoches,TX,31.60351,-94.65549,Nacogdoches,33894
+Natalia,TX,29.18968,-98.86253,Natalia,1490
+Navasota,TX,30.38798,-96.08773,Navasota,7476
+Nederland,TX,29.97438,-93.9924,Nederland,17196
+New Boston,TX,33.45984,-94.41548,New Boston,4688
+New Braunfels,TX,29.703,-98.12445,New Braunfels,70543
+New Deal,TX,33.73731,-101.83656,New Deal,804
+Nixon,TX,29.26746,-97.76444,Nixon,2465
+Odem,TX,27.95057,-97.58222,Odem,2482
+Odessa,TX,31.84568,-102.36764,Odessa,114428
+Odonnell,TX,32.96371,-101.83265,O'Donnell,807
+Olmito,TX,26.02174,-97.53415,Olmito,1210
+Orange,TX,30.09299,-93.73655,Orange,19347
+Orange Grove,TX,27.95668,-97.93694,Orange Grove,1334
+Orla,TX,31.82513,-103.90881,Orla,0
+Ozona,TX,30.71017,-101.20067,Ozona,3225
+Paige,TX,30.21021,-97.11499,Paige,0
+Palmer,TX,32.43125,-96.66777,Palmer,2055
+Pampa,TX,35.53616,-100.95987,Pampa,18177
+Panhandle,TX,35.3456,-101.38044,Panhandle,2341
+Paris,TX,33.66094,-95.55551,Paris,24782
+Pearsall,TX,28.89219,-99.09503,Pearsall,9980
+Pecos,TX,31.42291,-103.49323,Pecos,9517
+Perryton,TX,36.40003,-100.80265,Perryton,9252
+Pflugerville,TX,30.43937,-97.62,Pflugerville,57122
+Pharr,TX,26.1948,-98.18362,Pharr,76538
+Plains,TX,33.18871,-102.82799,Plains,1616
+Plainview,TX,34.18479,-101.70684,Plainview,20919
+Pleasanton,TX,28.96719,-98.47863,Pleasanton,9829
+Post,TX,33.19122,-101.379,Post,5349
+Prairie Hill,TX,31.65517,-96.78888,Prairie Hill,0
+Premont,TX,27.36059,-98.12362,Premont,2659
+Pyote,TX,31.53486,-103.12627,Pyote,124
+Quanah,TX,34.29785,-99.74037,Quanah,2438
+Queen City,TX,33.14874,-94.15019,Queen City,1468
+Ranger,TX,32.46985,-98.67895,Ranger,2464
+Rankin,TX,31.22265,-101.93791,Rankin,844
+Red Oak,TX,32.51764,-96.80444,Red Oak,12022
+Refugio,TX,28.30528,-97.27527,Refugio,2855
+Rhome,TX,33.05346,-97.47197,Rhome,1630
+Rice,TX,32.24376,-96.4986,Rice,952
+Rio Grande City,TX,26.37979,-98.8203,Rio Grande City,14404
+Riviera,TX,27.29865,-97.815,Riviera,689
+Roanoke,TX,33.00401,-97.22585,Roanoke,7400
+Roans Prairie,TX,30.58437,-95.94384,Roans Prairie,0
+Robert Lee,TX,31.89237,-100.48482,Robert Lee,1020
+Robstown,TX,27.7903,-97.66888,Robstown,11576
+Rockport,TX,28.02077,-97.05601,Rockport,10490
+Rockwall,TX,32.93123,-96.45971,Rockwall,42566
+Ropesville,TX,33.41342,-102.15434,Ropesville,439
+Roscoe,TX,32.44595,-100.53872,Roscoe,1325
+Round Mountain,TX,30.43158,-98.34474,Round Mountain,181
+Royse City,TX,32.97512,-96.33248,Royse City,11465
+Salado,TX,30.94713,-97.53862,Salado,2140
+San Angelo,TX,31.46377,-100.43704,San Angelo,99893
+San Antonio,TX,29.42412,-98.49363,San Antonio,1526656
+San Augustine,TX,31.5299,-94.10603,San Augustine,2009
+San Marcos,TX,29.88327,-97.94139,San Marcos,60684
+Sanger,TX,33.36317,-97.1739,Sanger,7747
+Santa Anna,TX,31.74209,-99.32173,Santa Anna,1034
+Santo,TX,32.60319,-98.21532,Santo,0
+Schertz,TX,29.55217,-98.26973,Schertz,43091
+Seagoville,TX,32.63958,-96.53832,Seagoville,15894
+Seguin,TX,29.56884,-97.96473,Seguin,27864
+Seminole,TX,32.71899,-102.64491,Seminole,7448
+Seymour,TX,33.59426,-99.26035,Seymour,2652
+Shamrock,TX,35.21422,-100.24901,Shamrock,1989
+Sierra Blanca,TX,31.17457,-105.35718,Sierra Blanca,553
+Silverton,TX,34.47423,-101.30461,Silverton,672
+Sinton,TX,28.03668,-97.50916,Sinton,5736
+Slaton,TX,33.43731,-101.64349,Slaton,6072
+Smyer,TX,33.58426,-102.16323,Smyer,480
+Snyder,TX,32.71789,-100.91762,Snyder,11768
+Sonora,TX,30.56685,-100.64343,Sonora,2863
+Sour Lake,TX,30.14021,-94.41102,Sour Lake,1773
+Springtown,TX,32.96596,-97.68364,Springtown,2811
+Spur,TX,33.47648,-100.85569,Spur,1205
+Stamford,TX,32.94539,-99.80287,Stamford,2973
+Stanton,TX,32.12929,-101.78846,Stanton,2936
+Stephenville,TX,32.2207,-98.20226,Stephenville,20120
+Sterling City,TX,31.83625,-100.98483,Sterling City,1049
+Stockdale,TX,29.23691,-97.96,Stockdale,1564
+Stratford,TX,36.33614,-102.07212,Stratford,2073
+Sudan,TX,34.06786,-102.52436,Sudan,921
+Sulphur Springs,TX,33.13845,-95.60107,Sulphur Springs,16098
+Sweetwater,TX,32.47095,-100.40594,Sweetwater,10809
+Teague,TX,31.62711,-96.28386,Teague,3572
+Temple,TX,31.09823,-97.34278,Temple,72277
+Tenaha,TX,31.94378,-94.24409,Tenaha,1152
+Terrell,TX,32.73596,-96.27526,Terrell,16981
+Texarkana,TX,33.42513,-94.04769,Texarkana,37280
+Texline,TX,36.37781,-103.0241,Texline,525
+Three Rivers,TX,28.46027,-98.18251,Three Rivers,1971
+Tilden,TX,28.46194,-98.54918,Tilden,261
+Timpson,TX,31.90378,-94.3952,Timpson,1149
+Trenton,TX,33.43067,-96.33859,Trenton,628
+Trinity,TX,30.94519,-95.3755,Trinity,2752
+Troy,TX,31.20684,-97.30278,Troy,1843
+Tulia,TX,34.53589,-101.75852,Tulia,4760
+Tuscola,TX,32.20958,-99.79675,Tuscola,744
+Tye,TX,32.45762,-99.87148,Tye,1260
+Uvalde,TX,29.20968,-99.78617,Uvalde,16476
+Van Horn,TX,31.04029,-104.83073,Van Horn,1928
+Vega,TX,35.24283,-102.42826,Vega,900
+Vernon,TX,34.15536,-99.26628,Vernon,10573
+Vidor,TX,30.1316,-94.01545,Vidor,10945
+Von Ormy,TX,29.28913,-98.64446,Von Ormy,1175
+Waco,TX,31.54933,-97.14667,Waco,132356
+Wall,TX,31.37405,-100.30759,Wall,0
+Waxahachie,TX,32.38653,-96.84833,Waxahachie,33384
+Weatherford,TX,32.7593,-97.79725,Weatherford,28742
+Weslaco,TX,26.15952,-97.99084,Weslaco,39474
+White Deer,TX,35.43532,-101.17294,White Deer,966
+Whitesboro,TX,33.65622,-96.90695,Whitesboro,3909
+Whitney,TX,31.95182,-97.3214,Whitney,2101
+Wichita Falls,TX,33.91371,-98.49339,Wichita Falls,104710
+Wickett,TX,31.57013,-103.00099,Wickett,539
+Wilmer,TX,32.58902,-96.68527,Wilmer,3928
+Winfield,TX,33.16734,-95.11188,Winfield,524
+Wink,TX,31.75124,-103.15989,Wink,1060
+Winnie,TX,29.82022,-94.38408,Winnie,3254
+Winters,TX,31.95653,-99.96231,Winters,2563
+Wolfforth,TX,33.50592,-102.00906,Wolfforth,4249
+Woodville,TX,30.7752,-94.41548,Woodville,2478
+Woodway,TX,31.506,-97.20501,Woodway,8777
+Wylie,TX,33.01512,-96.53888,Wylie,46708
+American Fork,UT,40.3769,-111.79576,American Fork,28326
+Beaver,UT,38.27691,-112.64105,Beaver,3007
+Brigham City,UT,41.51021,-112.0155,Brigham City,18752
+Castle Dale,UT,39.21219,-111.01961,Castle Dale,1550
+Cedar City,UT,37.67748,-113.06189,Cedar City,30184
+Clearfield,UT,41.11078,-112.02605,Clearfield,30653
+Corinne,UT,41.55104,-112.11023,Corinne,694
+Draper,UT,40.52467,-111.86382,Draper,46774
+Fillmore,UT,38.96885,-112.32355,Fillmore,2489
+Green River,UT,38.99525,-110.1618,Green River,961
+Gunnison,UT,39.15524,-111.81826,Gunnison,3238
+Helper,UT,39.68413,-110.85461,Helper,2112
+Logan,UT,41.73549,-111.83439,Logan,50371
+Magna,UT,40.70911,-112.10161,Magna,26505
+Moab,UT,38.57332,-109.54984,Moab,5235
+Mona,UT,39.81607,-111.85549,Mona,1598
+Monticello,UT,37.87138,-109.34289,Monticello,2069
+Myton,UT,40.1944,-110.06182,Myton,639
+Nephi,UT,39.71023,-111.83632,Nephi,5560
+North Salt Lake,UT,40.84856,-111.90688,North Salt Lake,19796
+Ogden,UT,41.223,-111.97383,Ogden,85444
+Orem,UT,40.2969,-111.69465,Orem,94457
+Park City,UT,40.64606,-111.49797,Park City,8128
+Parowan,UT,37.8422,-112.828,Parowan,2926
+Plymouth,UT,41.87548,-112.14412,Plymouth,413
+Richfield,UT,38.77247,-112.08409,Richfield,7592
+Riverton,UT,40.52189,-111.9391,Riverton,41900
+Roosevelt,UT,40.2994,-109.98876,Roosevelt,6980
+Saint George,UT,37.10415,-113.58412,Saint George,72897
+Salina,UT,38.95774,-111.85993,Salina,2521
+Salt Lake City,UT,40.76078,-111.89105,Salt Lake City,215548
+Santaquin,UT,39.97551,-111.78521,Santaquin,10572
+Scipio,UT,39.24496,-112.1041,Scipio,322
+Snowville,UT,41.96548,-112.7097,Snowville,171
+Springville,UT,40.16523,-111.61075,Springville,32286
+Tooele,UT,40.53078,-112.29828,Tooele,33157
+Tremonton,UT,41.71187,-112.16551,Tremonton,8227
+Vernal,UT,40.45552,-109.52875,Vernal,11200
+Washington,UT,37.13054,-113.50829,Washington,24299
+Wellington,UT,39.54247,-110.73543,Wellington,1621
+Wellsville,UT,41.63854,-111.93383,Wellsville,3650
+Wendover,UT,40.73715,-114.03751,Wendover,1400
+West Jordan,UT,40.60967,-111.9391,West Jordan,111946
+Willard,UT,41.40911,-112.03606,Willard,1787
+Woods Cross,UT,40.87161,-111.89216,Woods Cross,11284
+Amelia Court House,VA,37.34293,-77.98056,Amelia Court House,1099
+Ashland,VA,37.75903,-77.47998,Ashland,7503
+Atkins,VA,36.86734,-81.42344,Atkins,1143
+Austinville,VA,36.85123,-80.91202,Austinville,0
+Bassett,VA,36.7593,-79.99032,Bassett,1100
+Bastian,VA,37.15206,-81.15009,Bastian,0
+Bealeton,VA,38.57179,-77.76388,Bealeton,4435
+Blairs,VA,36.67986,-79.37308,Blairs,916
+Bland,VA,37.10206,-81.1162,Bland,409
+Bracey,VA,36.59959,-78.14305,Bracey,1554
+Bristol,VA,36.59649,-82.18847,Bristol,17141
+Broadway,VA,38.61317,-78.79891,Broadway,3807
+Cape Charles,VA,37.27008,-76.01649,Cape Charles,1017
+Chantilly,VA,38.89428,-77.4311,Chantilly,23039
+Charlottesville,VA,38.02931,-78.47668,Charlottesville,46597
+Chesapeake,VA,36.81904,-76.27494,Chesapeake,235429
+Chester,VA,37.35682,-77.44165,Chester,20987
+Chesterfield,VA,37.37709,-77.50499,Chesterfield Court House,3808
+Christiansburg,VA,37.12985,-80.40894,Christiansburg,21943
+Clear Brook,VA,39.25649,-78.09611,Clear Brook,0
+Colonial Heights,VA,37.26804,-77.40726,Colonial Heights,17820
+Covington,VA,37.79346,-79.99395,Covington,5658
+Cross Junction,VA,39.32038,-78.29334,Cross Junction,0
+Culpeper,VA,38.47318,-77.99666,Culpeper,17557
+Danville,VA,36.58597,-79.39502,Danville,42082
+Disputanta,VA,37.12432,-77.22581,Disputanta,0
+Doswell,VA,37.86014,-77.46415,Doswell,0
+Drewryville,VA,36.71571,-77.30636,Drewryville,0
+Dublin,VA,37.10568,-80.68534,Dublin,2686
+Duffield,VA,36.71898,-82.796,Duffield,86
+Elliston,VA,37.21652,-80.23254,Elliston,902
+Emporia,VA,36.68598,-77.54248,Emporia,5496
+Fairfax,VA,38.84622,-77.30637,Fairfax,24013
+Fancy Gap,VA,36.66596,-80.69229,Fancy Gap,237
+Franklin,VA,36.67765,-76.92246,Franklin,8490
+Fredericksburg,VA,38.30318,-77.46054,Fredericksburg,28118
+Front Royal,VA,38.91817,-78.19444,Front Royal,15070
+Glade Spring,VA,36.79122,-81.77123,Glade Spring,1453
+Gladstone,VA,37.54681,-78.84946,Gladstone,0
+Gordonsville,VA,38.13736,-78.18778,Gordonsville,1577
+Gum Spring,VA,37.7757,-77.89666,Gum Spring,0
+Hampton,VA,37.02987,-76.34522,Hampton,137148
+Harrisonburg,VA,38.44957,-78.86892,Harrisonburg,52538
+Henrico,VA,36.59264,-78.61611,Henrico,0
+Hillsville,VA,36.76263,-80.73479,Hillsville,2677
+Hopewell,VA,37.30432,-77.2872,Hopewell,22378
+Keysville,VA,37.04043,-78.48333,Keysville,812
+King George,VA,38.26818,-77.18442,King George,4457
+Lambsburg,VA,36.58541,-80.76118,Lambsburg,0
+Lanexa,VA,37.42376,-76.90108,Lanexa,0
+Leesburg,VA,39.11566,-77.5636,Leesburg,51209
+Lexington,VA,37.78402,-79.44282,Lexington,7262
+Lorton,VA,38.70428,-77.22776,Lorton,18610
+Lynchburg,VA,37.41375,-79.14225,Lynchburg,79812
+Madison Heights,VA,37.43098,-79.12308,Madison Heights,11285
+Manassas,VA,38.75095,-77.47527,Manassas,41764
+Martinsville,VA,36.69153,-79.87254,Martinsville,13645
+Max Meadows,VA,36.9704,-80.94953,Max Meadows,562
+Meadowview,VA,36.76039,-81.8629,Meadowview,967
+Midlothian,VA,37.50598,-77.64916,Midlothian,18320
+Montvale,VA,37.38458,-79.73115,Montvale,698
+Mount Crawford,VA,38.35707,-78.94086,Mount Crawford,445
+Mount Jackson,VA,38.74595,-78.64224,Mount Jackson,2042
+New Church,VA,37.97901,-75.53104,New Church,205
+Newport News,VA,36.98038,-76.42975,Newport News,186247
+Norfolk,VA,36.84681,-76.28522,Norfolk,238005
+Orange,VA,38.24541,-78.11083,Orange,4947
+Petersburg,VA,37.22793,-77.40193,Petersburg,32477
+Portsmouth,VA,36.83543,-76.29827,Portsmouth,96201
+Pound,VA,37.12371,-82.60127,Pound,966
+Powhatan,VA,37.33987,-79.2478,Powhatan,0
+Providence Forge,VA,37.44181,-77.04358,Providence Forge,0
+Quinton,VA,37.53376,-77.12108,Quinton,0
+Raphine,VA,37.93735,-79.23281,Raphine,0
+Richmond,VA,37.55376,-77.46026,Richmond,226610
+Ridgeway,VA,36.98931,-79.48253,Ridgeway,797
+Roanoke,VA,37.27097,-79.94143,Roanoke,100011
+Rockville,VA,37.72598,-77.67832,Rockville,0
+Rocky Mount,VA,36.99764,-79.89198,Rocky Mount,4799
+Rosedale,VA,36.95928,-81.93124,Rosedale,0
+Ruckersville,VA,38.23319,-78.36917,Ruckersville,1141
+Rural Retreat,VA,36.89373,-81.27593,Rural Retreat,1485
+Rustburg,VA,37.27681,-79.10085,Rustburg,1431
+Ruther Glen,VA,37.92875,-77.45582,Ruther Glen,0
+Salem,VA,37.29347,-80.05476,Salem,25432
+Sandston,VA,37.52348,-77.31581,Sandston,7571
+Skippers,VA,36.61182,-77.54665,Skippers,0
+South Boston,VA,36.69875,-78.9014,South Boston,7976
+South Hill,VA,36.72653,-78.12889,South Hill,4527
+Springfield,VA,38.78928,-77.1872,Springfield,30484
+Staunton,VA,38.14991,-79.0732,Staunton,24416
+Sterling,VA,39.00622,-77.4286,Sterling,27822
+Stony Creek,VA,38.82095,-78.56585,Edinburg,1069
+Suffolk,VA,36.72836,-76.58496,Suffolk,88161
+Toms Brook,VA,38.9465,-78.43917,Toms Brook,262
+Townsend,VA,37.18459,-75.95826,Townsend,0
+Troutville,VA,37.41819,-79.87476,Troutville,432
+Troy,VA,37.95097,-78.24639,Troy,0
+Virginia Beach,VA,36.85293,-75.97799,Virginia Beach,454808
+Warfield,VA,36.8957,-77.82583,Warfield,115
+Warrenton,VA,38.71345,-77.79527,Warrenton,9897
+Warsaw,VA,37.95874,-76.75801,Warsaw,1495
+Waynesboro,VA,38.06847,-78.88947,Waynesboro,21491
+Winchester,VA,39.18566,-78.16333,Winchester,27284
+Woodford,VA,38.11319,-77.40887,Woodford,0
+Wytheville,VA,36.94845,-81.08481,Wytheville,8115
+Alburgh,VT,44.97504,-73.30013,Alburg,497
+Bellows Falls,VT,43.13341,-72.44398,Bellows Falls,3048
+Brattleboro,VT,42.85092,-72.55787,Brattleboro,7414
+Derby,VT,44.94782,-72.13288,Derby Center,576
+Fair Haven,VT,43.59479,-73.26567,Fair Haven,2269
+Ferrisburgh,VT,44.20561,-73.24623,Ferrisburgh,2764
+Montpelier,VT,44.26006,-72.57539,Montpelier,8074
+Rutland,VT,43.61062,-72.97261,Rutland,15824
+Saint Albans,VT,44.81088,-73.08319,Saint Albans,6918
+Saint Johnsbury,VT,44.42526,-72.01512,St Johnsbury,7571
+Springfield,VT,43.29841,-72.48231,Springfield,3979
+Swanton,VT,44.9181,-73.1243,Swanton,2370
+Wells River,VT,44.15423,-72.04704,Wells River,394
+Arlington,WA,48.19871,-122.12514,Arlington,18949
+Bellingham,WA,48.75955,-122.48822,Bellingham,85146
+Blaine,WA,48.99372,-122.74712,Blaine,5056
+Castle Rock,WA,46.27511,-122.90761,Castle Rock,2184
+Chehalis,WA,46.66205,-122.96402,Chehalis,7391
+Ellensburg,WA,46.99651,-120.54785,Ellensburg,19001
+Federal Way,WA,47.32232,-122.31262,Federal Way,95171
+Ferndale,WA,48.8465,-122.59101,Ferndale,13010
+George,WA,47.07902,-119.85588,George,501
+Granger,WA,46.34207,-120.18727,Granger,3695
+Kalama,WA,46.00767,-122.84436,Kalama,2398
+Kent,WA,47.38093,-122.23484,Kent,126952
+Longview,WA,46.13817,-122.93817,Longview,36848
+Marysville,WA,48.05176,-122.17708,Marysville,66773
+Moses Lake,WA,47.13014,-119.27808,Moses Lake,22082
+North Bend,WA,47.49566,-121.78678,North Bend,6679
+Olympia,WA,47.04491,-122.90169,Olympia,55733
+Omak,WA,48.41099,-119.52755,Omak,4854
+Pasco,WA,46.23958,-119.10057,Pasco,69451
+Prosser,WA,46.2068,-119.76892,Prosser,5869
+Ritzville,WA,47.12755,-118.37999,Ritzville,1665
+Rock Island,WA,47.37707,-120.14395,Rock Island,804
+Seattle,WA,47.60621,-122.33207,Seattle,780995
+Spokane,WA,47.65966,-117.42908,Spokane,229447
+Sprague,WA,47.30016,-117.97551,Sprague,425
+Sumner,WA,47.20316,-122.2404,Sumner,9700
+Sunnyside,WA,46.32374,-120.00865,Sunnyside,16325
+Tacoma,WA,47.25288,-122.44429,Tacoma,222906
+Thorp,WA,47.0679,-120.67118,Thorp,240
+Toledo,WA,46.43983,-122.84678,Toledo,727
+Toppenish,WA,46.37735,-120.30867,Toppenish,8995
+Tumwater,WA,47.00732,-122.90931,Tumwater,19190
+Wapato,WA,46.44763,-120.42034,Wapato,5068
+Wenatchee,WA,47.42346,-120.31035,Wenatchee,33636
+Yakima,WA,46.60207,-120.5059,Yakima,93701
+Abbotsford,WI,44.94636,-90.31597,Abbotsford,2264
+Adams,WI,43.95608,-89.81818,Adams,1893
+Altoona,WI,44.80468,-91.44321,Altoona,7321
+Amery,WI,45.30691,-92.36214,Amery,2834
+Antigo,WI,45.14025,-89.15234,Antigo,7869
+Appleton,WI,44.26193,-88.41538,Appleton,74139
+Arcadia,WI,44.25274,-91.50154,Arcadia,2991
+Ashland,WI,46.59244,-90.8838,Ashland,8040
+Baldwin,WI,44.96663,-92.37436,Baldwin,3972
+Baraboo,WI,43.47109,-89.74429,Baraboo,12155
+Barneveld,WI,43.01555,-89.8954,Barneveld,1232
+Barron,WI,45.40135,-91.84906,Barron,3322
+Bear Creek,WI,44.53137,-88.72649,Bear Creek,436
+Beaver Dam,WI,43.45777,-88.83733,Beaver Dam,16564
+Belgium,WI,43.49972,-87.85037,Belgium,2261
+Belleville,WI,43.07611,-88.77427,Johnson Creek,2913
+Belmont,WI,42.73611,-90.33429,Belmont,986
+Beloit,WI,42.50835,-89.03178,Beloit,36891
+Berlin,WI,43.96804,-88.94345,Berlin,5420
+Big Bend,WI,42.8814,-88.20676,Big Bend,1312
+Black Earth,WI,43.13722,-89.74679,Black Earth,1403
+Black River Falls,WI,44.29468,-90.85153,Black River Falls,3564
+Blair,WI,44.2944,-91.23516,Blair,1351
+Bloomer,WI,45.10024,-91.48877,Bloomer,3520
+Bonduel,WI,44.74027,-88.44482,Bonduel,1456
+Boscobel,WI,43.13443,-90.7054,Boscobel,3189
+Brillion,WI,44.17721,-88.06427,Brillion,3142
+Bristol,WI,42.55891,-88.04925,Bristol,4951
+Brodhead,WI,42.61834,-89.37623,Brodhead,3291
+Brownsville,WI,43.61638,-88.49066,Brownsville,582
+Burlington,WI,42.67807,-88.2762,Burlington,10650
+Butler,WI,43.10584,-88.06953,Butler,1825
+Cadott,WI,44.94802,-91.1507,Cadott,1426
+Cameron,WI,45.40857,-91.74406,Cameron,1795
+Camp Douglas,WI,43.92247,-90.27152,Camp Douglas,607
+Cedar Grove,WI,43.56972,-87.82342,Cedar Grove,2112
+Chilton,WI,44.02888,-88.16288,Chilton,3896
+Chippewa Falls,WI,44.93691,-91.39293,Chippewa Falls,14047
+Clintonville,WI,44.62053,-88.76232,Clintonville,4455
+Colgate,WI,43.19306,-88.20676,Colgate,0
+Coloma,WI,44.03553,-89.52151,Coloma,438
+Columbus,WI,43.33805,-89.01539,Columbus,4996
+Combined Locks,WI,44.26582,-88.31427,Combined Locks,3532
+Cottage Grove,WI,43.07611,-89.19956,Cottage Grove,6854
+Crivitz,WI,45.23248,-88.00761,Crivitz,965
+Cumberland,WI,45.53218,-92.01935,Cumberland,2146
+Curtiss,WI,44.95525,-90.43458,Curtiss,215
+Darien,WI,42.60168,-88.7076,Darien,1610
+Darlington,WI,42.68306,-90.11763,Darlington,2405
+De Forest,WI,43.24777,-89.34373,DeForest,8936
+De Pere,WI,44.44888,-88.06038,De Pere,24724
+Denmark,WI,44.34777,-87.82732,Denmark,2193
+Dodgeville,WI,42.96027,-90.13012,Dodgeville,4652
+Durand,WI,44.62635,-91.96573,Durand,1847
+East Troy,WI,42.78529,-88.4051,East Troy,4295
+Eau Claire,WI,44.81135,-91.49849,Eau Claire,67778
+Edgar,WI,44.92719,-89.96346,Edgar,1462
+Edgerton,WI,42.83528,-89.06761,Edgerton,5532
+Elkhorn,WI,42.67279,-88.54454,Elkhorn,9895
+Endeavor,WI,43.71581,-89.46623,Endeavor,460
+Fennimore,WI,42.9836,-90.6554,Fennimore,2488
+Fond Du Lac,WI,43.775,-88.43883,Fond du Lac,42933
+Fort Atkinson,WI,42.92889,-88.83705,Fort Atkinson,12426
+Fox Lake,WI,43.56554,-88.9065,Fox Lake,1478
+Francis Creek,WI,44.19944,-87.72148,Francis Creek,653
+Franksville,WI,42.76002,-87.91341,Franksville,1846
+Fremont,WI,44.2597,-88.86483,Fremont,665
+Friendship,WI,43.97053,-89.81679,Friendship,670
+Green Bay,WI,44.51916,-88.01983,Green Bay,105207
+Hartford,WI,43.31778,-88.37899,Hartford,14355
+Hartland,WI,43.10501,-88.34204,Hartland,9219
+Hayward,WI,46.01301,-91.48462,Hayward,2296
+Hixton,WI,44.38579,-91.01432,Hixton,426
+Holmen,WI,43.9633,-91.25625,Holmen,9651
+Horicon,WI,43.45138,-88.63121,Horicon,3689
+Hortonville,WI,44.3347,-88.63816,Hortonville,2712
+Hudson,WI,44.97469,-92.75687,Hudson,13566
+Janesville,WI,42.68279,-89.01872,Janesville,64123
+Jefferson,WI,43.00556,-88.80733,Jefferson,7941
+Johnson Creek,WI,43.07611,-88.77427,Johnson Creek,2913
+Kaukauna,WI,44.27804,-88.27205,Kaukauna,15854
+Kenosha,WI,42.58474,-87.82119,Kenosha,99858
+Kewaskum,WI,43.52083,-88.22899,Kewaskum,4096
+Kieler,WI,42.58139,-90.60263,Kieler,497
+La Crosse,WI,43.80136,-91.23958,La Crosse,52306
+Ladysmith,WI,45.46302,-91.10404,Ladysmith,3188
+Lake Mills,WI,43.08139,-88.91177,Lake Mills,5798
+Larsen,WI,44.19165,-88.624,Larsen,0
+Lena,WI,44.9511,-88.04677,Lena,548
+Little Chute,WI,44.27999,-88.31844,Little Chute,11026
+Lomira,WI,43.59138,-88.44371,Lomira,2384
+Luxemburg,WI,44.53861,-87.70398,Luxemburg,2556
+Lyndon Station,WI,43.67472,-87.9487,Waldo,496
+Madison,WI,43.07305,-89.40123,Madison,280305
+Manitowoc,WI,44.08861,-87.65758,Manitowoc,33010
+Maribel,WI,44.27638,-87.80731,Maribel,344
+Marinette,WI,45.09998,-87.63066,Marinette,10799
+Marshall,WI,43.16833,-89.06678,Marshall,3927
+Marshfield,WI,44.66885,-90.1718,Marshfield,18620
+Mauston,WI,43.79719,-90.07735,Mauston,4374
+Medford,WI,45.13858,-90.34014,Medford,4338
+Menasha,WI,44.20221,-88.4465,Menasha,17572
+Menomonie,WI,44.87552,-91.91934,Menomonie,16305
+Merrill,WI,45.18052,-89.68346,Merrill,9233
+Middleton,WI,43.09722,-89.50429,Middleton,18979
+Milton,WI,42.77556,-88.944,Milton,5593
+Milwaukee,WI,43.0389,-87.90647,Milwaukee,563531
+Mondovi,WI,44.56774,-91.67099,Mondovi,2654
+Monroe,WI,42.60112,-89.63845,Monroe,10796
+Mount Horeb,WI,43.00861,-89.73846,Mount Horeb,7421
+Mukwonago,WI,42.86668,-88.33343,Mukwonago,7721
+Necedah,WI,44.02608,-90.07402,Necedah,921
+Neenah,WI,44.18582,-88.46261,Neenah,25792
+Neillsville,WI,44.55996,-90.59625,Neillsville,2409
+New Berlin,WI,42.9764,-88.10842,New Berlin,39825
+New Holstein,WI,43.94999,-88.08426,New Holstein,3216
+New Lisbon,WI,43.87914,-90.16541,New Lisbon,2486
+New London,WI,44.39276,-88.73983,New London,7172
+New Richmond,WI,45.12302,-92.53659,New Richmond,8821
+Oak Creek,WI,42.88585,-87.86314,Oak Creek,35243
+Oakdale,WI,43.95969,-90.3818,Oakdale,290
+Omro,WI,44.03943,-88.74428,Omro,3553
+Onalaska,WI,43.88441,-91.23514,Onalaska,18468
+Oostburg,WI,43.62277,-87.79453,Oostburg,2964
+Osceola,WI,45.32052,-92.70493,Osceola,2511
+Oshkosh,WI,44.02471,-88.54261,Oshkosh,66555
+Osseo,WI,44.57218,-91.22738,Osseo,1703
+Park Falls,WI,45.9344,-90.44155,Park Falls,2334
+Peshtigo,WI,45.05443,-87.74927,Peshtigo,3430
+Pewaukee,WI,43.08057,-88.2612,Pewaukee,8208
+Phillips,WI,45.69663,-90.40043,Phillips,1388
+Plainfield,WI,44.21386,-89.49234,Plainfield,834
+Platteville,WI,42.73416,-90.47846,Platteville,12572
+Plover,WI,44.45636,-89.54401,Plover,12319
+Plymouth,WI,43.74861,-87.97704,Plymouth,8505
+Portage,WI,43.53915,-89.46262,Portage,10382
+Poynette,WI,43.39026,-89.4029,Poynette,2493
+Prairie Du Chien,WI,43.05165,-91.14124,Prairie du Chien,5757
+Prairie Du Sac,WI,43.28693,-89.72401,Prairie du Sac,4255
+Prentice,WI,45.54607,-90.28654,Prentice,627
+Pulaski,WI,44.67222,-88.2426,Pulaski,3550
+Redgranite,WI,44.04192,-89.09845,Redgranite,2113
+Reedsburg,WI,43.53248,-90.00263,Reedsburg,9548
+Rhinelander,WI,45.63662,-89.41208,Rhinelander,7526
+Rice Lake,WI,45.50607,-91.73823,Rice Lake,8391
+Richfield,WI,43.25612,-88.19398,Richfield,11530
+Richland Center,WI,43.33471,-90.38679,Richland Center,5013
+Ripon,WI,43.8422,-88.83594,Ripon,7700
+River Falls,WI,44.86136,-92.62381,River Falls,15269
+Roberts,WI,44.98386,-92.55603,Roberts,1638
+Saint Croix Falls,WI,45.40996,-92.63965,Saint Croix Falls,2133
+Saukville,WI,43.38167,-87.94065,Saukville,4463
+Schofield,WI,44.90969,-89.60457,Schofield,2203
+Seymour,WI,44.51499,-88.33038,Seymour,3440
+Sheboygan,WI,43.75083,-87.71453,Sheboygan,48797
+Sheboygan Falls,WI,43.73197,-87.82213,Sheboygan Falls,7840
+Shullsburg,WI,42.57334,-90.23096,Shullsburg,1210
+Somerset,WI,45.12441,-92.67354,Somerset,2693
+Sparta,WI,43.94413,-90.81291,Sparta,9679
+Spencer,WI,44.75774,-90.2968,Spencer,1921
+Spooner,WI,45.82245,-91.88934,Spooner,2586
+Stanley,WI,44.95997,-90.93708,Stanley,3569
+Stevens Point,WI,44.52358,-89.57456,Stevens Point,26604
+Sturgeon Bay,WI,44.83416,-87.37704,Sturgeon Bay,8956
+Sturtevant,WI,42.69807,-87.89452,Sturtevant,6960
+Suamico,WI,44.63194,-88.03927,Suamico,12187
+Superior,WI,46.72077,-92.10408,Superior,26579
+Sussex,WI,43.1339,-88.22204,Sussex,10753
+Thorp,WI,44.96108,-90.79986,Thorp,1624
+Tomah,WI,43.97858,-90.50402,Tomah,9357
+Trego,WI,45.89967,-91.82101,Trego,227
+Turtle Lake,WI,45.3944,-92.14241,Turtle Lake,1033
+Two Rivers,WI,44.15388,-87.56925,Two Rivers,11331
+Verona,WI,42.99083,-89.53318,Verona,12540
+Viroqua,WI,43.55692,-90.88874,Viroqua,4362
+Watertown,WI,43.19472,-88.72899,Watertown,23819
+Waukesha,WI,43.01168,-88.23148,Waukesha,71970
+Waupaca,WI,44.35803,-89.08595,Waupaca,6014
+Waupun,WI,43.63332,-88.72955,Waupun,11343
+Wausau,WI,44.95914,-89.63012,Wausau,39094
+West Bend,WI,43.42528,-88.18343,West Bend,31695
+West Salem,WI,43.89913,-91.08125,West Salem,5014
+Whitewater,WI,42.83362,-88.73233,Whitewater,14692
+Wilson,WI,44.95358,-92.17352,Wilson,186
+Windsor,WI,43.21833,-89.34151,Windsor,3573
+Winneconne,WI,44.11082,-88.71261,Winneconne,2445
+Wisconsin Dells,WI,43.62748,-89.77096,Wisconsin Dells,2705
+Wisconsin Rapids,WI,44.38358,-89.81735,Wisconsin Rapids,17897
+Wittenberg,WI,44.8272,-89.16956,Wittenberg,1022
+Wonewoc,WI,43.65275,-90.22346,Wonewoc,796
+Woodruff,WI,45.89634,-89.69904,Woodruff,966
+Beckley,WV,37.77817,-81.18816,Beckley,17056
+Bruceton Mills,WV,39.65869,-79.64116,Bruceton Mills,87
+Buckhannon,WV,38.99399,-80.23203,Buckhannon,5657
+Charleston,WV,38.34982,-81.63262,Charleston,46838
+Chester,WV,40.61312,-80.56285,Chester,2498
+Elkins,WV,38.92594,-79.84673,Elkins,7226
+Ellenboro,WV,39.26452,-81.05622,Ellenboro,347
+Fairmont,WV,39.48508,-80.14258,Fairmont,18733
+Falling Waters,WV,39.55926,-77.89083,Falling Waters,876
+Gassaway,WV,38.67315,-80.77482,Gassaway,902
+Huntington,WV,38.41925,-82.44515,Huntington,48638
+Hurricane,WV,38.43259,-82.02014,Hurricane,6493
+Inwood,WV,39.35788,-78.04,Inwood,2954
+Ivydale,WV,38.53565,-81.03483,Ivydale,0
+Jane Lew,WV,39.10982,-80.40676,Jane Lew,409
+Kearneysville,WV,39.38816,-77.88555,Kearneysville,0
+Martinsburg,WV,39.45621,-77.96389,Martinsburg,17700
+Mineral Wells,WV,39.178,-81.51207,Mineral Wells,1950
+Moorefield,WV,39.06233,-78.96947,Moorefield,2482
+Morgantown,WV,39.62953,-79.9559,Morgantown,30708
+Mount Nebo,WV,39.59897,-79.70116,Hudson,0
+New Martinsville,WV,39.64452,-80.8576,New Martinsville,5218
+Nitro,WV,38.41481,-81.84402,Nitro,6763
+Parkersburg,WV,39.26674,-81.56151,Parkersburg,30991
+Richwood,WV,38.22484,-80.53314,Richwood,1980
+Ripley,WV,38.8187,-81.71069,Ripley,3255
+Sutton,WV,38.66454,-80.70982,Sutton,984
+Teays,WV,38.44176,-81.95291,Teays,0
+Valley Grove,WV,40.08757,-80.57035,Valley Grove,369
+West Union,WV,39.29647,-80.77705,West Union,831
+Alpine,WY,43.16353,-111.01802,Alpine,850
+Buffalo,WY,44.34831,-106.69894,Buffalo,4632
+Burns,WY,41.19276,-104.35912,Burns,304
+Casper,WY,42.86663,-106.31308,Casper,60285
+Cheyenne,WY,41.13998,-104.82025,Cheyenne,65132
+Cokeville,WY,42.08244,-110.95519,Cokeville,541
+Douglas,WY,42.75969,-105.38221,Douglas,6531
+Evanston,WY,41.26828,-110.96324,Evanston,12133
+Evansville,WY,42.85997,-106.26836,Evansville,2931
+Fort Bridger,WY,41.31662,-110.38433,Fort Bridger,345
+Gillette,WY,44.29109,-105.50222,Gillette,32649
+Green River,WY,41.52858,-109.46625,Green River,12465
+Laramie,WY,41.31137,-105.5911,Laramie,32158
+Little America,WY,41.54357,-109.85903,Little America,68
+Lovell,WY,44.83745,-108.38956,Lovell,2422
+Lusk,WY,42.76247,-104.45217,Lusk,1628
+Lyman,WY,41.32745,-110.29293,Lyman,2074
+Midwest,WY,43.41136,-106.28002,Midwest,410
+Mills,WY,42.84052,-106.36586,Mills,3785
+Moorcroft,WY,44.26331,-104.95025,Moorcroft,1062
+Newcastle,WY,43.8547,-104.20494,Newcastle,3534
+Pine Bluffs,WY,41.18193,-104.06912,Pine Bluffs,1146
+Rawlins,WY,41.79107,-107.23866,Rawlins,9040
+Riverton,WY,43.02496,-108.3801,Riverton,10873
+Rock Springs,WY,41.58746,-109.2029,Rock Springs,23962
+Sheridan,WY,44.79719,-106.95618,Sheridan,17873
+Sinclair,WY,41.77496,-107.1131,Sinclair,413
+Thayne,WY,42.92076,-111.00216,Thayne,363
+Thermopolis,WY,43.64607,-108.21204,Thermopolis,2974
+Torrington,WY,42.06246,-104.18439,Torrington,6669
+Wamsutter,WY,41.67301,-107.97925,Wamsutter,493
+Wheatland,WY,42.05407,-104.95295,Wheatland,3659
+Worland,WY,44.0169,-107.95537,Worland,5372
+Wright,WY,43.75124,-105.49201,Wright,1862
