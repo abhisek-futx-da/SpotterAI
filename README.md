@@ -1,120 +1,193 @@
-# Route Fuel Optimizer API
+# Route Fuel Optimizer API & Dashboard
 
-Django API for the backend engineering exercise. It accepts a USA start and finish location, calls a free routing service once per route request, finds fuel stations near the route from the provided fuel-price CSV, chooses cost-effective refueling stops for a 500-mile range, and returns route map data plus estimated fuel spend at 10 MPG.
+A professional Django application built for the Remote Backend Django Engineer (AI & Algorithmic Systems) assessment.
 
-## Stack
+It accepts a USA start and finish location, calls the public Open Source Routing Machine (OSRM) service exactly once per route request, finds the cheapest fuel stations along the route corridor from the provided fuel-price CSV, selects the cost-effective refueling stops under a 500-mile vehicle range constraint using a Dynamic Programming optimization algorithm, and displays the route and statistics.
 
-- Django 6.0.4, the current stable Django release as of April 2026.
-- OSRM public route API for routing: https://project-osrm.org/docs/v5.24.0/api/
-- Nominatim for geocoding text locations: https://operations.osmfoundation.org/policies/nominatim/
-- SQLite by default for a local take-home friendly setup.
+This repository includes both a **REST API** and a **responsive, modern map dashboard UI** to visualize the optimal route and stops.
 
-## Setup
+---
 
-```powershell
+## Features
+
+- **Latest Django Release:** Built on Django 6.0.4.
+- **Single-Call Routing:** Queries OSRM exactly once per route calculation, minimizing external API calls.
+- **Dynamic Programming Optimization:** Uses an $O(N \log N + N^2)$ DP algorithm to find the absolute lowest-cost sequence of fuel stops along the route.
+- **Interactive Visual Dashboard:** A beautiful, responsive frontend built with glassmorphism styling, Leaflet.js, and OpenStreetMap tiles. Includes presets for instant testing.
+- **Flexible Inputs:** Accepts address/city queries (e.g. `"New York, NY"`) or exact coordinates (e.g. `{"lat": 40.7128, "lon": -74.0060}`) to skip geocoding entirely.
+
+---
+
+## Getting Started
+
+### Quick Start (macOS & Linux)
+
+For macOS and Linux users, we provide a self-contained runner script that creates the virtual environment, installs dependencies, initializes the database, loads the default fuel prices, runs the test suite, and launches the server.
+
+Simply run:
+```bash
+./run.sh
+```
+
+Once complete, open your browser and navigate to:
+👉 **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)**
+
+---
+
+### Manual Setup (Cross-Platform)
+
+If you prefer to run setup steps manually or are on Windows:
+
+#### 1. Setup Virtual Environment & Install Dependencies
+```bash
+# macOS/Linux
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# Windows (PowerShell)
 python -m venv .venv
-.\.venv\Scripts\python -m pip install -r requirements.txt
-.\.venv\Scripts\python manage.py migrate
-.\.venv\Scripts\python manage.py generate_city_lookup data\fuel-prices-for-be-assessment.csv data\fuel_city_coordinates.csv
-.\.venv\Scripts\python manage.py load_fuel_prices data\fuel-prices-for-be-assessment.csv --city-lookup data\fuel_city_coordinates.csv --clear
-.\.venv\Scripts\python manage.py runserver
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
 ```
 
-The provided assessment CSV does not include station latitude/longitude. `data\fuel_city_coordinates.csv` maps city/state pairs from the fuel file to GeoNames city coordinates so the API can place stations near the route without live-geocoding thousands of rows.
-
-If you receive a newer fuel-price file with the same format, copy it into `data\` and reload:
-
-```powershell
-.\.venv\Scripts\python manage.py load_fuel_prices data\fuel-prices-for-be-assessment.csv --city-lookup data\fuel_city_coordinates.csv --clear
+#### 2. Run Database Migrations
+```bash
+python manage.py migrate
 ```
 
-If a future CSV includes station-level latitude/longitude columns, the importer will use them directly. If it does not and the city lookup misses rows, `--geocode-missing` can fill gaps, but use it sparingly because public Nominatim calls are throttled:
+#### 3. Import Fuel Price Data
+The provided CSV does not contain station latitude/longitude coordinates. We generate a coordinates lookup using GeoNames centroids to map cities to coordinates, avoiding live-geocoding throttles.
 
-```powershell
-.\.venv\Scripts\python manage.py load_fuel_prices path\to\fuel_prices.csv --city-lookup data\fuel_city_coordinates.csv --clear --geocode-missing
+```bash
+# Generate the city coordinate cache mapping
+python manage.py generate_city_lookup data/fuel-prices-for-be-assessment.csv data/fuel_city_coordinates.csv
+
+# Import fuel stations and prices
+python manage.py load_fuel_prices data/fuel-prices-for-be-assessment.csv --city-lookup data/fuel_city_coordinates.csv --clear
 ```
 
-## API
+#### 4. Run Development Server
+```bash
+python manage.py runserver
+```
+Visit **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)** in your browser.
 
-`POST /api/routes/optimize/`
+---
 
+## Running Tests
+
+To run the full suite of unit and integration tests:
+```bash
+python manage.py test
+```
+
+---
+
+## API Documentation
+
+### `POST /api/routes/optimize/`
+
+Accepts JSON request payload specifying start and destination locations.
+
+#### Example Request Body (Text Search)
 ```json
 {
   "start": "New York, NY",
-  "finish": "Chicago, IL"
+  "finish": "Chicago, IL",
+  "max_range_miles": 500,
+  "starting_range_miles": 500,
+  "mpg": 10,
+  "corridor_miles": 25
 }
 ```
 
-Coordinates are also accepted, which avoids geocoding calls:
-
+#### Example Request Body (Coordinates)
+Coordinates avoid geocoding external calls entirely:
 ```json
 {
-  "start": {"lat": 40.7128, "lon": -74.0060, "label": "New York, NY"},
-  "finish": {"lat": 41.8781, "lon": -87.6298, "label": "Chicago, IL"}
+  "start": { "lat": 40.7128, "lon": -74.0060, "label": "New York, NY" },
+  "finish": { "lat": 41.8781, "lon": -87.6298, "label": "Chicago, IL" }
 }
 ```
 
-Optional request fields:
+#### Request Parameters
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `start` | `string` or `object` | *Required* | Starting point as a location string or `{"lat": float, "lon": float, "label": string}` |
+| `finish` | `string` or `object` | *Required* | Destination point |
+| `max_range_miles` | `number` | `500` | Maximum fuel tank range of the vehicle in miles |
+| `starting_range_miles` | `number` | `500` | Initial fuel range in miles at the start of the trip |
+| `mpg` | `number` | `10` | Vehicle fuel efficiency (Miles Per Gallon) |
+| `corridor_miles` | `number` | `25` | Search radius in miles along the route to look for fuel stations |
 
-- `max_range_miles`, default `500`
-- `mpg`, default `10`
-- `corridor_miles`, default `25`
-- `starting_range_miles`, default `500`
-
-For text location input, set `NOMINATIM_EMAIL` to a real contact email before running a public demo. Nominatim accepts coordinate input without geocoding, so using `{ "lat": ..., "lon": ... }` avoids those calls entirely.
-
-## Assignment Compliance
-
-- **Latest stable Django:** pinned to `Django==6.0.4`.
-- **Start and finish locations in the USA:** text inputs are geocoded with `countrycodes=us`; coordinate inputs are accepted for API clients that already have USA coordinates.
-- **Free map/routing API:** OSRM public routing API, one route request per optimization request.
-- **Low external API usage:** coordinate input uses one OSRM call and no geocoding calls; text input uses two Nominatim geocoding calls and one OSRM call.
-- **Route map result:** response includes route/stops as GeoJSON plus an OpenStreetMap directions URL.
-- **Fuel prices:** data is loaded from `data\fuel-prices-for-be-assessment.csv`, the provided assessment file.
-- **500-mile vehicle range:** default `max_range_miles` is `500`.
-- **10 MPG cost calculation:** default `mpg` is `10`; gallons and total spend are calculated from route leg miles.
-- **Optimal fuel stops:** stations are filtered to a route corridor, then the optimizer minimizes total fuel spend using the loaded price data.
-
-## Location Accuracy Caveat
-
-The provided fuel-price CSV contains station names, addresses, cities, states, and prices, but it does not contain exact latitude/longitude coordinates. To keep setup fast and avoid thousands of live geocoding calls, this project generates `data\fuel_city_coordinates.csv` from GeoNames and maps each fuel row to a city/state centroid.
-
-That means:
-
-- Fuel stop selection and total cost are based on the actual rows and prices from the provided assessment CSV.
-- Fuel stop pins in the returned GeoJSON are approximate city-level locations, not guaranteed exact station driveway coordinates.
-- If a future fuel file includes station-level latitude/longitude, the importer will use those exact coordinates directly.
-
-Example response shape:
-
+#### Example Response Shape
 ```json
 {
-  "start": {"label": "New York, NY", "lat": 40.7128, "lon": -74.006},
-  "finish": {"label": "Chicago, IL", "lat": 41.8781, "lon": -87.6298},
-  "route": {"distance_miles": 790.12, "duration_minutes": 742.5},
+  "start": {
+    "label": "New York, NY",
+    "lat": 40.7128,
+    "lon": -74.0060
+  },
+  "finish": {
+    "label": "Chicago, IL",
+    "lat": 41.8781,
+    "lon": -87.6298
+  },
+  "route": {
+    "distance_miles": 790.12,
+    "duration_minutes": 742.5,
+    "geometry_points": 240
+  },
   "fuel_plan": {
+    "max_range_miles": 500.0,
+    "mpg": 10.0,
+    "starting_range_miles": 500.0,
+    "candidate_station_count": 84,
     "total_cost_usd": 102.41,
     "total_gallons_purchased": 29.11,
-    "stops": []
+    "stops": [
+      {
+        "name": "PILOT TRAVEL CENTER #280",
+        "address": "4000 RED ROAD ROAD",
+        "city": "Stonycreek",
+        "state": "PA",
+        "latitude": 40.0125,
+        "longitude": -78.9211,
+        "retail_price": 3.519,
+        "route_mile": 290.12,
+        "gallons": 29.11,
+        "cost": 102.41
+      }
+    ]
   },
   "map": {
-    "geojson": {"type": "FeatureCollection", "features": []},
+    "geojson": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": { "kind": "route" },
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [[-74.0060, 40.7128], [-78.9211, 40.0125], [-87.6298, 41.8781]]
+          }
+        }
+      ]
+    },
     "openstreetmap_url": "https://www.openstreetmap.org/directions?..."
-  },
-  "meta": {"external_calls": {"geocoding": 2, "routing": 1}}
+  }
 }
 ```
 
-## Assumptions
+---
 
-- The vehicle starts with `starting_range_miles` of usable range. The default is a full 500-mile tank, so the cost excludes fuel already in the vehicle at trip start.
-- The optimizer minimizes fuel spend first, then uses fewer stops as a tie-breaker.
-- Fuel bought at a selected station is the exact amount needed to reach the next selected station or destination.
-- Candidate stations are fuel-price rows within `corridor_miles` of the route geometry.
-- The route call is one OSRM request. Text input adds up to two geocoding calls; coordinate input avoids them.
+## Algorithmic Details & Optimization Strategy
 
-## Tests
-
-```powershell
-.\.venv\Scripts\python manage.py test
-```
+1. **Route Corridor Filtering:** All fuel stations loaded in the database are filtered using bounding-box queries relative to the coordinates of the route line returned by OSRM. A station is considered a candidate if its distance to the closest segment of the route is less than `corridor_miles`.
+2. **DP Formulation:** The route is modeled as an ordered list of nodes starting at $S$ (mile 0), followed by $N$ candidate fuel stations sorted by their distance along the route, and ending at $F$ (destination mile $D$).
+   - We define `dp[i]` as the tuple `(min_cost, min_stops)` to reach node `i` from $S$.
+   - The state transition transitions from `start_index` to `end_index` if the distance between them is within the vehicle's remaining fuel range.
+   - The cost of the leg is the distance multiplied by the fuel price at `start_index` divided by the MPG:
+     $$\text{leg\_cost} = \frac{\text{dist}(\text{start}, \text{end})}{\text{mpg}} \times \text{price}(\text{start})$$
+   - By sorting node transitions, we solve the optimal substructure in $O(N^2)$ time.
