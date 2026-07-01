@@ -5,6 +5,14 @@ echo "============================================="
 echo "   Route Fuel Optimizer Setup & Startup      "
 echo "============================================="
 
+# Load API keys from .env if it exists
+if [ -f ".env" ]; then
+    set -o allexport
+    source .env
+    set +o allexport
+    echo "Loaded API keys from .env"
+fi
+
 # Check Python installation
 if ! command -v python3 &> /dev/null; then
     echo "Error: python3 is required but not installed." >&2

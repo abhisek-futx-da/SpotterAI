@@ -1,0 +1,1970 @@
+{% extends "route_planner/base.html" %}
+{% block title %}Fuel Rate Intelligence — Spotter AI{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+{% endblock %}
+
+{% block extra_styles %}
+/* ─── OPTIMIZER SECTION ─── */
+.opt-section {
+    background: var(--bg-s);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 4.5rem 0 0;
+}
+.opt-hd { text-align: center; padding: 0 2rem 3rem; }
+.opt-hd h2 { font-family: var(--font-d); font-size: clamp(1.9rem, 2.5vw, 2.6rem); font-weight: 800; color: var(--sky); letter-spacing: -0.035em; margin-bottom: 0.65rem; }
+.opt-hd p { font-size: 1rem; color: var(--text2); }
+
+.app-shell { display: flex; height: 680px; border-top: 1px solid var(--border); }
+
+.sidebar {
+    width: 360px; flex-shrink: 0;
+    background: rgba(0,0,0,0.98);
+    border-right: 1px solid var(--border);
+    overflow-y: auto; overflow-x: hidden;
+    position: relative;
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+.sidebar::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(249,115,22,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(249,115,22,0.025) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+}
+.sb { position: relative; z-index: 1; padding: 1.2rem 1.1rem; display: flex; flex-direction: column; gap: 1.15rem; }
+.sb-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.38rem; }
+.sb-m { background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 8px; padding: 0.58rem 0.5rem; display: flex; flex-direction: column; gap: 0.1rem; }
+.sb-m-v { font-family: var(--font-d); font-size: 0.92rem; font-weight: 700; color: var(--text); letter-spacing: -0.03em; }
+.sb-m-l { font-size: 0.6rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.3; }
+.sb-rule { height: 1px; background: var(--border); margin: 0 -1.1rem; }
+.sb-hd { font-size: 0.63rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+.presets { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; }
+.preset {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 7px; padding: 0.48rem 0.58rem;
+    color: var(--text2); font-family: var(--font); font-size: 0.75rem; font-weight: 500;
+    text-align: left; cursor: pointer; transition: all 0.15s;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    display: flex; align-items: center; gap: 0.3rem;
+}
+.preset::before { content: '→'; color: var(--orange); font-size: 0.67rem; flex-shrink: 0; }
+.preset:hover { color: var(--text); border-color: rgba(249,115,22,0.28); background: rgba(249,115,22,0.04); }
+.fg { display: flex; flex-direction: column; gap: 0.32rem; }
+.fl { font-size: 0.73rem; font-weight: 500; color: var(--text2); }
+.fi {
+    width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 7px;
+    padding: 0.56rem 0.8rem; color: var(--text); font-family: var(--font); font-size: 0.875rem;
+    transition: all 0.15s; appearance: none; -webkit-appearance: none;
+}
+.fi::placeholder { color: var(--text3); }
+.fi:focus { outline: none; border-color: var(--orange); background: rgba(249,115,22,0.04); box-shadow: 0 0 0 3px rgba(249,115,22,0.1); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.62rem; }
+.submit {
+    width: 100%; background: linear-gradient(135deg, var(--orange), #c2410c);
+    color: #fff; border: none; border-radius: 8px; padding: 0.76rem 1.2rem;
+    font-family: var(--font-d); font-weight: 700; font-size: 0.9rem; letter-spacing: -0.01em;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    box-shadow: 0 4px 20px rgba(249,115,22,0.35); transition: all 0.2s; position: relative; overflow: hidden;
+}
+.submit::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent 55%); pointer-events: none; }
+.submit:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(249,115,22,0.5); }
+
+.map-wrap { flex: 1; position: relative; overflow: hidden; }
+#map { width: 100%; height: 100%; }
+
+.loader { position: absolute; inset: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(12px); display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; z-index: 9999; }
+.loader-ring { width: 48px; height: 48px; border: 3px solid rgba(249,115,22,0.15); border-top-color: var(--orange); border-radius: 50%; animation: spin 0.75s linear infinite; }
+.loader-txt { font-family: var(--font-d); font-size: 0.92rem; color: var(--text2); font-weight: 500; }
+.loader-sub { font-size: 0.75rem; color: var(--text3); }
+
+.results { position: absolute; top: 1rem; right: 1rem; width: 330px; display: flex; flex-direction: column; gap: 0.6rem; z-index: 500; pointer-events: none; max-height: calc(100% - 2rem); overflow-y: auto; overflow-x: hidden; }
+.results::-webkit-scrollbar { width: 3px; }
+.results::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+.rcard { background: rgba(0,0,0,0.96); border: 1px solid var(--border); border-radius: 11px; backdrop-filter: blur(24px); box-shadow: 0 4px 28px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(255,255,255,0.025) inset; overflow: visible; pointer-events: auto; animation: riseIn 0.22s ease; }
+.rcard-scroll { max-height: 260px; overflow-y: auto; overflow-x: hidden; border-radius: 0 0 11px 11px; }
+.rcard-scroll::-webkit-scrollbar { width: 3px; }
+.rcard-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+.rcard-hd { display: flex; align-items: center; justify-content: space-between; padding: 0.82rem 0.92rem 0.68rem; border-bottom: 1px solid var(--border); }
+.rcard-title { font-family: var(--font-d); font-size: 0.8rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 0.42rem; }
+.rdot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 2.4s ease-in-out infinite; }
+.rcard-a { font-size: 0.7rem; font-weight: 500; color: var(--orange); cursor: pointer; padding: 0.2rem 0.45rem; border-radius: 5px; transition: background 0.15s; }
+.rcard-a:hover { background: var(--orange-dim); }
+.sum-body { padding: 0.82rem 0.92rem; }
+.sum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+.ss { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px; padding: 0.65rem 0.78rem; display: flex; flex-direction: column; gap: 0.22rem; transition: border-color 0.2s; }
+.ss.hi { background: linear-gradient(135deg, rgba(249,115,22,0.07), rgba(13,207,186,0.04)); border-color: rgba(249,115,22,0.2); }
+.ss:hover { border-color: var(--border-lit); }
+.sl { font-size: 0.59rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.09em; }
+.sv { font-family: var(--font-d); font-size: 1.12rem; font-weight: 700; color: var(--text); letter-spacing: -0.03em; }
+.sv.or { color: var(--orange); }
+.sv.gr { color: var(--green); }
+.stops-hd { display: flex; align-items: center; justify-content: space-between; padding: 0.82rem 0.92rem 0.68rem; border-bottom: 1px solid var(--border); }
+.stops-badge { font-size: 0.64rem; font-weight: 600; color: var(--orange); background: var(--orange-dim); border: 1px solid rgba(249,115,22,0.18); padding: 0.15rem 0.46rem; border-radius: 20px; }
+.stops-list { display: flex; flex-direction: column; max-height: 200px; overflow-y: auto; }
+.stops-list::-webkit-scrollbar { width: 3px; }
+.stops-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+.stop { display: flex; flex-direction: column; gap: 0.24rem; padding: 0.68rem 0.92rem; cursor: pointer; border-bottom: 1px solid var(--border); transition: background 0.12s; position: relative; }
+.stop:last-child { border-bottom: none; }
+.stop::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--amber); opacity: 0; transition: opacity 0.15s; }
+.stop:hover { background: rgba(255,255,255,0.02); }
+.stop:hover::before { opacity: 1; }
+.stop-r1 { display: flex; align-items: center; justify-content: space-between; gap: 0.45rem; }
+.stop-n { font-size: 0.77rem; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.stop-px { font-size: 0.69rem; font-weight: 700; font-family: var(--font-d); color: var(--green); background: var(--green-dim); padding: 0.1rem 0.38rem; border-radius: 4px; flex-shrink: 0; }
+.stop-r2 { display: flex; justify-content: space-between; }
+.stop-loc { font-size: 0.67rem; color: var(--text2); }
+.stop-mi { font-size: 0.67rem; color: var(--text3); }
+.stop-r3 { display: flex; justify-content: space-between; padding-top: 0.24rem; border-top: 1px solid rgba(255,255,255,0.04); }
+.stop-d { font-size: 0.67rem; color: var(--text2); }
+.stop-d strong { color: var(--text); font-weight: 600; }
+
+/* ─── LANE RATE SECTION (full-width, below map) ─── */
+.rate-section-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 0.1rem 0; }
+.rate-toggle-icon { font-size: 0.65rem; color: var(--text3); transition: transform 0.2s; line-height: 1; user-select: none; }
+.lr-inner { padding: 3.5rem 2rem 4.5rem; max-width: var(--max-w); margin: 0 auto; }
+.lr-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.lr-h3 { font-family: var(--font-d); font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 800; color: var(--sky); letter-spacing: -0.035em; margin-top: 0.45rem; }
+.lr-badge { font-size: 0.88rem; font-weight: 700; color: var(--sky); background: rgba(13,207,186,0.08); border: 1px solid rgba(13,207,186,0.22); border-radius: 100px; padding: 0.35rem 1.1rem; white-space: nowrap; align-self: flex-start; margin-top: 0.45rem; }
+.lr-grid { display: grid; grid-template-columns: 1fr 300px; gap: 2rem; align-items: start; }
+.lr-cost-table { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.lr-cost-row { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1.3rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; gap: 1rem; }
+.lr-cost-row:last-child { border-bottom: none; }
+.lr-cost-row.lr-total { background: rgba(249,115,22,0.04); border-top: 2px solid rgba(249,115,22,0.18); border-bottom: none; }
+.lr-lbl { color: var(--text2); }
+.lr-val { font-family: var(--font-d); font-weight: 600; color: var(--text); letter-spacing: -0.02em; white-space: nowrap; }
+.lr-val.lr-total-val { font-size: 1.25rem; font-weight: 800; color: var(--orange); }
+.lr-quotes-panel { display: flex; flex-direction: column; gap: 0.75rem; }
+.lr-qcard { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 1.35rem 1.5rem; }
+.lr-qcard.mid { background: linear-gradient(135deg, rgba(249,115,22,0.07), rgba(13,207,186,0.03)); border-color: rgba(249,115,22,0.28); }
+.lr-qlabel { font-size: 0.63rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.09em; display: block; margin-bottom: 0.38rem; }
+.lr-qprice { font-family: var(--font-d); font-size: 2rem; font-weight: 800; color: var(--text); letter-spacing: -0.045em; display: block; }
+.lr-qcard.mid .lr-qprice { color: var(--orange); }
+.lr-qmi { font-size: 0.82rem; color: var(--text2); display: block; margin-top: 0.22rem; }
+.lr-margin-note { font-size: 0.82rem; color: var(--text2); text-align: center; padding: 0.85rem 1.2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; }
+.lr-margin-note strong { color: var(--sky); font-family: var(--font-d); }
+@media (max-width: 960px) {
+    .lr-grid { grid-template-columns: 1fr; }
+    .lr-quotes-panel { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .lr-margin-note { grid-column: 1 / -1; }
+}
+@media (max-width: 580px) {
+    .lr-quotes-panel { grid-template-columns: 1fr; }
+}
+
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.35); color: #fca5a5; padding: 0.85rem 1.25rem; border-radius: 10px; font-size: 0.83rem; max-width: 420px; width: 90%; text-align: center; z-index: 99999; backdrop-filter: blur(16px); animation: fadeUp 0.2s ease; }
+.toast strong { color: #f87171; display: block; font-weight: 600; margin-bottom: 0.18rem; }
+
+.leaflet-container { background: #090d17 !important; font-family: var(--font) !important; }
+.leaflet-bar { border: 1px solid var(--border) !important; background: rgba(0,0,0,0.95) !important; backdrop-filter: blur(16px) !important; border-radius: 8px !important; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.5) !important; }
+.leaflet-bar a { background: transparent !important; color: var(--text2) !important; border-bottom: 1px solid var(--border) !important; transition: all 0.15s !important; line-height: 26px !important; }
+.leaflet-bar a:hover { background: var(--orange-dim) !important; color: var(--orange) !important; }
+.leaflet-popup-content-wrapper { background: rgba(0,0,0,0.98) !important; color: var(--text) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; box-shadow: 0 4px 24px rgba(0,0,0,0.5) !important; }
+.leaflet-popup-content { margin: 10px 14px !important; font-family: var(--font) !important; font-size: 0.8rem !important; line-height: 1.65 !important; }
+.leaflet-popup-tip { background: rgba(0,0,0,0.98) !important; }
+.leaflet-popup-close-button { color: var(--text2) !important; }
+.mi { display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; font-size: 0.7rem; box-shadow: 0 2px 10px rgba(0,0,0,0.7), 0 0 0 2px rgba(255,255,255,0.12) inset; }
+.mi-s { background: var(--green); color: #fff; }
+.mi-f { background: var(--red); color: #fff; }
+.mi-g { background: var(--amber); color: #0f1117; font-size: 0.62rem; }
+
+@media (max-width: 768px) {
+    .app-shell { flex-direction: column; height: auto; }
+    .sidebar { width: 100%; max-height: 380px; border-right: none; border-bottom: 1px solid var(--border); }
+    .map-wrap { height: 420px; }
+    .results { top: 0.5rem; right: 0.5rem; left: 0.5rem; width: auto; }
+}
+
+/* === LANE RATE INTELLIGENCE STYLES === */
+.ri-section {
+    border: 1px solid #334155;
+    border-radius: 10px;
+    margin-top: 0;
+    overflow: hidden;
+}
+.ri-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #e2e8f0;
+    background: #1e293b;
+    user-select: none;
+}
+.ri-section-header:hover { background: #253346; }
+.ri-section-body { padding: 12px; background: #0f172a; }
+.ri-field-group { margin-bottom: 8px; }
+.ri-label { display: block; font-size: 11px; color: #94a3b8; margin-bottom: 3px; }
+.ri-input {
+    width: 100%;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: #e2e8f0;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+}
+.ri-input:focus { border-color: #3b82f6; }
+.ri-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+}
+.ri-btn:hover { background: #2563eb; }
+.ri-btn:disabled { background: #334155; cursor: not-allowed; }
+.ri-card {
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+    background: #111827;
+}
+.ri-card-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+.ri-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #e2e8f0;
+    cursor: pointer;
+    user-select: none;
+}
+.ri-card-body { margin-top: 10px; padding-top: 10px; border-top: 1px solid #1e293b; }
+.ri-rate-tiers { display: block; }
+.ri-rate-tier {
+    text-align: center;
+    padding: 10px 4px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+    cursor: pointer;
+    transition: border-color .12s;
+}
+.ri-rate-tier:hover, .ri-rate-tier.sel { border-color: #3b82f6; background: #1e293b; }
+.ri-rate-tier-label { font-size: 10px; color: #64748b; margin-bottom: 2px; }
+.ri-rate-tier-val { font-size: 17px; font-weight: 600; color: #e2e8f0; }
+.ri-rate-tier-val.sel-val { color: #60a5fa; }
+.ri-rate-tier-mi { font-size: 10px; color: #64748b; margin-top: 1px; }
+.ri-sell-tiers { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.ri-sell-tier { text-align: center; }
+.ri-sell-tier-label { font-size: 10px; color: #64748b; }
+.ri-sell-tier-val { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+.ri-sell-tier-mi { font-size: 10px; color: #64748b; }
+.ri-divider { height: 1px; background: #1e293b; margin: 10px 0; }
+.ri-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: #1e293b;
+    color: #94a3b8;
+}
+.ri-badge-green { background: #14532d; color: #86efac; }
+.ri-badge-amber { background: #78350f; color: #fcd34d; }
+.ri-badge-red   { background: #7f1d1d; color: #fca5a5; }
+.ri-badge-blue  { background: #1e3a5f; color: #93c5fd; }
+.ri-badge-ai    { background: #4c1d95; color: #c4b5fd; }
+.ri-stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 6px; }
+.ri-stat {
+    text-align: center;
+    padding: 8px 4px;
+    background: #1e293b;
+    border-radius: 8px;
+}
+.ri-stat-v { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+.ri-stat-l { font-size: 10px; color: #64748b; margin-top: 2px; }
+.ri-mkt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #1e293b;
+    font-size: 12px;
+}
+.ri-mkt-row:last-child { border-bottom: none; }
+.ri-mkt-label { color: #94a3b8; }
+.ri-mkt-val { color: #e2e8f0; font-weight: 500; }
+.ri-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+.ri-tab {
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #94a3b8;
+}
+.ri-tab.on { background: #0f172a; color: #e2e8f0; border-color: #3b82f6; }
+.ri-coach-text {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.7;
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+.ri-cap-bar { height: 8px; border-radius: 4px; background: #1e293b; margin: 6px 0; overflow: hidden; }
+.ri-cap-fill { height: 100%; border-radius: 4px; }
+.ri-cap-tight { background: #ef4444; }
+.ri-cap-balanced { background: #f59e0b; }
+.ri-cap-loose { background: #22c55e; }
+.ri-note {
+    font-size: 11px;
+    color: #64748b;
+    background: #1e293b;
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin-top: 6px;
+    line-height: 1.5;
+}
+{% endblock %}
+
+{% block content %}
+
+<!-- ─── HERO ─── -->
+<section class="sol-hero">
+    <div class="sol-hero-left">
+        <span class="sec-eyebrow">Intelligence · Fuel Rates</span>
+        <h1>Fuel Rate Intelligence<br>for the Modern Fleet</h1>
+        <p class="sol-hero-desc">
+            When you're inside the Spotter Network, you have control, choice, and confidence in your fuel spend. Our AI combines real-time station pricing with route optimization to eliminate unnecessary costs on every mile.
+        </p>
+        <div class="sol-hero-ctas">
+            <button class="btn-primary" onclick="scrollToApp()">Try Optimizer Free →</button>
+        </div>
+    </div>
+    <div class="sol-hero-right">
+        <div class="sol-visual">
+            <div class="sol-visual-icon">⛽</div>
+            <svg viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;">
+                <defs>
+                    <radialGradient id="rg1" cx="45%" cy="65%" r="52%"><stop offset="0%" stop-color="rgba(249,115,22,0.38)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+                </defs>
+                <rect width="600" height="375" fill="url(#rg1)"/>
+                <line x1="0" y1="125" x2="600" y2="125" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <line x1="0" y1="250" x2="600" y2="250" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <line x1="150" y1="0" x2="150" y2="375" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <line x1="300" y1="0" x2="300" y2="375" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <line x1="450" y1="0" x2="450" y2="375" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <path d="M 20 200 C 80 195, 160 188, 240 192 S 420 198, 580 186" stroke="rgba(249,115,22,0.55)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M 20 200 C 80 195, 160 188, 240 192 S 420 198, 580 186" stroke="rgba(249,115,22,0.1)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <path d="M 20 205 C 80 200, 160 193, 240 197 S 420 203, 580 191" stroke="rgba(249,115,22,0.18)" stroke-width="1" fill="none" stroke-dasharray="8,6"/>
+                <circle cx="20" cy="200" r="7" fill="rgba(34,197,94,0.95)"/>
+                <circle cx="20" cy="200" r="13" fill="none" stroke="rgba(34,197,94,0.3)" stroke-width="1.5"/>
+                <circle cx="190" cy="190" r="6" fill="rgba(245,158,11,0.95)"/>
+                <circle cx="190" cy="190" r="12" fill="none" stroke="rgba(245,158,11,0.35)" stroke-width="1.5"/>
+                <circle cx="370" cy="196" r="6" fill="rgba(245,158,11,0.95)"/>
+                <circle cx="370" cy="196" r="12" fill="none" stroke="rgba(245,158,11,0.3)" stroke-width="1.5"/>
+                <circle cx="580" cy="186" r="7" fill="rgba(239,68,68,0.95)"/>
+                <circle cx="580" cy="186" r="13" fill="none" stroke="rgba(239,68,68,0.3)" stroke-width="1.5"/>
+            </svg>
+            <div class="sol-visual-cards">
+                <div class="sol-vc"><span class="sol-vc-v">$91.20</span><span class="sol-vc-l">NY → Chicago</span></div>
+                <div class="sol-vc"><span class="sol-vc-v">4 stops</span><span class="sol-vc-l">Optimized</span></div>
+                <div class="sol-vc"><span class="sol-vc-v">795 mi</span><span class="sol-vc-l">Total route</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─── STATS BAR ─── -->
+<div class="stats-bar">
+    <div class="stat-item"><span class="stat-num">2,400+</span><span class="stat-lbl">Fuel Stations Tracked</span></div>
+    <div class="stat-item"><span class="stat-num">Live</span><span class="stat-lbl">Real-Time Price Data</span></div>
+    <div class="stat-item"><span class="stat-num">50</span><span class="stat-lbl">States of Coverage</span></div>
+    <div class="stat-item"><span class="stat-num">AI</span><span class="stat-lbl">Cost Optimization Engine</span></div>
+</div>
+
+
+<!-- ─── BENEFITS ─── -->
+<section class="benefits">
+    <div class="benefits-left">
+        <span class="sec-eyebrow">Why Spotter</span>
+        <h2 class="sec-h2">Top Benefits of Spotter Fuel Intelligence</h2>
+        <p style="font-size:0.9rem;color:var(--text2);line-height:1.75;margin-top:1.25rem;">Every dollar saved on fuel is a dollar that stays in your operation. Spotter gives you the data and tools to make that happen on every single run.</p>
+    </div>
+    <div class="benefits-grid">
+        <div class="bc">
+            <div class="bc-icon">⚡</div>
+            <h3 class="bc-h3">Cost-Optimized Routing</h3>
+            <p class="bc-p">Maintain your competitive edge with routes built around real-time fuel prices and your fleet's individual parameters. Our AI balances price-per-gallon against deviation distance to minimize total spend on every run.</p>
+            <a class="btn-rm" href="#">Read More →</a>
+        </div>
+        <div class="bc">
+            <div class="bc-icon">📡</div>
+            <h3 class="bc-h3">Real-Time Price Intelligence</h3>
+            <p class="bc-p">We deliver live market fuel prices across 2,400+ monitored stations. Our verified data prioritizes accuracy over sheer volume — giving fleets and carriers a more precise alternative to legacy pricing tools.</p>
+            <a class="btn-rm" href="#">Read More →</a>
+        </div>
+        <div class="bc">
+            <div class="bc-icon">🗺️</div>
+            <h3 class="bc-h3">Smart Corridor Analysis</h3>
+            <p class="bc-p">Reduce uncertainty with configurable corridor widths. Spotter surfaces the best stations without sending your driver on costly detours — whether your route corridor is 10 miles or 75 miles wide.</p>
+            <a class="btn-rm" href="#">Read More →</a>
+        </div>
+        <div class="bc">
+            <div class="bc-icon">🔗</div>
+            <h3 class="bc-h3">Multi-Stop Planning</h3>
+            <p class="bc-p">Plan your entire run with confidence. Spotter calculates optimal refueling points across the full route, accounting for tank capacity, starting fuel level, and per-stop purchase quantities — down to the gallon.</p>
+            <a class="btn-rm" href="#">Read More →</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─── LIVE OPTIMIZER ─── -->
+<section id="optimizer-section" class="opt-section">
+    <div class="opt-hd">
+        <span class="sec-eyebrow" style="text-align:center;">Live Tool</span>
+        <h2>Try the Fuel Route Optimizer</h2>
+        <p>Enter your origin, destination, and vehicle specs — get optimized fuel stops in seconds.</p>
+    </div>
+
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="sb">
+                <div class="sb-metrics">
+                    <div class="sb-m"><span class="sb-m-v">2.4K+</span><span class="sb-m-l">Stations</span></div>
+                    <div class="sb-m"><span class="sb-m-v">Live</span><span class="sb-m-l">Prices</span></div>
+                    <div class="sb-m"><span class="sb-m-v">AI</span><span class="sb-m-l">Optimized</span></div>
+                </div>
+                <div class="sb-rule"></div>
+                <div>
+                    <p class="sb-hd">Quick Routes</p>
+                    <div class="presets">
+                        <button class="preset" onclick="applyPreset('New York, NY','Chicago, IL')">NY → Chicago</button>
+                        <button class="preset" onclick="applyPreset('New York, NY','Los Angeles, CA')">NY → LA</button>
+                        <button class="preset" onclick="applyPreset('Miami, FL','Houston, TX')">Miami → Houston</button>
+                        <button class="preset" onclick="applyPreset('Boston, MA','Miami, FL')">Boston → Miami</button>
+                    </div>
+                </div>
+                <div class="sb-rule"></div>
+                <form id="optimizer-form" onsubmit="calculateRoute(event)" style="display:flex;flex-direction:column;gap:1.05rem;">
+                    <div>
+                        <p class="sb-hd">Route</p>
+                        <div style="display:flex;flex-direction:column;gap:0.62rem;">
+                            <div class="fg">
+                                <label class="fl" for="start-input">Origin</label>
+                                <input class="fi" type="text" id="start-input" placeholder="City, State" required value="New York, NY">
+                            </div>
+                            <div class="fg">
+                                <label class="fl" for="finish-input">Destination</label>
+                                <input class="fi" type="text" id="finish-input" placeholder="City, State" required value="Chicago, IL">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="sb-hd">Vehicle</p>
+                        <div style="display:flex;flex-direction:column;gap:0.62rem;">
+                            <div class="row2">
+                                <div class="fg">
+                                    <label class="fl" for="max-range-input">Max Range (mi)</label>
+                                    <input class="fi" type="number" id="max-range-input" min="50" max="2000" required value="500">
+                                </div>
+                                <div class="fg">
+                                    <label class="fl" for="starting-range-input">Start Range (mi)</label>
+                                    <input class="fi" type="number" id="starting-range-input" min="0" max="2000" required value="500">
+                                </div>
+                            </div>
+                            <div class="row2">
+                                <div class="fg">
+                                    <label class="fl" for="mpg-input">Efficiency (MPG)</label>
+                                    <input class="fi" type="number" id="mpg-input" min="1" max="100" step="0.1" required value="10">
+                                </div>
+                                <div class="fg">
+                                    <label class="fl" for="corridor-input">Corridor (mi)</label>
+                                    <input class="fi" type="number" id="corridor-input" min="1" max="100" required value="25">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sb-rule" style="margin:0;"></div>
+                    <div>
+                        <div class="rate-section-toggle" onclick="toggleRateInputs(this)">
+                            <p class="sb-hd" style="margin-bottom:0;">Broker Pricing</p>
+                            <span class="rate-toggle-icon" id="rate-toggle-icon" style="transform:rotate(180deg)">▼</span>
+                        </div>
+                        <div id="rate-inputs" style="display:flex;flex-direction:column;gap:0.62rem;margin-top:0.62rem;">
+
+                            <!-- PRIMARY BROKER INPUTS -->
+                            <div class="fg">
+                                <label class="fl" style="display:flex;align-items:center;gap:0.3rem;">Shipper Rate ($/mi) <span style="font-size:0.6rem;background:rgba(13,207,186,0.12);color:var(--sky);border-radius:4px;padding:0.08rem 0.32rem;">CHARGE</span></label>
+                                <input class="fi" type="number" id="shipper-rate" min="0" max="20" step="0.01" value="2.00" style="border-color:rgba(13,207,186,0.3);">
+                            </div>
+                            <div class="fg">
+                                <label class="fl" style="display:flex;align-items:center;gap:0.3rem;">Carrier Pay ($/mi) <span style="font-size:0.6rem;background:rgba(249,115,22,0.12);color:var(--orange);border-radius:4px;padding:0.08rem 0.32rem;">PAY</span></label>
+                                <input class="fi" type="number" id="carrier-pay-rate" min="0" max="20" step="0.01" value="1.56">
+                            </div>
+                            <div class="row2">
+                                <div class="fg">
+                                    <label class="fl">Deadhead (%)</label>
+                                    <input class="fi" type="number" id="deadhead-pct" min="0" max="100" step="1" value="20">
+                                </div>
+                                <div class="fg">
+                                    <label class="fl">Factoring (%)</label>
+                                    <input class="fi" type="number" id="factoring-pct" min="0" max="10" step="0.1" value="2.5">
+                                </div>
+                            </div>
+                            <div class="row2">
+                                <div class="fg">
+                                    <label class="fl">FSC ($/gal)</label>
+                                    <input class="fi" type="number" id="fsc-rate" min="0" max="2" step="0.01" value="0.15">
+                                </div>
+                                <div class="fg">
+                                    <label class="fl">Margin (%)</label>
+                                    <input class="fi" type="number" id="margin-pct" min="0" max="100" step="1" value="15">
+                                </div>
+                            </div>
+
+                            <div class="sb-rule" style="margin:0 -1.1rem;"></div>
+
+                            <!-- ACCESSORIALS -->
+                            <p class="sb-hd" style="margin-bottom:0;">Accessorials</p>
+                            <div class="row2">
+                                <div class="fg">
+                                    <label class="fl">Detention ($/hr)</label>
+                                    <input class="fi" type="number" id="detention-rate" min="0" max="500" step="5" value="55">
+                                </div>
+                                <div class="fg">
+                                    <label class="fl">Det. Hours</label>
+                                    <input class="fi" type="number" id="detention-hrs" min="0" max="24" step="0.5" value="0">
+                                </div>
+                            </div>
+                            <div class="row2">
+                                <div class="fg">
+                                    <label class="fl">TONU ($)</label>
+                                    <input class="fi" type="number" id="tonu-amt" min="0" max="2000" step="50" value="0">
+                                </div>
+                                <div class="fg">
+                                    <label class="fl">Layover ($)</label>
+                                    <input class="fi" type="number" id="layover-amt" min="0" max="2000" step="50" value="0">
+                                </div>
+                            </div>
+
+                            <div class="sb-rule" style="margin:0 -1.1rem;"></div>
+
+                            <!-- CARRIER COST DETAIL (collapsible, reference only) -->
+                            <div class="rate-section-toggle" onclick="toggleCarrierDetail(this)" style="cursor:pointer;">
+                                <p class="sb-hd" style="margin-bottom:0;color:var(--text3);">Carrier Cost Detail</p>
+                                <span id="carrier-detail-icon" style="font-size:0.65rem;color:var(--text3);transition:transform 0.2s;">▼</span>
+                            </div>
+                            <div id="carrier-detail-inputs" style="display:none;flex-direction:column;gap:0.62rem;">
+                                <div class="row2">
+                                    <div class="fg">
+                                        <label class="fl">Driver ($/mi)</label>
+                                        <input class="fi" type="number" id="driver-rate" min="0" max="5" step="0.01" value="0.55">
+                                    </div>
+                                    <div class="fg">
+                                        <label class="fl">Per Diem ($/day)</label>
+                                        <input class="fi" type="number" id="per-diem" min="0" max="500" step="1" value="65">
+                                    </div>
+                                </div>
+                                <div class="row2">
+                                    <div class="fg">
+                                        <label class="fl">Insurance ($/mi)</label>
+                                        <input class="fi" type="number" id="insurance-rate" min="0" max="5" step="0.01" value="0.12">
+                                    </div>
+                                    <div class="fg">
+                                        <label class="fl">Equipment ($/mi)</label>
+                                        <input class="fi" type="number" id="equipment-rate" min="0" max="5" step="0.01" value="0.18">
+                                    </div>
+                                </div>
+                                <div class="row2">
+                                    <div class="fg">
+                                        <label class="fl">Overhead ($/mi)</label>
+                                        <input class="fi" type="number" id="overhead-rate" min="0" max="5" step="0.01" value="0.12">
+                                    </div>
+                                    <div class="fg">
+                                        <label class="fl">Maintenance ($/mi)</label>
+                                        <input class="fi" type="number" id="maintenance-rate" min="0" max="5" step="0.01" value="0.14">
+                                    </div>
+                                </div>
+                                <div class="row2">
+                                    <div class="fg">
+                                        <label class="fl">Permits ($/mi)</label>
+                                        <input class="fi" type="number" id="permits-rate" min="0" max="1" step="0.001" value="0.03">
+                                    </div>
+                                    <div class="fg"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button type="button" class="submit" onclick="calculateRoute(event)"><span>⚡</span><span>Optimize Route</span></button>
+                </form>
+
+                <!-- LANE RATE INTELLIGENCE — new section -->
+                <div class="ri-section" id="ri-section">
+                    <div class="ri-section-header" onclick="toggleRISection()">
+                        <span>📡 Lane Rate Intelligence</span>
+                        <span class="ri-chevron" id="ri-chevron">▾</span>
+                    </div>
+                    <div class="ri-section-body" id="ri-body">
+
+                        <div class="ri-field-group">
+                            <label class="ri-label">Origin City</label>
+                            <input type="text" id="ri-origin-city" class="ri-input" placeholder="e.g. Chicago" />
+                        </div>
+                        <div class="ri-field-group">
+                            <label class="ri-label">Origin State</label>
+                            <input type="text" id="ri-origin-state" class="ri-input" placeholder="IL" maxlength="2" />
+                        </div>
+                        <div class="ri-field-group">
+                            <label class="ri-label">Dest City</label>
+                            <input type="text" id="ri-dest-city" class="ri-input" placeholder="e.g. Dallas" />
+                        </div>
+                        <div class="ri-field-group">
+                            <label class="ri-label">Dest State</label>
+                            <input type="text" id="ri-dest-state" class="ri-input" placeholder="TX" maxlength="2" />
+                        </div>
+                        <div class="ri-field-group">
+                            <label class="ri-label">Equipment Type</label>
+                            <select id="ri-equipment" class="ri-input">
+                                <option value="dry_van">Dry Van</option>
+                                <option value="reefer">Reefer</option>
+                                <option value="flatbed">Flatbed</option>
+                            </select>
+                        </div>
+
+                        <button type="button" class="ri-btn" id="ri-btn" onclick="fetchRateIntelligence()">
+                            Get Rate Intelligence
+                        </button>
+
+                        <!-- Results panel — hidden until data arrives -->
+                        <div id="ri-results" style="display:none">
+
+                            <div id="ri-loading" style="display:none;text-align:center;padding:16px;color:#94a3b8;font-size:13px">
+                                ⏳ Analyzing lane...
+                            </div>
+
+                            <!-- Rate hero -->
+                            <div class="ri-card" id="ri-hero" style="display:none">
+                                <div class="ri-card-label" style="display:flex;justify-content:space-between;align-items:center;">
+                                    <span>Carrier buy rate</span>
+                                    <span id="ri-buy-src-badge" class="ri-badge">LOADING…</span>
+                                </div>
+                                <div class="ri-rate-tiers" id="ri-rate-tiers"></div>
+                                <div class="ri-divider"></div>
+                                <div class="ri-card-label" style="margin-top:8px">Shipper quote tiers</div>
+                                <div class="ri-sell-tiers" id="ri-sell-tiers"></div>
+                            </div>
+
+                            <!-- Market benchmark — auto-open -->
+                            <div class="ri-card" id="ri-market-card" style="display:none">
+                                <div class="ri-card-header" onclick="toggleCard('ri-market-body')">
+                                    <span>📊 Rate benchmark <span id="ri-market-src-badge" class="ri-badge" style="margin-left:4px;">LOADING…</span></span>
+                                    <span id="ri-market-badge" class="ri-badge"></span>
+                                </div>
+                                <div id="ri-market-body" class="ri-card-body"></div>
+                            </div>
+
+                            <!-- Capacity signal — auto-open -->
+                            <div class="ri-card" id="ri-cap-card" style="display:none">
+                                <div class="ri-card-header" onclick="toggleCard('ri-cap-body')">
+                                    <span>🚚 Capacity signal <span id="ri-cap-src-badge" class="ri-badge ri-badge-green" style="margin-left:4px;">BLS REAL</span></span>
+                                    <span id="ri-cap-badge" class="ri-badge"></span>
+                                </div>
+                                <div id="ri-cap-body" class="ri-card-body"></div>
+                            </div>
+
+                            <!-- Negotiation coach — auto-open -->
+                            <div class="ri-card">
+                                <div class="ri-card-header" onclick="toggleCard('ri-coach-body')">
+                                    <span>🧠 Negotiation coach</span>
+                                    <span id="ri-coach-badge" class="ri-badge ri-badge-ai">AI</span>
+                                </div>
+                                <div id="ri-coach-body" class="ri-card-body">
+                                    <div class="ri-coach-text" id="ri-coach-text"></div>
+                                </div>
+                            </div>
+
+                            <!-- Lane history — honest no-data, auto-open -->
+                            <div class="ri-card">
+                                <div class="ri-card-header" onclick="toggleCard('ri-hist-body')">
+                                    <span>📈 Lane history</span>
+                                    <span id="ri-hist-badge" class="ri-badge"></span>
+                                </div>
+                                <div id="ri-hist-body" class="ri-card-body">
+                                    <div id="ri-hist-content"></div>
+                                </div>
+                            </div>
+
+                            <!-- Seasonality — auto-open -->
+                            <div class="ri-card">
+                                <div class="ri-card-header" onclick="toggleCard('ri-season-body')">
+                                    <span>📅 Seasonality <span class="ri-badge" style="margin-left:4px;font-size:9px">seasonal est.</span></span>
+                                    <span id="ri-season-badge" class="ri-badge"></span>
+                                </div>
+                                <div id="ri-season-body" class="ri-card-body">
+                                    <div id="ri-season-content"></div>
+                                </div>
+                            </div>
+
+                            <!-- Confidence score — auto-open -->
+                            <div class="ri-card">
+                                <div class="ri-card-header" onclick="toggleCard('ri-conf-body')">
+                                    <span>🎯 Data confidence</span>
+                                    <span id="ri-conf-badge" class="ri-badge"></span>
+                                </div>
+                                <div id="ri-conf-body" class="ri-card-body">
+                                    <div id="ri-conf-content"></div>
+                                </div>
+                            </div>
+
+                            <!-- Fuel surcharge -->
+                            <div class="ri-card">
+                                <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;padding:2px 0">
+                                    <span>⛽ Fuel surcharge: <span id="ri-fsc-text" style="color:#e2e8f0;font-weight:500"></span></span>
+                                    <span id="ri-fsc-badge" class="ri-badge"></span>
+                                </div>
+                            </div>
+
+                            <!-- Diesel price trend (EIA 12-week) -->
+                            <div class="ri-card" id="ri-trend-card" style="display:none">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                                    <span style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#64748b">📈 Diesel trend · 12 weeks</span>
+                                    <span class="ri-badge ri-badge-green">LIVE EIA</span>
+                                </div>
+                                <div id="ri-trend-content"></div>
+                            </div>
+
+                            <!-- BLS PPI Market Index Chart -->
+                            <div class="ri-card" id="ri-ppi-card" style="display:none">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                                    <span style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#64748b">📊 Trucking PPI · 12 months</span>
+                                    <span class="ri-badge ri-badge-green">LIVE BLS.GOV</span>
+                                </div>
+                                <div id="ri-ppi-content"></div>
+                            </div>
+
+                            <!-- Reefer: EIA natural gas cost signal -->
+                            <div class="ri-card" id="ri-ng-card" style="display:none">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                                    <span style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#64748b">🧊 Reefer Fuel Signal</span>
+                                    <span class="ri-badge ri-badge-green">LIVE EIA</span>
+                                </div>
+                                <div id="ri-ng-content"></div>
+                            </div>
+
+                            <!-- Weather alerts from rate-intelligence (route-aware) -->
+                            <div class="ri-card" id="ri-wx-card" style="display:none">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                                    <span style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#64748b">🌩 Weather along route</span>
+                                    <span id="ri-wx-badge" class="ri-badge ri-badge-green">LIVE NWS</span>
+                                </div>
+                                <div id="ri-wx-content"></div>
+                            </div>
+
+                        </div><!-- /ri-results -->
+                    </div><!-- /ri-body -->
+                </div><!-- /ri-section -->
+
+                <!-- CARRIER VERIFICATION — new section, real FMCSA data -->
+                <div class="ri-section" id="cv-section" style="margin-top:0.6rem;">
+                    <div class="ri-section-header" onclick="toggleCVSection()">
+                        <span>🛡️ Carrier Verification</span>
+                        <span class="ri-chevron" id="cv-chevron">▾</span>
+                    </div>
+                    <div class="ri-section-body" id="cv-body">
+                        <div class="ri-field-group">
+                            <label class="ri-label">DOT Number</label>
+                            <input type="text" id="cv-dot-number" class="ri-input" placeholder="e.g. 80321" inputmode="numeric" />
+                        </div>
+                        <button type="button" class="ri-btn" id="cv-btn" onclick="fetchCarrierVerification()">
+                            Verify Carrier
+                        </button>
+                        <div id="cv-results" style="display:none;margin-top:10px;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="map-wrap">
+            <div id="map"></div>
+            <div class="loader" id="loading-overlay">
+                <div class="loader-ring"></div>
+                <div class="loader-txt">Analyzing fuel prices along route…</div>
+                <div class="loader-sub">Finding the most cost-efficient stops</div>
+            </div>
+            <div class="results" id="overlay-panel" style="display:none;">
+                <div class="rcard">
+                    <div class="rcard-hd">
+                        <div class="rcard-title"><div class="rdot"></div>Route Summary</div>
+                        <span class="rcard-a" id="osm-link-span">Directions ↗</span>
+                    </div>
+                    <div class="sum-body">
+                        <div class="sum-grid">
+                            <div class="ss hi"><span class="sl">Total Spend</span><span class="sv or" id="stat-cost">$0.00</span></div>
+                            <div class="ss"><span class="sl">Gallons</span><span class="sv" id="stat-gallons">—</span></div>
+                            <div class="ss"><span class="sl">Fuel Stops</span><span class="sv gr" id="stat-stops">—</span></div>
+                            <div class="ss"><span class="sl">Distance</span><span class="sv" id="stat-distance">—</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rcard" id="stops-card" style="display:none;">
+                    <div class="stops-hd">
+                        <div class="rcard-title"><div class="rdot"></div>Optimal Stops</div>
+                        <span class="stops-badge" id="stops-count-badge">0 stops</span>
+                    </div>
+                    <div class="stops-list" id="stops-container"></div>
+                </div>
+                <div class="rcard" id="weather-card" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── FULL-WIDTH BROKER RATE RESULTS ─── -->
+    <div id="lane-rate-section" style="display:none; border-top:1px solid var(--border);">
+        <div class="lr-inner">
+
+            <!-- Header -->
+            <div class="lr-header">
+                <div>
+                    <span class="sec-eyebrow">UltraShip Broker Rate Analysis</span>
+                    <h3 class="lr-h3">Lane: <span id="lr-route-label">—</span></h3>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
+                    <span class="lr-badge" id="lr-per-mi-badge" style="background:linear-gradient(135deg,rgba(13,207,186,0.15),rgba(13,207,186,0.05));border-color:rgba(13,207,186,0.3);color:var(--sky);">Gross —/mi</span>
+                    <span id="lr-breakeven-badge" style="font-size:0.78rem;font-weight:600;color:var(--text2);background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:100px;padding:0.25rem 0.9rem;">Carrier floor: —</span>
+                </div>
+            </div>
+
+            <!-- 3-column broker layout -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:1.5rem;">
+
+                <!-- COL 1: BROKER SPREAD -->
+                <div>
+                    <p style="font-size:0.63rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.9rem;">💼 Broker Spread</p>
+                    <div id="lr-spread-table" style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;"></div>
+                </div>
+
+                <!-- COL 2: SHIPPER INVOICE -->
+                <div>
+                    <p style="font-size:0.63rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.9rem;">🧾 Shipper Invoice</p>
+                    <div id="lr-invoice-table" style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;"></div>
+                </div>
+
+                <!-- COL 3: QUOTE TIERS -->
+                <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                    <p style="font-size:0.63rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.15rem;">📊 Shipper Quote Tiers</p>
+                    <div class="lr-qcard">
+                        <span class="lr-qlabel">Conservative</span>
+                        <span class="lr-qprice" id="lr-val-low">—</span>
+                        <span class="lr-qmi" id="lr-mi-low">—</span>
+                    </div>
+                    <div class="lr-qcard mid">
+                        <span class="lr-qlabel">Suggested Quote</span>
+                        <span class="lr-qprice" id="lr-val-mid">—</span>
+                        <span class="lr-qmi" id="lr-mi-mid">—</span>
+                    </div>
+                    <div class="lr-qcard">
+                        <span class="lr-qlabel">Premium</span>
+                        <span class="lr-qprice" id="lr-val-high">—</span>
+                        <span class="lr-qmi" id="lr-mi-high">—</span>
+                    </div>
+                    <div class="lr-margin-note">Net after factoring: <strong id="lr-net-text" style="color:var(--green);">—</strong></div>
+                </div>
+            </div>
+
+            <!-- Carrier Cost Detail (collapsible) -->
+            <div style="margin-top:1.5rem;border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+                <div onclick="toggleCarrierCostDetail(this)" style="display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.2rem;cursor:pointer;background:rgba(255,255,255,0.02);">
+                    <span style="font-size:0.7rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.08em;">🔧 Carrier Cost Detail (Reference)</span>
+                    <span id="carrier-cost-detail-icon" style="font-size:0.65rem;color:var(--text3);transition:transform 0.2s;">▼</span>
+                </div>
+                <div id="lr-carrier-cost-detail" style="display:none;">
+                    <div id="lr-cost-table" style="padding:0;"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ─── AUDIENCE ─── -->
+<section class="audience">
+    <span class="sec-eyebrow">Who It's For</span>
+    <h2 class="sec-h2">Who Needs Spotter Fuel Intelligence?</h2>
+    <div class="aud-cards">
+        <div class="aud-card">
+            <div class="aud-icon">🚛</div>
+            <h3>Fleet Operators</h3>
+            <p>Eliminate fuel overspend and accelerate dispatch decisions across your entire operation. Whether you're managing one truck or five hundred, Spotter gives you the fuel cost visibility to protect your margins on every run — from spot loads to long-term lanes.</p>
+        </div>
+        <div class="aud-card">
+            <div class="aud-icon">🧑‍💼</div>
+            <h3>Owner-Operators &amp; Carriers</h3>
+            <p>Simplify and optimize your fuel planning on every dispatch. Our route intelligence helps independent drivers understand the true cost of each trip, so you can make smarter fueling decisions and maximize take-home pay on every mile you drive.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─── FAQ ─── -->
+<section class="faq-section" style="border-top:1px solid var(--border);">
+    <div class="faq-left">
+        <span class="sec-eyebrow">FAQ</span>
+        <h2 class="sec-h2">Fuel Rate Intelligence — Common Questions</h2>
+    </div>
+    <div class="faq-items">
+        <div class="faq-item">
+            <button class="faq-q">How does Spotter calculate optimal fuel stops?<span class="faq-icon">+</span></button>
+            <div class="faq-a">Spotter's AI analyzes real-time prices at every station within your corridor, then balances the price-per-gallon savings against the cost of any deviation from your route. It factors in your tank capacity, current fuel level, MPG, and per-stop purchase minimums to find the sequence of stops that minimizes your total fuel cost — not just the cheapest station on the map.</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q">How current is the fuel price data?<span class="faq-icon">+</span></button>
+            <div class="faq-a">Spotter aggregates live price feeds from 2,400+ stations across all 50 states. Data is updated multiple times daily. For time-critical operations, we recommend running the optimizer within 2 hours of departure to get the most accurate pricing for your specific route.</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q">What is the corridor width setting?<span class="faq-icon">+</span></button>
+            <div class="faq-a">The corridor width defines how far off your direct route Spotter will look for fuel stations. A 25-mile corridor means we'll consider stations up to 25 miles on either side of your route. Wider corridors find more options but may include stations that add meaningful detour time. Most drivers find 20–35 miles optimal for long-haul routes.</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q">Does Spotter work for multi-drop routes?<span class="faq-icon">+</span></button>
+            <div class="faq-a">The current optimizer is designed for point-to-point routes with intermediate fuel stops. Multi-drop delivery route optimization is on our roadmap for Q3. For now, you can run separate optimizations for each leg of a multi-stop trip and the fuel planning will remain accurate for each segment.</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q">Is the API available for fleet management systems?<span class="faq-icon">+</span></button>
+            <div class="faq-a">Yes. Spotter's Fuel Intelligence API is available for enterprise integrations with TMS, ELD, and fleet management platforms. Contact our integrations team to discuss a custom data feed, webhook notifications for price alerts, or a white-label route optimizer for your driver app.</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─── CTA ─── -->
+<section class="cta-band">
+    <h2>Start Saving on Every Mile</h2>
+    <p>Join thousands of drivers and fleet operators using Spotter to cut fuel costs.</p>
+    <button class="btn-cta" onclick="scrollToApp()">⚡ Optimize Your First Route</button>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+    function scrollToApp() {
+        document.getElementById('optimizer-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    let mapReady = false, map, routeLayer = null;
+    const markerLayers = [];
+    let activeAbortController = null;
+
+    function initMap() {
+        if (mapReady) return;
+        mapReady = true;
+        map = L.map('map', { zoomControl: false }).setView([37.8, -96], 4);
+        L.control.zoom({ position: 'bottomleft' }).addTo(map);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd', maxZoom: 20
+        }).addTo(map);
+    }
+
+    new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) initMap();
+    }, { threshold: 0.05 }).observe(document.getElementById('map'));
+
+    function applyPreset(start, finish) {
+        document.getElementById('start-input').value = start;
+        document.getElementById('finish-input').value = finish;
+        scrollToApp();
+        setTimeout(() => document.getElementById('optimizer-form').dispatchEvent(new Event('submit')), 600);
+    }
+
+    function parseCoordinates(s) {
+        const p = s.split(',').map(v => v.trim());
+        if (p.length === 2) { const lat = parseFloat(p[0]), lon = parseFloat(p[1]); if (!isNaN(lat) && !isNaN(lon)) return { lat, lon, label: s }; }
+        return null;
+    }
+
+    async function calculateRoute(e) {
+        if (e) e.preventDefault();
+        initMap();
+        scrollToApp();
+        if (activeAbortController) activeAbortController.abort();
+        activeAbortController = new AbortController();
+        const { signal } = activeAbortController;
+        const startVal  = document.getElementById('start-input').value.trim();
+        const finishVal = document.getElementById('finish-input').value.trim();
+        if (routeLayer) { map.removeLayer(routeLayer); routeLayer = null; }
+        markerLayers.forEach(l => map.removeLayer(l));
+        markerLayers.length = 0;
+        document.getElementById('overlay-panel').style.display = 'none';
+        document.getElementById('stops-card').style.display = 'none';
+        document.getElementById('lane-rate-section').style.display = 'none';
+        const loader = document.getElementById('loading-overlay');
+        loader.style.display = 'flex';
+        const payload = {
+            start:  parseCoordinates(startVal)  || startVal,
+            finish: parseCoordinates(finishVal) || finishVal,
+            max_range_miles:      parseFloat(document.getElementById('max-range-input').value),
+            starting_range_miles: parseFloat(document.getElementById('starting-range-input').value),
+            mpg:                  parseFloat(document.getElementById('mpg-input').value),
+            corridor_miles:       parseFloat(document.getElementById('corridor-input').value)
+        };
+        try {
+            const res  = await fetch('/api/routes/optimize/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Server error');
+            renderPlan(data);
+        } catch (err) {
+            if (err.name === 'AbortError') return;
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.innerHTML = `<strong>Optimization Failed</strong>${err.message}`;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 6000);
+        } finally {
+            if (!signal.aborted) loader.style.display = 'none';
+        }
+    }
+
+    function renderPlan(data) {
+        let startLatLng = null, finishLatLng = null;
+        routeLayer = L.geoJSON(data.map.geojson, {
+            style: f => { if (f.properties?.kind === 'route') return { color: '#f97316', weight: 4, opacity: 0.85 }; },
+            pointToLayer: (f, latlng) => {
+                const k = f.properties.kind;
+                let cls = 'mi ', html = '', popup = '';
+                if (k === 'start') { cls += 'mi-s'; html = 'S'; popup = 'Start: ' + f.properties.label; startLatLng = latlng; }
+                else if (k === 'finish') { cls += 'mi-f'; html = 'F'; popup = 'Destination: ' + f.properties.label; finishLatLng = latlng; }
+                else if (k === 'fuel_stop') { cls += 'mi-g'; html = '⛽'; popup = `<strong>${f.properties.name}</strong><br>$${f.properties.price_per_gallon.toFixed(3)}/gal<br>Mile ${f.properties.route_mile}`; }
+                const icon = L.divIcon({ className: cls, html, iconSize: [28, 28], iconAnchor: [14, 14] });
+                const m = L.marker(latlng, { icon }).bindPopup(popup);
+                markerLayers.push(m);
+                return m;
+            }
+        }).addTo(map);
+        if (routeLayer) map.fitBounds(routeLayer.getBounds(), { padding: [50, 50] });
+        document.getElementById('stat-cost').textContent     = `$${data.fuel_plan.total_cost_usd.toFixed(2)}`;
+        document.getElementById('stat-gallons').textContent  = `${data.fuel_plan.total_gallons_purchased.toFixed(2)} gal`;
+        document.getElementById('stat-stops').textContent    = data.fuel_plan.stops.length;
+        document.getElementById('stat-distance').textContent = `${data.route.distance_miles.toFixed(1)} mi`;
+        document.getElementById('osm-link-span').onclick = () => window.open(data.map.openstreetmap_url, '_blank');
+        const container = document.getElementById('stops-container');
+        container.innerHTML = '';
+        if (data.fuel_plan.stops.length > 0) {
+            document.getElementById('stops-card').style.display = 'block';
+            const n = data.fuel_plan.stops.length;
+            document.getElementById('stops-count-badge').textContent = `${n} stop${n !== 1 ? 's' : ''}`;
+            data.fuel_plan.stops.forEach((stop, i) => {
+                const el = document.createElement('div');
+                el.className = 'stop';
+                el.onclick = () => focusStop(stop.lat, stop.lon);
+                el.innerHTML = `<div class="stop-r1"><span class="stop-n">${i + 1}. ${stop.name}</span><span class="stop-px">$${stop.price_per_gallon.toFixed(3)}</span></div><div class="stop-r2"><span class="stop-loc">${stop.city}, ${stop.state}</span><span class="stop-mi">Mile ${stop.route_mile.toFixed(1)}</span></div><div class="stop-r3"><span class="stop-d">Buy <strong>${stop.gallons.toFixed(2)} gal</strong></span><span class="stop-d">Cost <strong>$${stop.cost_usd.toFixed(2)}</strong></span></div>`;
+                container.appendChild(el);
+            });
+        }
+        computeRateCard(data);
+        document.getElementById('overlay-panel').style.display = 'flex';
+        if (startLatLng && finishLatLng) {
+            fetchWeatherAlerts(startLatLng.lat, startLatLng.lng, finishLatLng.lat, finishLatLng.lng);
+        }
+    }
+
+    // === WEATHER ALERTS — via backend /api/weather-alerts/ (checks all route states) ===
+    async function fetchWeatherAlerts(startLat, startLon, finishLat, finishLon) {
+        const card = document.getElementById('weather-card');
+        card.style.display = 'block';
+        card.innerHTML = `<div class="rcard-hd"><div class="rcard-title"><div class="rdot" style="background:#3b82f6;animation:none"></div>Weather Along Route</div></div><div style="padding:0.6rem 0.92rem;font-size:12px;color:#64748b">Checking NWS alerts along full route…</div>`;
+
+        const points = lastRoutePoints || [[startLat, startLon], [finishLat, finishLon]];
+        // Sample up to 60 points to keep payload small
+        const step = Math.max(1, Math.floor(points.length / 60));
+        const sampled = points.filter((_, i) => i % step === 0);
+
+        try {
+            const resp = await fetch('/api/weather-alerts/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ route_points: sampled })
+            });
+            const wx = resp.ok ? await resp.json() : null;
+            if (!wx) throw new Error('no response');
+            renderWeatherAlerts(wx);
+        } catch {
+            card.innerHTML = `<div class="rcard-hd"><div class="rcard-title">🌤 Weather</div></div><div style="padding:0.6rem 0.92rem;font-size:12px;color:#64748b">NWS unavailable.</div>`;
+        }
+    }
+
+    function renderWeatherAlerts(wx) {
+        const card = document.getElementById('weather-card');
+        const sevColor = { Extreme: '#ef4444', Severe: '#f97316', Moderate: '#f59e0b', Minor: '#3b82f6' };
+        const sevBg    = { Extreme: 'rgba(239,68,68,0.1)', Severe: 'rgba(249,115,22,0.08)', Moderate: 'rgba(245,158,11,0.08)', Minor: 'rgba(59,130,246,0.08)' };
+        const alerts = wx.alerts || [];
+        const states = (wx.states_checked || []).join(', ');
+
+        if (!alerts.length) {
+            const delayTxt = wx.delay_risk === 'NONE' ? 'No weather delays expected.' : `Delay risk: ${wx.delay_risk}`;
+            card.innerHTML = `
+                <div class="rcard-hd">
+                    <div class="rcard-title"><div class="rdot" style="background:#22c55e"></div>Weather Along Route</div>
+                    <span style="font-size:0.65rem;font-weight:600;color:#22c55e;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);padding:0.15rem 0.46rem;border-radius:20px">All Clear</span>
+                </div>
+                <div style="padding:0.6rem 0.92rem;font-size:12px;color:#64748b">${delayTxt}${states ? ` · States checked: ${states}` : ''}</div>
+                <div style="padding:0 0.92rem 0.5rem;font-size:0.65rem;color:var(--text3)">Source: National Weather Service (NWS)</div>`;
+            return;
+        }
+
+        const delayColor = wx.delay_risk === 'HIGH' ? '#ef4444' : wx.delay_risk === 'MODERATE' ? '#f97316' : '#f59e0b';
+        const rows = alerts.map(a => {
+            const sev = a.severity || 'Minor';
+            const col = sevColor[sev] || '#64748b';
+            const bg  = sevBg[sev]   || 'rgba(100,116,139,0.06)';
+            return `<div style="padding:0.62rem 0.92rem;border-bottom:1px solid var(--border);background:${bg}">
+                <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.22rem">
+                    <span style="font-size:0.67rem;font-weight:700;color:${col};border:1px solid ${col};padding:0.08rem 0.38rem;border-radius:20px">${sev.toUpperCase()}</span>
+                    <span style="font-size:0.75rem;font-weight:600;color:var(--text)">${a.event || 'Alert'}</span>
+                </div>
+                <div style="font-size:0.68rem;color:var(--text2);line-height:1.5">${(a.headline || '').slice(0, 150)}${(a.headline||'').length > 150 ? '…' : ''}</div>
+                ${a.area_desc ? `<div style="font-size:0.63rem;color:#475569;margin-top:3px">${a.area_desc.slice(0,100)}${a.area_desc.length>100?'…':''}</div>` : ''}
+            </div>`;
+        }).join('');
+
+        card.innerHTML = `
+            <div class="rcard-hd">
+                <div class="rcard-title"><div class="rdot" style="background:#f97316"></div>Weather Along Route</div>
+                <span style="font-size:0.65rem;font-weight:600;color:${delayColor};background:rgba(239,68,68,0.08);border:1px solid ${delayColor};padding:0.15rem 0.46rem;border-radius:20px">${alerts.length} Alert${alerts.length>1?'s':''} · ${wx.delay_risk} delay risk</span>
+            </div>
+            <div class="rcard-scroll">
+                <div style="font-size:0.63rem;color:#475569;padding:0.3rem 0.92rem;border-bottom:1px solid var(--border)">States: ${states} · scroll ↓ to see all</div>
+                ${rows}
+                <div style="padding:0.4rem 0.92rem;font-size:0.62rem;color:var(--text3)">Source: NWS weather.gov</div>
+            </div>`;
+    }
+
+    function computeRateCard(data) {
+        const dist           = data.route.distance_miles;
+        lastRouteDistanceMiles = dist;
+
+        // Extract route points from GeoJSON for weather + rate-intelligence
+        try {
+            const routeFeature = data.map.geojson.features.find(f => f.properties.kind === 'route');
+            if (routeFeature) {
+                lastRoutePoints = routeFeature.geometry.coordinates.map(c => [c[1], c[0]]);
+            }
+        } catch(e) { lastRoutePoints = null; }
+
+        // Auto-fill rate intelligence lane fields from start/finish input values
+        try {
+            // US state abbreviation lookup — handles "New York" → "NY", "Illinois" → "IL", etc.
+            const STATE_ABBR = {
+                'alabama':'AL','alaska':'AK','arizona':'AZ','arkansas':'AR','california':'CA',
+                'colorado':'CO','connecticut':'CT','delaware':'DE','florida':'FL','georgia':'GA',
+                'hawaii':'HI','idaho':'ID','illinois':'IL','indiana':'IN','iowa':'IA','kansas':'KS',
+                'kentucky':'KY','louisiana':'LA','maine':'ME','maryland':'MD','massachusetts':'MA',
+                'michigan':'MI','minnesota':'MN','mississippi':'MS','missouri':'MO','montana':'MT',
+                'nebraska':'NE','nevada':'NV','new hampshire':'NH','new jersey':'NJ','new mexico':'NM',
+                'new york':'NY','north carolina':'NC','north dakota':'ND','ohio':'OH','oklahoma':'OK',
+                'oregon':'OR','pennsylvania':'PA','rhode island':'RI','south carolina':'SC',
+                'south dakota':'SD','tennessee':'TN','texas':'TX','utah':'UT','vermont':'VT',
+                'virginia':'VA','washington':'WA','west virginia':'WV','wisconsin':'WI','wyoming':'WY'
+            };
+
+            const parseInput = raw => {
+                if (!raw) return null;
+                const s = raw.trim();
+                // "City, ST" or "City, State" — try comma split
+                const parts = s.split(',').map(p => p.trim());
+                if (parts.length >= 2) {
+                    const city = parts[0];
+                    const stateRaw = parts[1].trim();
+                    // 2-char abbreviation
+                    if (/^[A-Z]{2}$/i.test(stateRaw)) return { city, state: stateRaw.toUpperCase() };
+                    // Full state name
+                    const abbr = STATE_ABBR[stateRaw.toLowerCase()];
+                    if (abbr) return { city, state: abbr };
+                }
+                return null;
+            };
+
+            // Always prefer what the user typed in the optimizer fields
+            const originParsed = parseInput(document.getElementById('start-input').value);
+            const destParsed   = parseInput(document.getElementById('finish-input').value);
+
+            if (originParsed) {
+                document.getElementById('ri-origin-city').value  = originParsed.city;
+                document.getElementById('ri-origin-state').value = originParsed.state;
+            }
+            if (destParsed) {
+                document.getElementById('ri-dest-city').value  = destParsed.city;
+                document.getElementById('ri-dest-state').value = destParsed.state;
+            }
+        } catch(e) {}
+
+        // Auto-trigger rate intelligence after route loads
+        setTimeout(() => {
+            const riBody = document.getElementById('ri-body');
+            if (riBody && riBody.style.display === 'none') {
+                riBody.style.display = 'block';
+                document.getElementById('ri-chevron').textContent = '▾';
+            }
+            fetchRateIntelligence();
+        }, 400);
+        const totalGallons   = data.fuel_plan.total_gallons_purchased;
+        const fuelCost       = data.fuel_plan.total_cost_usd;
+        const startLabel     = document.getElementById('start-input').value.trim();
+        const finishLabel    = document.getElementById('finish-input').value.trim();
+
+        // --- Broker inputs ---
+        const shipperRatePerMi = parseFloat(document.getElementById('shipper-rate').value)     || 2.00;
+        const carrierPayPerMi  = parseFloat(document.getElementById('carrier-pay-rate').value) || 1.56;
+        const deadheadPct      = parseFloat(document.getElementById('deadhead-pct').value)     || 20;
+        const factoringPct     = parseFloat(document.getElementById('factoring-pct').value)    || 2.5;
+        const fscPerGal        = parseFloat(document.getElementById('fsc-rate').value)         || 0.15;
+        const marginPct        = parseFloat(document.getElementById('margin-pct').value)       || 15;
+
+        // --- Accessorials ---
+        const detentionRate    = parseFloat(document.getElementById('detention-rate').value)   || 55;
+        const detentionHrs     = parseFloat(document.getElementById('detention-hrs').value)    || 0;
+        const tonuAmt          = parseFloat(document.getElementById('tonu-amt').value)         || 0;
+        const layoverAmt       = parseFloat(document.getElementById('layover-amt').value)      || 0;
+
+        // --- Carrier cost detail (reference) ---
+        const driverRate       = parseFloat(document.getElementById('driver-rate').value)      || 0.55;
+        const perDiem          = parseFloat(document.getElementById('per-diem').value)         || 65;
+        const insRate          = parseFloat(document.getElementById('insurance-rate').value)   || 0.12;
+        const equipRate        = parseFloat(document.getElementById('equipment-rate').value)   || 0.18;
+        const overheadRate     = parseFloat(document.getElementById('overhead-rate').value)    || 0.12;
+        const maintRate        = parseFloat(document.getElementById('maintenance-rate').value) || 0.14;
+        const permitsRate      = parseFloat(document.getElementById('permits-rate').value)     || 0.03;
+
+        // --- Carrier cost calculations ---
+        const tripDays         = Math.max(1, dist / 500);
+        const driverPay        = driverRate   * dist;
+        const perDiemCost      = perDiem      * tripDays;
+        const insuranceCost    = insRate      * dist;
+        const equipCost        = equipRate    * dist;
+        const overheadCost     = overheadRate * dist;
+        const maintCost        = maintRate    * dist;
+        const permitsCost      = permitsRate  * dist;
+        const tollsEst         = dist         * 0.038;
+        const fscCost          = fscPerGal    * totalGallons;
+        const deadheadCost     = (deadheadPct / 100) * (driverPay + fuelCost);
+        const carrierAllIn     = fuelCost + fscCost + driverPay + perDiemCost + insuranceCost +
+                                 equipCost + overheadCost + maintCost + permitsCost + tollsEst + deadheadCost;
+
+        // --- Broker spread calculations ---
+        const shipperBase      = shipperRatePerMi * dist;
+        const carrierPay       = carrierPayPerMi  * dist;
+        const detentionTotal   = detentionRate * detentionHrs;
+        const accessorialsTotal= detentionTotal + tonuAmt + layoverAmt;
+        const fscPassThrough   = fscCost;           // FSC billed to shipper, passed to carrier
+        const shipperTotal     = shipperBase + fscPassThrough + accessorialsTotal;
+        const grossProfit      = shipperTotal - carrierPay - fscPassThrough - accessorialsTotal;
+        const grossProfitPerMi = grossProfit / dist;
+        const factoringFee     = shipperTotal * (factoringPct / 100);
+        const netProfit        = grossProfit - factoringFee;
+
+        // --- Shipper quote tiers (based on carrier all-in + margin) ---
+        const margin           = carrierAllIn * (marginPct / 100);
+        const quoteLow         = carrierAllIn + margin * 0.85;
+        const quoteMid         = carrierAllIn + margin;
+        const quoteHigh        = carrierAllIn + margin * 1.20;
+        const netAfterFactor   = quoteMid - quoteMid * (factoringPct / 100);
+
+        const fmt  = v  => '$' + v.toFixed(2);
+        const fmtN = v  => '$' + Math.abs(v).toFixed(0);
+        const pmi  = v  => '$' + (v / dist).toFixed(2) + '/mi';
+        const profitColor = grossProfit >= 0 ? 'var(--green)' : '#f87171';
+
+        // ── 1. BROKER SPREAD TABLE ──
+        document.getElementById('lr-spread-table').innerHTML = `
+            <div class="lr-cost-row" style="background:rgba(13,207,186,0.04);">
+                <span class="lr-lbl">💵 Shipper Rate</span>
+                <span class="lr-val" style="color:var(--sky);">${fmt(shipperBase)}<small style="color:var(--text3);font-size:0.7em;"> (${pmi(shipperBase)})</small></span>
+            </div>
+            <div class="lr-cost-row">
+                <span class="lr-lbl">🔋 FSC (pass-through)</span>
+                <span class="lr-val">${fmt(fscPassThrough)}</span>
+            </div>
+            ${accessorialsTotal > 0 ? `<div class="lr-cost-row"><span class="lr-lbl">⏱ Accessorials</span><span class="lr-val">${fmt(accessorialsTotal)}</span></div>` : ''}
+            <div class="lr-cost-row" style="border-top:1px dashed rgba(255,255,255,0.08);">
+                <span class="lr-lbl" style="color:var(--text2);">📦 Carrier Pay</span>
+                <span class="lr-val" style="color:var(--orange);">−${fmt(carrierPay)}<small style="color:var(--text3);font-size:0.7em;"> (${pmi(carrierPay)})</small></span>
+            </div>
+            <div class="lr-cost-row lr-total">
+                <span class="lr-lbl">Gross Profit</span>
+                <span class="lr-val" style="color:${profitColor};font-size:1.1rem;">${fmt(grossProfit)} <small style="font-size:0.72em;">${pmi(grossProfit)}</small></span>
+            </div>
+            <div class="lr-cost-row" style="background:rgba(239,68,68,0.04);border-top:1px dashed rgba(239,68,68,0.2);">
+                <span class="lr-lbl" style="color:var(--text2);">🏦 Factoring (${factoringPct}%)</span>
+                <span class="lr-val" style="color:#f87171;">−${fmt(factoringFee)}</span>
+            </div>
+            <div class="lr-cost-row" style="background:rgba(34,197,94,0.04);">
+                <span class="lr-lbl" style="font-weight:700;">Net Profit</span>
+                <span class="lr-val" style="color:var(--green);font-weight:800;">${fmt(netProfit)}</span>
+            </div>
+        `;
+
+        // ── 2. SHIPPER INVOICE ──
+        document.getElementById('lr-invoice-table').innerHTML = `
+            <div style="padding:0.75rem 1rem;background:rgba(13,207,186,0.04);border-bottom:1px solid var(--border);">
+                <span style="font-size:0.65rem;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:0.06em;">INVOICE TO SHIPPER</span>
+            </div>
+            <div class="lr-cost-row"><span class="lr-lbl">Base Freight Rate</span><span class="lr-val">${fmt(shipperBase)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">Fuel Surcharge (FSC)</span><span class="lr-val">${fmt(fscPassThrough)}</span></div>
+            ${detentionTotal > 0 ? `<div class="lr-cost-row"><span class="lr-lbl">Detention (${detentionHrs}h × $${detentionRate})</span><span class="lr-val">${fmt(detentionTotal)}</span></div>` : ''}
+            ${tonuAmt > 0 ? `<div class="lr-cost-row"><span class="lr-lbl">TONU</span><span class="lr-val">${fmt(tonuAmt)}</span></div>` : ''}
+            ${layoverAmt > 0 ? `<div class="lr-cost-row"><span class="lr-lbl">Layover</span><span class="lr-val">${fmt(layoverAmt)}</span></div>` : ''}
+            <div class="lr-cost-row lr-total"><span class="lr-lbl">Invoice Total</span><span class="lr-val lr-total-val">${fmt(shipperTotal)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl" style="color:var(--text3);">Rate per mile</span><span class="lr-val" style="color:var(--text2);">${pmi(shipperTotal)}</span></div>
+        `;
+
+        // ── 3. CARRIER COST DETAIL (collapsed reference) ──
+        document.getElementById('lr-cost-table').innerHTML = `
+            <div class="lr-cost-row"><span class="lr-lbl">⛽ Fuel</span><span class="lr-val">${fmt(fuelCost)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">🔋 FSC (${totalGallons.toFixed(1)} gal)</span><span class="lr-val">${fmt(fscCost)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">👤 Driver pay</span><span class="lr-val">${fmt(driverPay)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">🌙 Per diem (${tripDays.toFixed(1)} days)</span><span class="lr-val">${fmt(perDiemCost)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">🛡️ Insurance</span><span class="lr-val">${fmt(insuranceCost)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">🔧 Equipment</span><span class="lr-val">${fmt(equipCost)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">🔩 Maintenance</span><span class="lr-val">${fmt(maintCost)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">🏢 Overhead</span><span class="lr-val">${fmt(overheadCost)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">📋 Permits</span><span class="lr-val">${fmt(permitsCost)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">🛣️ Tolls (est.)</span><span class="lr-val">${fmt(tollsEst)}</span></div>
+            <div class="lr-cost-row"><span class="lr-lbl">↩ Deadhead (${deadheadPct}%)</span><span class="lr-val">${fmt(deadheadCost)}</span></div>
+            <div class="lr-cost-row lr-total"><span class="lr-lbl">Carrier All-In</span><span class="lr-val lr-total-val">${fmt(carrierAllIn)}</span></div>
+        `;
+
+        // ── 4. BADGES & QUOTE TIERS ──
+        document.getElementById('lr-route-label').textContent     = `${startLabel} → ${finishLabel}`;
+        document.getElementById('lr-per-mi-badge').textContent    = 'Gross ' + pmi(grossProfit);
+        document.getElementById('lr-breakeven-badge').textContent = 'Carrier floor: ' + pmi(carrierAllIn);
+        document.getElementById('lr-val-low').textContent         = fmtN(quoteLow);
+        document.getElementById('lr-mi-low').textContent          = pmi(quoteLow);
+        document.getElementById('lr-val-mid').textContent         = fmtN(quoteMid);
+        document.getElementById('lr-mi-mid').textContent          = pmi(quoteMid);
+        document.getElementById('lr-val-high').textContent        = fmtN(quoteHigh);
+        document.getElementById('lr-mi-high').textContent         = pmi(quoteHigh);
+        document.getElementById('lr-net-text').textContent        = fmt(netAfterFactor) + ' (' + pmi(netAfterFactor) + ')';
+
+        document.getElementById('lane-rate-section').style.display = 'block';
+    }
+
+    function toggleRateInputs(el) {
+        const inputs = document.getElementById('rate-inputs');
+        const icon   = document.getElementById('rate-toggle-icon');
+        const isOpen = inputs.style.display !== 'none';
+        inputs.style.display       = isOpen ? 'none' : 'flex';
+        inputs.style.flexDirection = 'column';
+        icon.style.transform       = isOpen ? '' : 'rotate(180deg)';
+    }
+
+    function toggleCarrierDetail(el) {
+        const panel = document.getElementById('carrier-detail-inputs');
+        const icon  = document.getElementById('carrier-detail-icon');
+        const isOpen = panel.style.display !== 'none';
+        panel.style.display       = isOpen ? 'none' : 'flex';
+        panel.style.flexDirection = 'column';
+        icon.style.transform      = isOpen ? '' : 'rotate(180deg)';
+    }
+
+    function toggleCarrierCostDetail(el) {
+        const panel = document.getElementById('lr-carrier-cost-detail');
+        const icon  = document.getElementById('carrier-cost-detail-icon');
+        const isOpen = panel.style.display !== 'none';
+        panel.style.display  = isOpen ? 'none' : 'block';
+        icon.style.transform = isOpen ? '' : 'rotate(180deg)';
+    }
+
+    function focusStop(lat, lon) {
+        map.setView([lat, lon], 12);
+        markerLayers.forEach(m => { const ll = m.getLatLng(); if (Math.abs(ll.lat - lat) < 0.0001 && Math.abs(ll.lng - lon) < 0.0001) m.openPopup(); });
+    }
+
+    // === LANE RATE INTELLIGENCE JS ===
+    let riData = null;
+    let lastRouteDistanceMiles = 500;
+    let lastRoutePoints = null;   // [[lat,lon],...] from last optimizer run
+
+    function toggleRISection() {
+        const body = document.getElementById('ri-body');
+        const chev = document.getElementById('ri-chevron');
+        const open = body.style.display !== 'none';
+        body.style.display = open ? 'none' : 'block';
+        chev.textContent = open ? '▸' : '▾';
+    }
+
+    function toggleCard(bodyId) {
+        const el = document.getElementById(bodyId);
+        if (!el) return;
+        // Use computed style so it works whether body was set via CSS class or inline style
+        const visible = window.getComputedStyle(el).display !== 'none';
+        el.style.display = visible ? 'none' : 'block';
+    }
+
+    function showHistTab(btn, period) {
+        document.querySelectorAll('.ri-tab').forEach(t => t.classList.remove('on'));
+        btn.classList.add('on');
+        if (!riData) return;
+        renderHistPeriod(riData.history[period]);
+    }
+
+    function renderHistPeriod(h) {
+        const el = document.getElementById('ri-hist-content');
+        el.innerHTML = `
+            <div class="ri-stat-grid">
+                <div class="ri-stat"><div class="ri-stat-v">${h.load_count}</div><div class="ri-stat-l">Loads on lane</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">$${h.avg_carrier_rate.toFixed(2)}/mi</div><div class="ri-stat-l">Avg carrier rate</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">${h.avg_margin_pct.toFixed(1)}%</div><div class="ri-stat-l">Avg margin</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">${h.cover_time_hrs.toFixed(1)}h</div><div class="ri-stat-l">Avg cover time</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">${h.tonu_rate_pct.toFixed(1)}%</div><div class="ri-stat-l">TONU rate</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">${h.cancel_rate_pct.toFixed(1)}%</div><div class="ri-stat-l">Cancel rate</div></div>
+            </div>`;
+    }
+
+    async function fetchRateIntelligence() {
+        const originCity  = document.getElementById('ri-origin-city').value.trim();
+        const originState = document.getElementById('ri-origin-state').value.trim();
+        const destCity    = document.getElementById('ri-dest-city').value.trim();
+        const destState   = document.getElementById('ri-dest-state').value.trim();
+        const equipment   = document.getElementById('ri-equipment').value;
+
+        if (!originCity || !originState || !destCity || !destState) {
+            alert('Please fill in all lane fields.');
+            return;
+        }
+
+        const distanceMiles = lastRouteDistanceMiles || 500;
+        const carrierPay = parseFloat(document.getElementById('carrier-pay-rate')?.value) || 0;
+        const marginPct  = parseFloat(document.getElementById('margin-pct')?.value) || 15;
+
+        const btn = document.getElementById('ri-btn');
+        btn.disabled = true;
+        btn.textContent = 'Analyzing...';
+        document.getElementById('ri-results').style.display = 'block';
+        document.getElementById('ri-loading').style.display = 'block';
+
+        ['ri-hero', 'ri-market-card', 'ri-cap-card'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        });
+
+        // Sample route points (keep payload < 60 coords)
+        let routePointsPayload = null;
+        if (lastRoutePoints && lastRoutePoints.length) {
+            const step = Math.max(1, Math.floor(lastRoutePoints.length / 60));
+            routePointsPayload = lastRoutePoints.filter((_, i) => i % step === 0);
+        }
+
+        try {
+            const resp = await fetch('/api/rate-intelligence/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    origin_city: originCity,
+                    origin_state: originState,
+                    dest_city: destCity,
+                    dest_state: destState,
+                    equipment_type: equipment,
+                    distance_miles: distanceMiles,
+                    carrier_pay_per_mile: carrierPay,
+                    margin_pct: marginPct,
+                    route_points: routePointsPayload
+                })
+            });
+
+            if (!resp.ok) throw new Error(await resp.text());
+            riData = await resp.json();
+            renderRateIntelligence(riData);
+        } catch (err) {
+            document.getElementById('ri-loading').style.display = 'none';
+            document.getElementById('ri-results').innerHTML =
+                `<div style="color:#f87171;font-size:12px;padding:8px">Error: ${err.message}</div>`;
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Get Rate Intelligence';
+        }
+    }
+
+    function renderRateIntelligence(d) {
+        document.getElementById('ri-loading').style.display = 'none';
+
+        const br = d.buy_rate;
+        const cap = d.capacity;
+        const mkt = d.market;
+        const fsc = d.fuel_surcharge;
+        const conf = d.confidence;
+        // Normalize BLS tightness — guard against 'UNKNOWN' when BLS is temporarily unavailable
+        const tightnessLabel = (cap.market_tightness && cap.market_tightness !== 'UNKNOWN') ? cap.market_tightness : 'NEUTRAL';
+
+        // ── Buy-rate source badge: ATRI floor is always real ──
+        const buySrcBadge = document.getElementById('ri-buy-src-badge');
+        buySrcBadge.textContent = 'ATRI 2025 + BLS';
+        buySrcBadge.className = 'ri-badge ri-badge-green';
+        buySrcBadge.title = 'Floor = ATRI 2025 Update (2024 operating data, published July 2025). Range = BLS employment-adjusted.';
+
+        // ── Buy rate tiers ──
+        const belowFloor = d.market.your_rate_per_mile > 0 && d.market.your_rate_per_mile < br.atri_floor;
+        const floorWarn = belowFloor
+            ? `<div style="margin-top:8px;padding:6px 8px;background:rgba(239,68,68,0.1);border-left:3px solid #ef4444;border-radius:4px;font-size:11px;color:#fca5a5;line-height:1.5">
+                ⚠ $${d.market.your_rate_per_mile.toFixed(2)}/mi entered is below the ATRI cost floor ($${br.atri_floor.toFixed(2)}). Carrier loses money at this rate.
+               </div>` : '';
+
+        document.getElementById('ri-rate-tiers').innerHTML = `
+            <div style="font-size:9px;color:#475569;margin-bottom:6px;line-height:1.4">
+                Floor = ATRI 2025 (2024 data) &nbsp;·&nbsp; Range = BLS ${tightnessLabel} market
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+                <div class="ri-rate-tier" onclick="selBuyTier(this)" title="ATRI carrier cost floor. Double-click to copy.">
+                    <div class="ri-rate-tier-label">Floor</div>
+                    <div class="ri-rate-tier-val">$${br.atri_floor.toFixed(2)}</div>
+                    <div class="ri-rate-tier-mi">$/mi</div>
+                    <div class="ri-rate-tier-mi">$${(br.atri_floor * d.lane.distance_miles).toFixed(0)} total</div>
+                    <div style="font-size:9px;color:#22c55e;margin-top:4px">● ATRI real</div>
+                </div>
+                <div class="ri-rate-tier sel" onclick="selBuyTier(this)" title="ATRI floor + BLS capacity premium. Double-click to copy.">
+                    <div class="ri-rate-tier-label">Suggested ★</div>
+                    <div class="ri-rate-tier-val sel-val">$${br.suggested.toFixed(2)}</div>
+                    <div class="ri-rate-tier-mi">$/mi</div>
+                    <div class="ri-rate-tier-mi">$${(br.suggested * d.lane.distance_miles).toFixed(0)} total</div>
+                    <div style="font-size:9px;color:#60a5fa;margin-top:4px">● BLS ${tightnessLabel}</div>
+                </div>
+                <div class="ri-rate-tier" onclick="selBuyTier(this)" title="Tight market ceiling. Double-click to copy.">
+                    <div class="ri-rate-tier-label">High</div>
+                    <div class="ri-rate-tier-val">$${br.high.toFixed(2)}</div>
+                    <div class="ri-rate-tier-mi">$/mi</div>
+                    <div class="ri-rate-tier-mi">$${(br.high * d.lane.distance_miles).toFixed(0)} total</div>
+                    <div style="font-size:9px;color:#64748b;margin-top:4px">● tight mkt est.</div>
+                </div>
+            </div>
+            ${belowFloor ? `
+            <div style="margin-top:8px;padding:6px 10px;background:rgba(239,68,68,0.08);border-left:3px solid #ef4444;border-radius:0 4px 4px 0;font-size:11px;color:#fca5a5;line-height:1.5;width:100%;box-sizing:border-box">
+                ⚠ $${d.market.your_rate_per_mile.toFixed(2)}/mi entered is below the ATRI floor ($${br.atri_floor.toFixed(2)}/mi). Carrier loses money at this rate.
+            </div>` : ''}
+            <div style="font-size:9px;color:#334155;margin-top:6px">Double-click any rate to copy · Verify with DAT for live O&amp;D spot rate</div>`;
+
+        document.querySelectorAll('.ri-rate-tier').forEach(el => {
+            el.ondblclick = () => {
+                const val = el.querySelector('.ri-rate-tier-val').textContent;
+                navigator.clipboard.writeText(val).then(() => {
+                    el.style.borderColor = '#22c55e';
+                    setTimeout(() => el.style.borderColor = '', 1000);
+                });
+            };
+        });
+
+        // ── Sell-rate tiers ──
+        document.getElementById('ri-sell-tiers').innerHTML = `
+            <div class="ri-sell-tier">
+                <div class="ri-sell-tier-label">Conservative</div>
+                <div class="ri-sell-tier-val">$${d.sell_rate.conservative.toFixed(2)}/mi</div>
+                <div class="ri-sell-tier-mi">$${(d.sell_rate.conservative * d.lane.distance_miles).toFixed(0)} total</div>
+            </div>
+            <div class="ri-sell-tier" style="border-left:1px solid #1e293b;border-right:1px solid #1e293b">
+                <div class="ri-sell-tier-label" style="color:#60a5fa">Suggested</div>
+                <div class="ri-sell-tier-val" style="color:#60a5fa">$${d.sell_rate.suggested.toFixed(2)}/mi</div>
+                <div class="ri-sell-tier-mi">$${(d.sell_rate.suggested * d.lane.distance_miles).toFixed(0)} total</div>
+            </div>
+            <div class="ri-sell-tier">
+                <div class="ri-sell-tier-label">Premium</div>
+                <div class="ri-sell-tier-val">$${d.sell_rate.premium.toFixed(2)}/mi</div>
+                <div class="ri-sell-tier-mi">$${(d.sell_rate.premium * d.lane.distance_miles).toFixed(0)} total</div>
+            </div>`;
+
+        document.getElementById('ri-hero').style.display = 'block';
+
+        // ── Market benchmark ──
+        const deltaColor = mkt.delta_signal === 'ABOVE' ? '#86efac' : mkt.delta_signal === 'AT' ? '#fcd34d' : mkt.delta_signal === 'BELOW' ? '#fdba74' : '#fca5a5';
+        const deltaBadge = mkt.delta_signal === 'ABOVE' ? 'ri-badge-blue' : mkt.delta_signal === 'AT' ? 'ri-badge-green' : mkt.delta_signal === 'BELOW' ? 'ri-badge-amber' : 'ri-badge-red';
+        const trendArrow = mkt.trend_30d === 'UP' ? '↑' : mkt.trend_30d === 'DOWN' ? '↓' : '→';
+        const trendColor = mkt.trend_30d === 'UP' ? '#f87171' : mkt.trend_30d === 'DOWN' ? '#86efac' : '#fcd34d';
+
+        document.getElementById('ri-market-src-badge').textContent = mkt.data_source === 'real' ? 'BLS PPI REAL' : 'ESTIMATE';
+        document.getElementById('ri-market-src-badge').className = `ri-badge ${mkt.data_source === 'real' ? 'ri-badge-green' : ''}`;
+        document.getElementById('ri-market-badge').textContent = `${mkt.delta_pct > 0 ? '+' : ''}${mkt.delta_pct.toFixed(1)}% vs estimate`;
+        document.getElementById('ri-market-badge').className = `ri-badge ${deltaBadge}`;
+
+        const ppiYoy = mkt.ppi_yoy_delta_pct != null
+            ? `<div class="ri-mkt-row"><span class="ri-mkt-label">BLS PPI YoY <span style="font-size:9px;color:#22c55e">(real)</span></span><span class="ri-mkt-val" style="color:${mkt.ppi_yoy_delta_pct > 0 ? '#f87171' : '#86efac'}">${mkt.ppi_yoy_delta_pct > 0 ? '+' : ''}${mkt.ppi_yoy_delta_pct.toFixed(1)}%</span></div>` : '';
+        const pmiRow = mkt.pmi_value != null
+            ? `<div class="ri-mkt-row"><span class="ri-mkt-label">ISM PMI <span style="font-size:9px;color:#22c55e">(FRED real)</span></span><span class="ri-mkt-val" style="color:${mkt.pmi_value >= 50 ? '#86efac' : '#fca5a5'}">${mkt.pmi_value} ${mkt.pmi_value >= 50 ? '▲ expanding' : '▼ contracting'}</span></div>` : '';
+        const freightRow = mkt.freight_volume_yoy_pct != null
+            ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Truck freight vol YoY <span style="font-size:9px;color:#22c55e">(FRED real)</span></span><span class="ri-mkt-val" style="color:${mkt.freight_volume_yoy_pct >= 0 ? '#86efac' : '#fca5a5'}">${mkt.freight_volume_yoy_pct > 0 ? '+' : ''}${mkt.freight_volume_yoy_pct.toFixed(1)}%</span></div>` : '';
+
+        document.getElementById('ri-market-body').innerHTML = `
+            <div class="ri-mkt-row"><span class="ri-mkt-label">ATRI carrier cost floor</span><span class="ri-mkt-val" style="color:#86efac">$${br.atri_floor.toFixed(2)}/mi <span style="font-size:9px;color:#22c55e">(ATRI 2025 Update)</span></span></div>
+            <div class="ri-mkt-row"><span class="ri-mkt-label">Market estimate</span><span class="ri-mkt-val">$${mkt.market_avg_per_mile.toFixed(2)}/mi</span></div>
+            ${d.market.your_rate_per_mile > 0 ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Your carrier pay</span><span class="ri-mkt-val" style="color:${deltaColor}">$${mkt.your_rate_per_mile.toFixed(2)}/mi (${mkt.delta_pct > 0 ? '+' : ''}${mkt.delta_pct.toFixed(1)}%)</span></div>` : ''}
+            <div class="ri-mkt-row"><span class="ri-mkt-label">Rate trend <span style="font-size:9px;color:#475569">(${mkt.trend_source})</span></span><span class="ri-mkt-val" style="color:${trendColor}">${trendArrow} ${mkt.trend_30d}</span></div>
+            ${ppiYoy}${pmiRow}${freightRow}`;
+
+        document.getElementById('ri-market-card').style.display = 'block';
+
+        // ── Capacity signal (BLS Employment — real when available) ──
+        const capIsReal = cap.data_source === 'real';
+        const capSignal = ['TIGHT','BALANCED','LOOSE'].includes(cap.signal) ? cap.signal : 'BALANCED';
+        const capBadge = capSignal === 'TIGHT' ? 'ri-badge-red' : capSignal === 'BALANCED' ? 'ri-badge-amber' : 'ri-badge-green';
+        const capFill  = capSignal === 'TIGHT' ? 'ri-cap-tight' : capSignal === 'BALANCED' ? 'ri-cap-balanced' : 'ri-cap-loose';
+        const capWidth = capSignal === 'TIGHT' ? 80 : capSignal === 'BALANCED' ? 55 : 25;
+        const capMsg   = capSignal === 'TIGHT' ? 'Carrier market — drivers short. Quote shipper at Premium tier, hold firm.'
+                       : capSignal === 'BALANCED' ? 'Normal market — use Suggested rate for both sides.'
+                       : 'Broker market — carriers competing for freight. Push carrier toward Floor rate.';
+
+        // Update source badge dynamically
+        const capSrcBadge = document.getElementById('ri-cap-src-badge');
+        if (capSrcBadge) {
+            capSrcBadge.textContent = capIsReal ? 'BLS REAL' : 'UNAVAILABLE';
+            capSrcBadge.className = `ri-badge ${capIsReal ? 'ri-badge-green' : ''}`;
+        }
+
+        document.getElementById('ri-cap-badge').textContent = `${capSignal} · ${tightnessLabel}`;
+        document.getElementById('ri-cap-badge').className = `ri-badge ${capBadge}`;
+        document.getElementById('ri-cap-body').innerHTML = `
+            <div style="font-size:10px;color:#64748b;margin-bottom:6px">Source: BLS Current Employment Statistics — truck transportation ${capIsReal ? '<span style="color:#22c55e">● live</span>' : '<span style="color:#f59e0b">● unavailable, using NEUTRAL default</span>'}</div>
+            <div class="ri-cap-bar"><div class="ri-cap-fill ${capFill}" style="width:${capWidth}%"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#475569;margin-bottom:10px"><span>Loose</span><span>Balanced</span><span>Tight</span></div>
+            ${cap.headcount_thousands != null ? `
+            <div class="ri-mkt-row"><span class="ri-mkt-label">Drivers employed</span><span class="ri-mkt-val">${cap.headcount_thousands.toFixed(1)}k
+              <span style="font-size:10px;color:${(cap.headcount_yoy_pct||0) < 0 ? '#f87171' : '#86efac'}">${cap.headcount_yoy_pct != null ? ((cap.headcount_yoy_pct > 0 ? ' ▲' : ' ▼') + Math.abs(cap.headcount_yoy_pct).toFixed(1) + '% YoY') : ''}</span>
+            </span></div>
+            <div class="ri-mkt-row"><span class="ri-mkt-label">Headcount trend</span><span class="ri-mkt-val">${cap.headcount_trend || '—'}</span></div>` : '<div style="font-size:11px;color:#475569;padding:4px 0">BLS data temporarily unavailable — showing neutral market default.</div>'}
+            ${cap.avg_hourly_wages != null ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Avg driver wage</span><span class="ri-mkt-val">$${cap.avg_hourly_wages.toFixed(2)}/hr <span style="font-size:9px;color:#22c55e">(BLS real)</span></span></div>` : ''}
+            <div class="ri-note" style="margin-top:8px">${capMsg}</div>
+            ${cap.backhaul_available ? '<div class="ri-note" style="margin-top:4px">↩ <strong>Backhaul market</strong> at destination — carriers may discount slightly to avoid empty return.</div>' : ''}`;
+        document.getElementById('ri-cap-card').style.display = 'block';
+
+        // ── Lane history — honest no-data ──
+        document.getElementById('ri-hist-badge').textContent = 'NO REAL DATA';
+        document.getElementById('ri-hist-badge').className = 'ri-badge';
+        document.getElementById('ri-hist-content').innerHTML = `
+            <div style="padding:10px 0;font-size:12px;color:#64748b;line-height:1.6">
+                Lane transaction history requires DAT One or TMS integration.<br>
+                <span style="color:#475569;font-size:11px">What SpotterAI shows instead: ATRI cost floor, BLS employment trend, EIA diesel — all real, all free.</span>
+            </div>`;
+
+        // ── Negotiation coach (auto-expanded) ──
+        document.getElementById('ri-coach-text').textContent = d.negotiation_coach;
+        const coachBadge = document.getElementById('ri-coach-badge');
+        coachBadge.textContent = d.negotiation_coach_source === 'ai' ? 'AI' : 'RULE-BASED';
+        coachBadge.className = d.negotiation_coach_source === 'ai' ? 'ri-badge ri-badge-ai' : 'ri-badge';
+        const coachBody = document.getElementById('ri-coach-body');
+        if (coachBody) coachBody.style.display = 'block';
+
+        // ── Seasonality ──
+        const seasonBadge = d.seasonality.signal === 'PEAK' ? 'ri-badge-red' : d.seasonality.signal === 'TROUGH' ? 'ri-badge-green' : 'ri-badge-amber';
+        document.getElementById('ri-season-badge').textContent = `${d.seasonality.signal} · est. ${d.seasonality.yoy_delta_pct > 0 ? '+' : ''}${d.seasonality.yoy_delta_pct}% YoY`;
+        document.getElementById('ri-season-badge').className = `ri-badge ${seasonBadge}`;
+        document.getElementById('ri-season-content').innerHTML = `
+            <div class="ri-mkt-row"><span class="ri-mkt-label">Season</span><span class="ri-mkt-val">${d.seasonality.signal}</span></div>
+            <div class="ri-mkt-row"><span class="ri-mkt-label">Historical YoY delta</span><span class="ri-mkt-val">${d.seasonality.yoy_delta_pct > 0 ? '+' : ''}${d.seasonality.yoy_delta_pct}% <span style="font-size:9px;color:#475569">(seasonal estimate)</span></span></div>`;
+
+        // ── Confidence score — honest breakdown ──
+        const confColor = conf.grade === 'HIGH' ? '#86efac' : conf.grade === 'MEDIUM' ? '#fcd34d' : '#fca5a5';
+        document.getElementById('ri-conf-badge').textContent = `${conf.grade} · ${conf.score}/100`;
+        document.getElementById('ri-conf-badge').className = `ri-badge ${conf.grade === 'HIGH' ? 'ri-badge-green' : conf.grade === 'MEDIUM' ? 'ri-badge-amber' : 'ri-badge-red'}`;
+        const breakdown = conf.breakdown || {};
+        const bdRows = Object.entries(breakdown).map(([k, v]) =>
+            `<div class="ri-mkt-row"><span class="ri-mkt-label">${k.replace(/_/g,' ')}</span><span class="ri-mkt-val" style="color:${v > 0 ? '#86efac' : '#475569'}">${v > 0 ? v + ' pts' : '0 pts — no data'}</span></div>`
+        ).join('');
+        document.getElementById('ri-conf-content').innerHTML = `
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+                <div style="width:48px;height:48px;border-radius:50%;border:3px solid ${confColor};display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:${confColor};flex-shrink:0">${conf.score}</div>
+                <div style="font-size:11px;color:#94a3b8;line-height:1.5">${conf.ceiling_note || ''}</div>
+            </div>
+            ${bdRows}`;
+
+        // ── Fuel surcharge ──
+        const fscParts = [`$${fsc.per_mile}/mi`, `$${fsc.total.toFixed(2)} total`, `diesel $${fsc.diesel_price_per_gallon}/gal`];
+        if (fsc.origin_state_price) fscParts.push(`origin $${fsc.origin_state_price}/gal`);
+        if (fsc.dest_state_price)   fscParts.push(`dest $${fsc.dest_state_price}/gal`);
+        document.getElementById('ri-fsc-text').textContent = fscParts.join(' · ');
+        const fscBadge = document.getElementById('ri-fsc-badge');
+        fscBadge.textContent = fsc.data_source === 'real' ? 'LIVE EIA' : 'ESTIMATED';
+        fscBadge.className = `ri-badge ${fsc.data_source === 'real' ? 'ri-badge-green' : ''}`;
+
+        // ── Diesel trend sparkline ──
+        if (d.diesel_trend && d.diesel_trend.length >= 2) {
+            document.getElementById('ri-trend-card').style.display = 'block';
+            document.getElementById('ri-trend-content').innerHTML = renderDieselSparkline(d.diesel_trend);
+        }
+
+        // ── BLS PPI sparkline ──
+        const ppi = d.market_index;
+        if (ppi && ppi.data_source === 'real' && ppi.history_12m && ppi.history_12m.length >= 2) {
+            document.getElementById('ri-ppi-card').style.display = 'block';
+            document.getElementById('ri-ppi-content').innerHTML = renderPPIChart(ppi);
+        }
+
+        // ── FRED PMI + freight volume chart ──
+        if (d.fred && d.fred.data_source === 'real') {
+            renderFREDPanel(d.fred);
+        }
+
+        // ── Nat gas (reefer only) ──
+        if (d.nat_gas) {
+            const ngSignalColor = d.nat_gas.signal === 'HIGH' ? '#fca5a5' : d.nat_gas.signal === 'LOW' ? '#86efac' : '#fcd34d';
+            const ngCard = document.getElementById('ri-ng-card');
+            if (ngCard) {
+                ngCard.style.display = 'block';
+                document.getElementById('ri-ng-content').innerHTML = `
+                    <div class="ri-mkt-row"><span class="ri-mkt-label">Henry Hub nat gas</span><span class="ri-mkt-val" style="color:${ngSignalColor}">$${d.nat_gas.price_per_mmbtu.toFixed(2)}/MMBtu — ${d.nat_gas.signal}</span></div>
+                    <div style="font-size:10px;color:#64748b;margin-top:4px">${d.nat_gas.note}</div>`;
+            }
+        }
+
+        // ── Weather alerts ──
+        const wx = d.weather_alerts;
+        if (wx && wx.data_source === 'real') {
+            const wxCard = document.getElementById('ri-wx-card');
+            wxCard.style.display = 'block';
+            const wxBadge = document.getElementById('ri-wx-badge');
+            const wxAlerts = wx.alerts || [];
+            if (!wxAlerts.length) {
+                wxBadge.textContent = 'ALL CLEAR · NWS';
+                wxBadge.className = 'ri-badge ri-badge-green';
+                document.getElementById('ri-wx-content').innerHTML =
+                    `<div style="font-size:11px;color:#64748b;padding:4px 0">No active NWS alerts on this route.${wx.states_checked ? ' States checked: ' + wx.states_checked.join(', ') : ''}</div>`;
+            } else {
+                wxBadge.textContent = `${wxAlerts.length} ALERT${wxAlerts.length > 1 ? 'S' : ''} · ${wx.delay_risk}`;
+                wxBadge.className = `ri-badge ri-badge-${wx.delay_risk === 'HIGH' ? 'red' : 'amber'}`;
+                const sevColor = { Extreme: '#ef4444', Severe: '#f97316', Moderate: '#f59e0b', Minor: '#3b82f6' };
+                const wxRows = wxAlerts.map(a => `
+                    <div style="padding:5px 0;border-bottom:1px solid #1e293b">
+                        <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px">
+                            <span style="font-size:9px;font-weight:700;color:${sevColor[a.severity]||'#64748b'};border:1px solid ${sevColor[a.severity]||'#64748b'};padding:1px 5px;border-radius:10px">${(a.severity||'').toUpperCase()}</span>
+                            <span style="font-size:11px;font-weight:600;color:#e2e8f0">${a.event}</span>
+                        </div>
+                        <div style="font-size:10px;color:#64748b;line-height:1.4">${(a.headline||'').slice(0,140)}</div>
+                        ${a.area_desc ? `<div style="font-size:9px;color:#475569;margin-top:2px">${a.area_desc.slice(0,90)}</div>` : ''}
+                    </div>`).join('');
+                document.getElementById('ri-wx-content').innerHTML =
+                    `<div style="max-height:200px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.15) transparent">
+                        <div style="font-size:9px;color:#334155;padding-bottom:4px;border-bottom:1px solid #1e293b;margin-bottom:4px">States: ${(wx.states_checked||[]).join(', ')}</div>
+                        ${wxRows}
+                    </div>`;
+            }
+        }
+    }
+
+    function renderFREDPanel(fred) {
+        // Render FRED PMI + freight volume below PPI card
+        let html = '';
+        if (fred.pmi) {
+            const p = fred.pmi;
+            const pts = p.history_12m || [];
+            const pmiColor = p.value >= 50 ? '#86efac' : '#fca5a5';
+            html += `<div style="margin-bottom:8px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                    <span style="font-size:11px;color:#94a3b8">ISM Manufacturing PMI <span style="color:#22c55e;font-size:9px">(FRED real)</span></span>
+                    <span style="font-size:13px;font-weight:700;color:${pmiColor}">${p.value} ${p.value >= 50 ? '▲' : '▼'}</span>
+                </div>
+                <div style="font-size:10px;color:#64748b">${p.label}</div>
+                ${p.yoy_delta_pts != null ? `<div style="font-size:10px;color:#475569;margin-top:2px">YoY: ${p.yoy_delta_pts > 0 ? '+' : ''}${p.yoy_delta_pts} pts · ${p.period}</div>` : ''}
+            </div>`;
+        }
+        if (fred.freight_volume) {
+            const f = fred.freight_volume;
+            const fColor = f.yoy_delta_pct >= 0 ? '#86efac' : '#fca5a5';
+            html += `<div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+                    <span style="font-size:11px;color:#94a3b8">US Truck Freight Volume <span style="color:#22c55e;font-size:9px">(FRED real)</span></span>
+                    <span style="font-size:12px;font-weight:700;color:${fColor}">${f.yoy_delta_pct != null ? (f.yoy_delta_pct > 0 ? '+' : '') + f.yoy_delta_pct.toFixed(1) + '% YoY' : '—'}</span>
+                </div>
+                <div style="font-size:10px;color:#64748b">${f.note}</div>
+            </div>`;
+        }
+        if (!html) return;
+        // Inject after PPI card
+        let fredCard = document.getElementById('ri-fred-card');
+        if (!fredCard) {
+            fredCard = document.createElement('div');
+            fredCard.id = 'ri-fred-card';
+            fredCard.className = 'ri-card';
+            fredCard.innerHTML = `<div class="ri-card-header" onclick="toggleCard('ri-fred-body')">
+                <span style="display:flex;align-items:center;gap:6px">📊 Demand Signals <span style="font-size:9px;color:#22c55e">FRED REAL</span></span>
+                <span class="ri-badge ri-badge-green">LIVE</span>
+            </div>
+            <div id="ri-fred-body" class="ri-card-body"></div>`;
+            const ppiCard = document.getElementById('ri-ppi-card');
+            if (ppiCard && ppiCard.parentNode) ppiCard.parentNode.insertBefore(fredCard, ppiCard.nextSibling);
+        }
+        document.getElementById('ri-fred-body').innerHTML = html;
+        document.getElementById('ri-fred-body').style.display = 'block';
+        fredCard.style.display = 'block';
+    }
+
+    function renderPPIChart(ppi) {
+        const pts = ppi.history_12m;
+        const vals = pts.map(p => p.index);
+        const min = Math.min(...vals) * 0.997;
+        const max = Math.max(...vals) * 1.003;
+        const W = 220, H = 44;
+        const x = i => (i / (pts.length - 1)) * W;
+        const y = v => H - ((v - min) / (max - min || 1)) * H;
+        const polyPts = pts.map((p, i) => `${x(i).toFixed(1)},${y(p.index).toFixed(1)}`).join(' ');
+        const first = vals[0], last = vals[vals.length - 1];
+        const up = last >= first;
+        const lineColor = up ? '#f87171' : '#22c55e';
+        const dots = pts.map((p, i) =>
+            (i === 0 || i === pts.length - 1)
+            ? `<circle cx="${x(i).toFixed(1)}" cy="${y(p.index).toFixed(1)}" r="3" fill="${lineColor}"/>`
+            : ''
+        ).join('');
+        const yoyTxt = ppi.yoy_delta_pct != null
+            ? `${ppi.yoy_delta_pct > 0 ? '▲' : '▼'} ${Math.abs(ppi.yoy_delta_pct).toFixed(1)}% YoY`
+            : '';
+        return `
+            <svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" style="display:block;overflow:visible">
+                <polyline points="${polyPts}" fill="none" stroke="${lineColor}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+                ${dots}
+            </svg>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#475569;margin-top:2px">
+                <span>${pts[0].period}</span><span>${pts[pts.length-1].period}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px">
+                <span style="font-size:11px;color:#64748b">Index <strong style="color:#94a3b8">${first.toFixed(1)}</strong> → <strong style="color:#94a3b8">${last.toFixed(1)}</strong></span>
+                <span style="font-size:12px;font-weight:700;color:${lineColor}">${yoyTxt}</span>
+            </div>
+            <div style="font-size:9px;color:#334155;margin-top:3px">Series: ${ppi.series_id} · ${ppi.source}</div>`;
+    }
+
+    function renderDieselSparkline(points) {
+        const vals = points.map(p => p.value);
+        const min = Math.min(...vals) * 0.998;
+        const max = Math.max(...vals) * 1.002;
+        const W = 220, H = 48;
+        const x = i => (i / (points.length - 1)) * W;
+        const y = v => H - ((v - min) / (max - min)) * H;
+        const polyPts = points.map((p, i) => `${x(i).toFixed(1)},${y(p.value).toFixed(1)}`).join(' ');
+        const first = vals[0], last = vals[vals.length - 1];
+        const trend = last >= first ? '#ef4444' : '#22c55e';
+        const trendLabel = last >= first ? `▲ +$${(last - first).toFixed(3)}` : `▼ -$${(first - last).toFixed(3)}`;
+        const trendColor = last >= first ? '#ef4444' : '#22c55e';
+        const dots = points.map((p, i) =>
+            (i === 0 || i === points.length - 1)
+            ? `<circle cx="${x(i).toFixed(1)}" cy="${y(p.value).toFixed(1)}" r="3" fill="${trend}"/>`
+            : ''
+        ).join('');
+        return `
+            <svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" style="display:block;overflow:visible">
+                <polyline points="${polyPts}" fill="none" stroke="${trend}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+                ${dots}
+            </svg>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#475569;margin-top:2px">
+                <span>${points[0].period}</span><span>${points[points.length - 1].period}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px">
+                <span style="font-size:11px;color:#64748b">Was <strong style="color:#94a3b8">$${first.toFixed(3)}</strong></span>
+                <span style="font-size:12px;font-weight:700;color:${trendColor}">${trendLabel} · $${last.toFixed(3)} now</span>
+            </div>`;
+    }
+
+    // === CARRIER VERIFICATION JS (real FMCSA data) ===
+    function toggleCVSection() {
+        const body = document.getElementById('cv-body');
+        const chev = document.getElementById('cv-chevron');
+        const open = body.style.display !== 'none';
+        body.style.display = open ? 'none' : 'block';
+        chev.textContent = open ? '▸' : '▾';
+    }
+
+    async function fetchCarrierVerification() {
+        const dotNumber = document.getElementById('cv-dot-number').value.trim();
+        if (!dotNumber) {
+            alert('Please enter a DOT number.');
+            return;
+        }
+
+        const btn = document.getElementById('cv-btn');
+        btn.disabled = true;
+        btn.textContent = 'Verifying...';
+        const resultsEl = document.getElementById('cv-results');
+        resultsEl.style.display = 'block';
+        resultsEl.innerHTML = `<div style="text-align:center;padding:12px;color:#94a3b8;font-size:13px">⏳ Checking FMCSA...</div>`;
+
+        try {
+            const resp = await fetch('/api/carrier-verification/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ dot_number: dotNumber })
+            });
+            const d = await resp.json();
+            renderCarrierVerification(d);
+        } catch (err) {
+            resultsEl.innerHTML = `<div style="color:#f87171;font-size:12px;padding:8px">Error: ${err.message}</div>`;
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Verify Carrier';
+        }
+    }
+
+    function renderCarrierVerification(d) {
+        const resultsEl = document.getElementById('cv-results');
+
+        if (d.data_source === 'unavailable') {
+            resultsEl.innerHTML = `
+                <div class="ri-card" style="margin-top:0;">
+                    <div class="ri-note" style="margin-top:0;">${d.message}</div>
+                </div>`;
+            return;
+        }
+
+        if (!d.found) {
+            resultsEl.innerHTML = `
+                <div class="ri-card" style="margin-top:0;">
+                    <span class="ri-badge ri-badge-amber">NOT FOUND</span>
+                    <div class="ri-note">${d.message}</div>
+                </div>`;
+            return;
+        }
+
+        const statusBadge = d.allowed_to_operate ? 'ri-badge-green' : 'ri-badge-red';
+        const statusText = d.allowed_to_operate ? 'AUTHORIZED' : 'NOT AUTHORIZED';
+
+        resultsEl.innerHTML = `
+            <div class="ri-card" style="margin-top:0;">
+                <div class="ri-card-header" style="cursor:default;">
+                    <span>${d.legal_name || 'Unknown carrier'}</span>
+                    <span class="ri-badge ri-badge-green">LIVE FMCSA DATA</span>
+                </div>
+                <div class="ri-card-body">
+                    <div class="ri-mkt-row"><span class="ri-mkt-label">Authority status</span><span class="ri-mkt-val"><span class="ri-badge ${statusBadge}">${statusText}</span></span></div>
+                    <div class="ri-mkt-row"><span class="ri-mkt-label">Safety rating</span><span class="ri-mkt-val">${d.safety_rating || 'Not rated'}</span></div>
+                    ${d.dba_name ? `<div class="ri-mkt-row"><span class="ri-mkt-label">DBA</span><span class="ri-mkt-val">${d.dba_name}</span></div>` : ''}
+                    ${d.power_units != null ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Power units</span><span class="ri-mkt-val">${d.power_units}</span></div>` : ''}
+                    ${d.drivers != null ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Drivers</span><span class="ri-mkt-val">${d.drivers}</span></div>` : ''}
+                </div>
+                <div class="ri-note">${d.message}</div>
+            </div>`;
+    }
+
+    function selBuyTier(el) {
+        document.querySelectorAll('.ri-rate-tier').forEach(t => {
+            t.classList.remove('sel');
+            t.querySelector('.ri-rate-tier-val').classList.remove('sel-val');
+        });
+        el.classList.add('sel');
+        el.querySelector('.ri-rate-tier-val').classList.add('sel-val');
+    }
+</script>
+{% endblock %}

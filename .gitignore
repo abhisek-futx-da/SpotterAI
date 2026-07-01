@@ -9,3 +9,6 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+staticfiles/
+.claude/
+.bls_cache/
