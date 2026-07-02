@@ -662,6 +662,16 @@
                                 ⏳ Analyzing lane...
                             </div>
 
+                            <!-- Market consensus — the one-line verdict, always first -->
+                            <div class="ri-card" id="ri-consensus-card" style="display:none">
+                                <div class="ri-card-header" onclick="toggleCard('ri-consensus-body')">
+                                    <span>🧭 Market consensus</span>
+                                    <span id="ri-consensus-badge" class="ri-badge"></span>
+                                </div>
+                                <div id="ri-consensus-summary" style="font-size:12px;color:#e2e8f0;line-height:1.6;margin-top:8px"></div>
+                                <div id="ri-consensus-body" class="ri-card-body" style="display:none"></div>
+                            </div>
+
                             <!-- Rate hero -->
                             <div class="ri-card" id="ri-hero" style="display:none">
                                 <div class="ri-card-label" style="display:flex;justify-content:space-between;align-items:center;">
@@ -703,14 +713,19 @@
                                 </div>
                             </div>
 
-                            <!-- Lane history — honest no-data, auto-open -->
+                            <!-- Lane history — broker-logged rates + honest no-data -->
                             <div class="ri-card">
                                 <div class="ri-card-header" onclick="toggleCard('ri-hist-body')">
-                                    <span>📈 Lane history</span>
+                                    <span>📈 My lane history</span>
                                     <span id="ri-hist-badge" class="ri-badge"></span>
                                 </div>
                                 <div id="ri-hist-body" class="ri-card-body">
                                     <div id="ri-hist-content"></div>
+                                    <div style="display:flex;gap:6px;margin-top:10px">
+                                        <input type="number" id="ri-log-rate" class="ri-input" placeholder="Rate paid $/mi" step="0.01" min="0" style="flex:1">
+                                        <button type="button" class="ri-btn" style="width:auto;margin-top:0;padding:7px 14px" onclick="logLaneRate()">Log</button>
+                                    </div>
+                                    <div style="font-size:9px;color:#475569;margin-top:5px">Log what you actually paid — builds your private rate history for this lane. Stored on this device only.</div>
                                 </div>
                             </div>
 
@@ -1506,6 +1521,77 @@
         }
     }
 
+    // === MY LANE HISTORY — broker-logged rates, stored in this browser only ===
+    function currentLaneKey() {
+        const o = (document.getElementById('ri-origin-city').value || '').trim().toLowerCase();
+        const os = (document.getElementById('ri-origin-state').value || '').trim().toUpperCase();
+        const dc = (document.getElementById('ri-dest-city').value || '').trim().toLowerCase();
+        const ds = (document.getElementById('ri-dest-state').value || '').trim().toUpperCase();
+        const eq = document.getElementById('ri-equipment').value;
+        return `spotterai_lane_${o}_${os}__${dc}_${ds}__${eq}`;
+    }
+
+    function getLaneLog() {
+        try { return JSON.parse(localStorage.getItem(currentLaneKey()) || '[]'); }
+        catch { return []; }
+    }
+
+    function logLaneRate() {
+        const input = document.getElementById('ri-log-rate');
+        const rate = parseFloat(input.value);
+        if (!rate || rate <= 0 || rate > 20) { input.style.borderColor = '#ef4444'; return; }
+        input.style.borderColor = '';
+        const log = getLaneLog();
+        log.unshift({ rate: rate, date: new Date().toISOString().slice(0, 10) });
+        // Keep last 50 entries per lane
+        try { localStorage.setItem(currentLaneKey(), JSON.stringify(log.slice(0, 50))); } catch {}
+        input.value = '';
+        renderLaneLog();
+    }
+
+    function deleteLaneEntry(idx) {
+        const log = getLaneLog();
+        log.splice(idx, 1);
+        try { localStorage.setItem(currentLaneKey(), JSON.stringify(log)); } catch {}
+        renderLaneLog();
+    }
+
+    function renderLaneLog() {
+        const log = getLaneLog();
+        const badge = document.getElementById('ri-hist-badge');
+        const el = document.getElementById('ri-hist-content');
+        if (!el || !badge) return;
+
+        if (!log.length) {
+            badge.textContent = 'NO LOADS LOGGED YET';
+            badge.className = 'ri-badge';
+            el.innerHTML = `
+                <div style="padding:6px 0;font-size:12px;color:#64748b;line-height:1.6">
+                    No loads logged on this lane yet. Log what you actually pay carriers below —
+                    over time this becomes <strong style="color:#94a3b8">your own private rate history</strong>,
+                    more relevant than any blended average for your repeat lanes.
+                </div>`;
+            return;
+        }
+
+        const rates = log.map(e => e.rate);
+        const avg = rates.reduce((a, b) => a + b, 0) / rates.length;
+        const lo = Math.min(...rates), hi = Math.max(...rates);
+        const recent = log.slice(0, 6);
+
+        badge.textContent = `${log.length} LOAD${log.length > 1 ? 'S' : ''} · AVG $${avg.toFixed(2)}/mi`;
+        badge.className = 'ri-badge ri-badge-blue';
+        el.innerHTML = `
+            <div class="ri-stat-grid" style="margin-bottom:8px">
+                <div class="ri-stat"><div class="ri-stat-v">$${avg.toFixed(2)}</div><div class="ri-stat-l">Your avg $/mi</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">$${lo.toFixed(2)}–$${hi.toFixed(2)}</div><div class="ri-stat-l">Your range</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">${log.length}</div><div class="ri-stat-l">Loads logged</div></div>
+            </div>
+            ${recent.map((e, i) => `<div class="ri-mkt-row"><span class="ri-mkt-label">${e.date}</span><span class="ri-mkt-val">$${e.rate.toFixed(2)}/mi <span onclick="deleteLaneEntry(${i})" style="cursor:pointer;color:#475569;font-size:10px;margin-left:6px" title="Remove">✕</span></span></div>`).join('')}
+            ${log.length > 6 ? `<div style="font-size:9px;color:#475569;padding:3px 0">+ ${log.length - 6} older entries</div>` : ''}
+            <div style="font-size:9px;color:#22c55e;margin-top:4px">● Your data — stored on this device, never uploaded</div>`;
+    }
+
     function renderRateIntelligence(d) {
         document.getElementById('ri-loading').style.display = 'none';
 
@@ -1611,14 +1697,50 @@
         const freightRow = mkt.freight_volume_yoy_pct != null
             ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Truck freight vol YoY <span style="font-size:9px;color:#22c55e">(FRED real)</span></span><span class="ri-mkt-val" style="color:${mkt.freight_volume_yoy_pct >= 0 ? '#86efac' : '#fca5a5'}">${mkt.freight_volume_yoy_pct > 0 ? '+' : ''}${mkt.freight_volume_yoy_pct.toFixed(1)}%</span></div>` : '';
 
+        // Industry benchmark rows (Cass, ATA tonnage) — the indexes brokers already know
+        const fredData = d.fred || {};
+        const benchRow = (s, name) => {
+            if (!s) return '';
+            const yoy = s.yoy_delta_pct != null ? `${s.yoy_delta_pct > 0 ? '+' : ''}${s.yoy_delta_pct.toFixed(1)}% YoY` : '';
+            const tc = s.trend_3m === 'UP' ? '#f87171' : s.trend_3m === 'DOWN' ? '#86efac' : '#fcd34d';
+            return `<div class="ri-mkt-row"><span class="ri-mkt-label">${name} <span style="font-size:9px;color:#475569">(${s.period})</span></span><span class="ri-mkt-val" style="color:${tc}">${s.trend_3m} <span style="font-size:10px;color:#94a3b8">${yoy}</span></span></div>`;
+        };
+        const cassRow = benchRow(fredData.cass_index, 'Cass Freight Index');
+        const tonnageRow = benchRow(fredData.truck_tonnage, 'ATA Truck Tonnage');
+
+        // Equipment-specific demand driver
+        const eq = d.equipment_demand || {};
+        let eqRows = '';
+        if (eq.data_source === 'real' && eq.drivers && eq.drivers.length) {
+            eqRows = eq.drivers.map(drv => benchRow(drv, drv.label || 'Demand driver')).join('');
+            eqRows += `<div style="font-size:9px;color:#475569;padding:3px 0">${eq.note || ''}</div>`;
+        }
+
         document.getElementById('ri-market-body').innerHTML = `
             <div class="ri-mkt-row"><span class="ri-mkt-label">ATRI carrier cost floor</span><span class="ri-mkt-val" style="color:#86efac">$${br.atri_floor.toFixed(2)}/mi <span style="font-size:9px;color:#22c55e">(ATRI 2025 Update)</span></span></div>
             <div class="ri-mkt-row"><span class="ri-mkt-label">Market estimate</span><span class="ri-mkt-val">$${mkt.market_avg_per_mile.toFixed(2)}/mi</span></div>
             ${d.market.your_rate_per_mile > 0 ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Your carrier pay</span><span class="ri-mkt-val" style="color:${deltaColor}">$${mkt.your_rate_per_mile.toFixed(2)}/mi (${mkt.delta_pct > 0 ? '+' : ''}${mkt.delta_pct.toFixed(1)}%)</span></div>` : ''}
             <div class="ri-mkt-row"><span class="ri-mkt-label">Rate trend <span style="font-size:9px;color:#475569">(${mkt.trend_source})</span></span><span class="ri-mkt-val" style="color:${trendColor}">${trendArrow} ${mkt.trend_30d}</span></div>
-            ${ppiYoy}${pmiRow}${freightRow}`;
+            ${ppiYoy}${pmiRow}${freightRow}${cassRow}${tonnageRow}${eqRows}`;
 
         document.getElementById('ri-market-card').style.display = 'block';
+
+        // ── Market consensus — one verdict from all sources ──
+        const cons = d.consensus;
+        if (cons && cons.data_source === 'real') {
+            const vColor = cons.verdict === 'FIRMING' ? 'ri-badge-red' : cons.verdict === 'SOFTENING' ? 'ri-badge-green' : 'ri-badge-amber';
+            document.getElementById('ri-consensus-badge').textContent = `${cons.verdict} · ${cons.conviction} conviction`;
+            document.getElementById('ri-consensus-badge').className = `ri-badge ${vColor}`;
+            document.getElementById('ri-consensus-summary').textContent = cons.summary;
+            document.getElementById('ri-consensus-body').innerHTML = cons.votes.map(v => {
+                const voteColor = v.vote === 'FIRMING' ? '#f87171' : v.vote === 'SOFTENING' ? '#86efac' : '#fcd34d';
+                return `<div class="ri-mkt-row"><span class="ri-mkt-label">${v.source} <span style="font-size:9px;color:#475569">(${v.period || '—'})</span></span><span class="ri-mkt-val" style="color:${voteColor}">${v.vote} <span style="font-size:9px;color:#64748b">${v.detail}</span></span></div>`;
+            }).join('') + `<div style="font-size:9px;color:#475569;margin-top:6px">Tap header to collapse · All sources are live government/industry data</div>`;
+            document.getElementById('ri-consensus-body').style.display = 'block';
+            document.getElementById('ri-consensus-card').style.display = 'block';
+        } else {
+            document.getElementById('ri-consensus-card').style.display = 'none';
+        }
 
         // ── Capacity signal (BLS Employment — real when available) ──
         const capIsReal = cap.data_source === 'real';
@@ -1653,14 +1775,8 @@
             ${cap.backhaul_available ? '<div class="ri-note" style="margin-top:4px">↩ <strong>Backhaul market</strong> at destination — carriers may discount slightly to avoid empty return.</div>' : ''}`;
         document.getElementById('ri-cap-card').style.display = 'block';
 
-        // ── Lane history — honest no-data ──
-        document.getElementById('ri-hist-badge').textContent = 'NO REAL DATA';
-        document.getElementById('ri-hist-badge').className = 'ri-badge';
-        document.getElementById('ri-hist-content').innerHTML = `
-            <div style="padding:10px 0;font-size:12px;color:#64748b;line-height:1.6">
-                Lane transaction history requires DAT One or TMS integration.<br>
-                <span style="color:#475569;font-size:11px">What SpotterAI shows instead: ATRI cost floor, BLS employment trend, EIA diesel — all real, all free.</span>
-            </div>`;
+        // ── My lane history — broker-logged rates (localStorage, private to this device) ──
+        renderLaneLog();
 
         // ── Negotiation coach (auto-expanded) ──
         document.getElementById('ri-coach-text').textContent = d.negotiation_coach;

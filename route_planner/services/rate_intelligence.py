@@ -169,6 +169,8 @@ class LaneRateIntelligenceService:
         history = self._compute_history()
         seasonality = self._compute_seasonality(equipment_type, month)
         confidence = self._compute_confidence(0, capacity["signal"], employment, ppi, fuel_surcharge)
+        consensus = self._compute_consensus(ppi, employment, fred)
+        equipment_demand = self._compute_equipment_demand(equipment_type, fred, nat_gas)
 
         for section in (sell_rate, seasonality, confidence):
             section["data_source"] = "estimated"
@@ -195,6 +197,7 @@ class LaneRateIntelligenceService:
             "seasonality": seasonality,
             "confidence": confidence,
             "weather": weather,
+            "consensus": consensus,
         }
         negotiation_coach, coach_source = self._get_negotiation_coach(signals)
 
@@ -224,6 +227,142 @@ class LaneRateIntelligenceService:
             "negotiation_coach_source": coach_source,
             "confidence": confidence,
             "diesel_trend": diesel_trend_data,
+            "consensus": consensus,
+            "equipment_demand": equipment_demand,
+        }
+
+    def _compute_consensus(self, ppi: dict, employment: dict, fred: dict) -> dict:
+        """Combine every independent real signal into one verdict with stated conviction.
+        Each source votes FIRMING / SOFTENING / NEUTRAL on where rates are heading."""
+        votes = []
+
+        # BLS PPI — direct rate trend
+        if ppi.get("data_source") == "real":
+            t = ppi.get("trend_3m", "FLAT")
+            votes.append({
+                "source": "BLS Trucking PPI",
+                "period": ppi.get("latest_period"),
+                "vote": "FIRMING" if t == "UP" else ("SOFTENING" if t == "DOWN" else "NEUTRAL"),
+                "detail": f"3-mo trend {t}" + (f", YoY {ppi['yoy_delta_pct']:+.1f}%" if ppi.get("yoy_delta_pct") is not None else ""),
+            })
+
+        # BLS employment — capacity direction (shrinking drivers = firming rates)
+        if employment.get("data_source") == "real":
+            t = employment.get("headcount_trend", "FLAT")
+            votes.append({
+                "source": "BLS Trucking Employment",
+                "period": employment.get("headcount_period"),
+                "vote": "FIRMING" if t == "SHRINKING" else ("SOFTENING" if t == "GROWING" else "NEUTRAL"),
+                "detail": f"{employment.get('headcount_thousands', 0):.0f}k drivers, {t}",
+            })
+
+        # FRED demand-side series
+        def demand_vote(key, source_name):
+            s = (fred or {}).get(key)
+            if not s:
+                return
+            t = s.get("trend_3m", "FLAT")
+            votes.append({
+                "source": source_name,
+                "period": s.get("period"),
+                "vote": "FIRMING" if t == "UP" else ("SOFTENING" if t == "DOWN" else "NEUTRAL"),
+                "detail": f"3-mo trend {t}" + (f", YoY {s['yoy_delta_pct']:+.1f}%" if s.get("yoy_delta_pct") is not None else ""),
+            })
+
+        demand_vote("cass_index", "Cass Freight Index")
+        demand_vote("truck_tonnage", "ATA Truck Tonnage")
+        demand_vote("freight_volume", "US Truck Freight Volume")
+
+        # ISM PMI — above/below 50 is a level signal, not just trend
+        pmi = (fred or {}).get("pmi")
+        if pmi:
+            v = pmi.get("value", 50)
+            votes.append({
+                "source": "ISM Manufacturing PMI",
+                "period": pmi.get("period"),
+                "vote": "FIRMING" if v >= 52 else ("SOFTENING" if v < 48 else "NEUTRAL"),
+                "detail": f"PMI {v}",
+            })
+
+        firming = sum(1 for v in votes if v["vote"] == "FIRMING")
+        softening = sum(1 for v in votes if v["vote"] == "SOFTENING")
+        total = len(votes)
+
+        if total == 0:
+            return {"verdict": "UNKNOWN", "conviction": "NONE", "votes": [],
+                    "summary": "No live sources available.", "data_source": "unavailable"}
+
+        if firming > softening and firming >= max(2, total // 2):
+            verdict = "FIRMING"
+        elif softening > firming and softening >= max(2, total // 2):
+            verdict = "SOFTENING"
+        else:
+            verdict = "MIXED"
+
+        leading = max(firming, softening)
+        if verdict == "MIXED":
+            conviction = "LOW"
+        elif leading >= total * 0.75:
+            conviction = "HIGH"
+        else:
+            conviction = "MODERATE"
+
+        agree_str = f"{leading} of {total}" if verdict != "MIXED" else f"{firming} firming / {softening} softening of {total}"
+        summary = {
+            "FIRMING": f"Rates firming — {agree_str} sources agree. Cover freight sooner; carriers gaining leverage.",
+            "SOFTENING": f"Rates softening — {agree_str} sources agree. Time is on your side; shop carriers.",
+            "MIXED": f"Mixed signals ({agree_str} sources) — no clear direction. Price to the suggested rate, avoid aggressive positions.",
+        }[verdict]
+
+        return {
+            "verdict": verdict,
+            "conviction": conviction,
+            "firming_count": firming,
+            "softening_count": softening,
+            "total_sources": total,
+            "votes": votes,
+            "summary": summary,
+            "data_source": "real",
+        }
+
+    def _compute_equipment_demand(self, equipment_type: str, fred: dict, nat_gas: dict | None) -> dict:
+        """Equipment-specific demand driver — the series that actually moves this trailer type."""
+        fred = fred or {}
+        if equipment_type == "flatbed":
+            housing = fred.get("housing_starts")
+            indpro = fred.get("industrial_production")
+            drivers = [d for d in (housing, indpro) if d]
+            if not drivers:
+                return {"data_source": "unavailable", "drivers": []}
+            return {
+                "equipment_type": "flatbed",
+                "note": "Flatbed demand tracks construction and manufacturing.",
+                "drivers": drivers,
+                "data_source": "real",
+            }
+        if equipment_type == "reefer":
+            drivers = []
+            if nat_gas:
+                drivers.append({
+                    "label": "Henry Hub natural gas ($/MMBtu)",
+                    "value": nat_gas.get("price_per_mmbtu"),
+                    "period": nat_gas.get("period"),
+                    "trend_3m": nat_gas.get("signal"),
+                })
+            return {
+                "equipment_type": "reefer",
+                "note": "Reefer demand tracks produce seasons; refrigeration fuel cost tracks nat gas.",
+                "drivers": drivers,
+                "data_source": "real" if drivers else "unavailable",
+            }
+        # dry van
+        isratio = fred.get("inventories_ratio")
+        drivers = [isratio] if isratio else []
+        return {
+            "equipment_type": "dry_van",
+            "note": "Dry van demand tracks retail restocking — falling inventories-to-sales = more freight coming.",
+            "drivers": drivers,
+            "data_source": "real" if drivers else "unavailable",
         }
 
     def _compute_buy_rate(
@@ -641,6 +780,7 @@ No bullet points. Plain spoken language a broker uses on a real call."""
         delta = signals["market"]["delta_pct"]
         floor = signals["buy_rate"].get("atri_floor", 2.27)
         carrier_pay = signals["carrier_pay_per_mile"] or 0
+        consensus = signals.get("consensus") or {}
 
         if cap == "TIGHT":
             market_note = f"BLS employment shows a tight carrier market — driver headcount is shrinking. Carriers have leverage right now."
@@ -664,4 +804,12 @@ No bullet points. Plain spoken language a broker uses on a real call."""
             else "Rate trend is flat per BLS PPI."
         )
 
-        return f"{market_note} {action}{floor_note} {trend_note}"
+        consensus_note = ""
+        if consensus.get("verdict") in ("FIRMING", "SOFTENING"):
+            consensus_note = (
+                f" Market consensus: {consensus['firming_count' if consensus['verdict'] == 'FIRMING' else 'softening_count']}"
+                f" of {consensus['total_sources']} live sources say rates are {consensus['verdict'].lower()}"
+                f" ({consensus['conviction'].lower()} conviction)."
+            )
+
+        return f"{market_note} {action}{floor_note} {trend_note}{consensus_note}"
