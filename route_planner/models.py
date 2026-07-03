@@ -27,3 +27,37 @@ class FuelStation(models.Model):
     def __str__(self) -> str:
         location = ", ".join(part for part in [self.city, self.state] if part)
         return f"{self.name} ({location})" if location else self.name
+
+
+class LaneRate(models.Model):
+    """Anonymous broker-logged rate for a lane. This is the real-lane-rate flywheel:
+    every broker who logs what they actually paid makes the network's rate picture
+    on that lane more accurate for everyone — the one thing free government data can't
+    provide. No PII, no user identity: just origin/dest, equipment, rate, timestamp."""
+
+    EQUIPMENT_CHOICES = [
+        ("dry_van", "Dry Van"),
+        ("reefer", "Reefer"),
+        ("flatbed", "Flatbed"),
+    ]
+
+    origin_city = models.CharField(max_length=128, blank=True)
+    origin_state = models.CharField(max_length=2, db_index=True)
+    dest_city = models.CharField(max_length=128, blank=True)
+    dest_state = models.CharField(max_length=2, db_index=True)
+    equipment_type = models.CharField(max_length=16, choices=EQUIPMENT_CHOICES, db_index=True)
+    rate_per_mile = models.DecimalField(max_digits=6, decimal_places=2)
+    distance_miles = models.DecimalField(max_digits=8, decimal_places=1, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=["origin_state", "dest_state", "equipment_type"],
+                name="lane_rate_lane_idx",
+            ),
+        ]
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return f"{self.origin_state}->{self.dest_state} {self.equipment_type} ${self.rate_per_mile}/mi"

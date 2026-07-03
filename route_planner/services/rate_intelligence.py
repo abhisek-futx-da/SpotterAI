@@ -124,6 +124,9 @@ class LaneRateIntelligenceService:
         def _fetch_fsc():
             return self._compute_fuel_surcharge(distance_miles, origin_state, dest_state)
 
+        def _fetch_network():
+            return self._get_network_rates(origin_state, dest_state, equipment_type)
+
         tasks = {
             "ppi": _fetch_ppi,
             "employment": _fetch_employment,
@@ -132,10 +135,11 @@ class LaneRateIntelligenceService:
             "weather": _fetch_weather,
             "diesel_trend": _fetch_diesel_trend,
             "fsc": _fetch_fsc,
+            "network": _fetch_network,
         }
 
         results = {}
-        executor = ThreadPoolExecutor(max_workers=7)
+        executor = ThreadPoolExecutor(max_workers=8)
         future_map = {executor.submit(fn): name for name, fn in tasks.items()}
         try:
             for future in as_completed(future_map, timeout=12):
@@ -159,6 +163,7 @@ class LaneRateIntelligenceService:
         weather = results.get("weather") or no_weather
         diesel_trend_data = results.get("diesel_trend") or []
         fuel_surcharge = results.get("fsc") or self._fsc_fallback(distance_miles)
+        network_rates = results.get("network") or {"count": 0, "data_source": "unavailable"}
 
         capacity = self._compute_capacity(employment, dest_state)
         tightness = capacity.get("market_tightness", "NEUTRAL")
@@ -168,7 +173,7 @@ class LaneRateIntelligenceService:
         market = self._compute_market(buy_rate["suggested"], carrier_pay_per_mile, month, ppi, fred)
         history = self._compute_history()
         seasonality = self._compute_seasonality(equipment_type, month)
-        confidence = self._compute_confidence(0, capacity["signal"], employment, ppi, fuel_surcharge)
+        confidence = self._compute_confidence(0, capacity["signal"], employment, ppi, fuel_surcharge, network_rates)
         consensus = self._compute_consensus(ppi, employment, fred)
         equipment_demand = self._compute_equipment_demand(equipment_type, fred, nat_gas)
 
@@ -229,7 +234,17 @@ class LaneRateIntelligenceService:
             "diesel_trend": diesel_trend_data,
             "consensus": consensus,
             "equipment_demand": equipment_demand,
+            "network_rates": network_rates,
         }
+
+    def _get_network_rates(self, origin_state: str, dest_state: str, equipment_type: str) -> dict:
+        """Cross-broker logged rates for this lane — the only REAL lane-level rate
+        the product has. Aggregated anonymously from every broker who logs a load."""
+        try:
+            from .lane_rate_stats import aggregate_lane
+            return aggregate_lane(origin_state, dest_state, equipment_type)
+        except Exception:
+            return {"count": 0, "data_source": "unavailable"}
 
     def _compute_consensus(self, ppi: dict, employment: dict, fred: dict) -> dict:
         """Combine every independent real signal into one verdict with stated conviction.
@@ -629,23 +644,39 @@ class LaneRateIntelligenceService:
             return {"signal": "NORMAL", "yoy_delta_pct": 3.0}
         return {"signal": "TROUGH", "yoy_delta_pct": -6.0}
 
-    def _compute_confidence(self, data_points: int, capacity_signal: str, employment: dict | None = None, ppi: dict | None = None, fsc: dict | None = None) -> dict:
-        # Honest confidence: each source scores only if it returned real data
+    def _compute_confidence(self, data_points: int, capacity_signal: str, employment: dict | None = None, ppi: dict | None = None, fsc: dict | None = None, network: dict | None = None) -> dict:
+        # Honest confidence: each source scores only if it returned real data.
+        # Network-logged lane rates are the one real lane-level source — they lift
+        # the ceiling from 90 to 100 once enough loads are logged on the lane.
+        net_count = (network or {}).get("count", 0)
+        if net_count >= 5:
+            lane_pts = 10
+        elif net_count >= 1:
+            lane_pts = 5
+        else:
+            lane_pts = 0
+
         score_breakdown = {
             "atri_floor":     25,   # always real — static published data
             "bls_employment": 20 if (employment and employment.get("data_source") == "real") else 0,
             "bls_ppi_trend":  15 if (ppi and ppi.get("data_source") == "real") else 0,
             "eia_diesel":     20 if (fsc and fsc.get("data_source") == "real") else 0,
             "nws_weather":    10,   # always attempted; NWS is free and reliable
-            "lane_history":    0,   # no real data without DAT
+            "network_rates":  lane_pts,   # real broker-logged lane rates
         }
         score = sum(score_breakdown.values())
         grade = "HIGH" if score >= 70 else ("MEDIUM" if score >= 45 else "LOW")
+        if net_count >= 5:
+            note = f"Full confidence — {net_count} broker-logged loads on this exact lane."
+        elif net_count >= 1:
+            note = f"{net_count} logged load(s) on this lane. Log more to reach full confidence."
+        else:
+            note = "Capped at 90/100 — no broker-logged rates on this lane yet. Log loads to unlock 100."
         return {
             "score": score,
             "grade": grade,
             "breakdown": score_breakdown,
-            "ceiling_note": "Score capped at 90/100 — lane-level transaction history requires DAT.",
+            "ceiling_note": note,
         }
 
     def _get_negotiation_coach(self, signals: dict) -> tuple:

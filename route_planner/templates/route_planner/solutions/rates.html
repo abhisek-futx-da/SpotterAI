@@ -718,19 +718,19 @@
                                 </div>
                             </div>
 
-                            <!-- Lane history — broker-logged rates + honest no-data -->
+                            <!-- Network lane rates — shared, anonymous, the one real lane-level number -->
                             <div class="ri-card">
                                 <div class="ri-card-header" onclick="toggleCard('ri-hist-body')">
-                                    <span>📈 My lane history</span>
+                                    <span>🌐 Network lane rates</span>
                                     <span id="ri-hist-badge" class="ri-badge"></span>
                                 </div>
                                 <div id="ri-hist-body" class="ri-card-body">
                                     <div id="ri-hist-content"></div>
                                     <div style="display:flex;gap:6px;margin-top:10px">
-                                        <input type="number" id="ri-log-rate" class="ri-input" placeholder="Rate paid $/mi" step="0.01" min="0" style="flex:1">
+                                        <input type="number" id="ri-log-rate" class="ri-input" placeholder="Rate you paid $/mi" step="0.01" min="0" style="flex:1">
                                         <button type="button" class="ri-btn" style="width:auto;margin-top:0;padding:7px 14px" onclick="logLaneRate()">Log</button>
                                     </div>
-                                    <div style="font-size:9px;color:#475569;margin-top:5px">Log what you actually paid — builds your private rate history for this lane. Stored on this device only.</div>
+                                    <div style="font-size:9px;color:#475569;margin-top:5px">Log what you actually paid a carrier — anonymously joins the shared network. Real logged rates lift this lane's confidence toward 100.</div>
                                 </div>
                             </div>
 
@@ -1389,6 +1389,11 @@
             } else if (cons.verdict === 'SOFTENING') {
                 s += ` Market is <strong style="color:#86efac">softening</strong> (${cons.softening_count}/${cons.total_sources} sources) — you have time to shop carriers.`;
             }
+            // Real network rate — the truest number, shown prominently when available
+            const net = lastRI.network_rates;
+            if (net && net.data_source === 'real' && net.count) {
+                s += ` <span style="color:#86efac">📡 Network reality: ${net.count} broker-logged load${net.count>1?'s':''} on this lane averaged <strong>${pm(net.avg)}</strong> (range ${pm(net.low)}–${pm(net.high)}) — the truest rate on this page.</span>`;
+            }
         }
         el.innerHTML = s;
     }
@@ -1529,75 +1534,81 @@
         }
     }
 
-    // === MY LANE HISTORY — broker-logged rates, stored in this browser only ===
-    function currentLaneKey() {
-        const o = (document.getElementById('ri-origin-city').value || '').trim().toLowerCase();
-        const os = (document.getElementById('ri-origin-state').value || '').trim().toUpperCase();
-        const dc = (document.getElementById('ri-dest-city').value || '').trim().toLowerCase();
-        const ds = (document.getElementById('ri-dest-state').value || '').trim().toUpperCase();
-        const eq = document.getElementById('ri-equipment').value;
-        return `spotterai_lane_${o}_${os}__${dc}_${ds}__${eq}`;
-    }
+    // === SHARED LANE-RATE NETWORK — anonymous broker-logged rates, the one real lane-level number ===
+    let lastNetworkRates = null;   // network aggregate from the last RI payload
 
-    function getLaneLog() {
-        try { return JSON.parse(localStorage.getItem(currentLaneKey()) || '[]'); }
-        catch { return []; }
-    }
-
-    function logLaneRate() {
+    async function logLaneRate() {
         const input = document.getElementById('ri-log-rate');
         const rate = parseFloat(input.value);
-        if (!rate || rate <= 0 || rate > 20) { input.style.borderColor = '#ef4444'; return; }
+        if (!rate || rate < 0.1 || rate > 20) { input.style.borderColor = '#ef4444'; return; }
         input.style.borderColor = '';
-        const log = getLaneLog();
-        log.unshift({ rate: rate, date: new Date().toISOString().slice(0, 10) });
-        // Keep last 50 entries per lane
-        try { localStorage.setItem(currentLaneKey(), JSON.stringify(log.slice(0, 50))); } catch {}
-        input.value = '';
-        renderLaneLog();
-    }
 
-    function deleteLaneEntry(idx) {
-        const log = getLaneLog();
-        log.splice(idx, 1);
-        try { localStorage.setItem(currentLaneKey(), JSON.stringify(log)); } catch {}
-        renderLaneLog();
+        const originCity  = document.getElementById('ri-origin-city').value.trim();
+        const originState = document.getElementById('ri-origin-state').value.trim().toUpperCase();
+        const destCity    = document.getElementById('ri-dest-city').value.trim();
+        const destState   = document.getElementById('ri-dest-state').value.trim().toUpperCase();
+        const equipment   = document.getElementById('ri-equipment').value;
+        if (!originState || !destState) { input.style.borderColor = '#ef4444'; return; }
+
+        input.disabled = true;
+        try {
+            const resp = await fetch('/api/lane-rates/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    origin_city: originCity, origin_state: originState,
+                    dest_city: destCity, dest_state: destState,
+                    equipment_type: equipment, rate_per_mile: rate,
+                    distance_miles: lastRouteDistanceMiles || null,
+                })
+            });
+            const data = await resp.json();
+            if (data.aggregate) {
+                lastNetworkRates = data.aggregate;
+                renderLaneLog();
+                // Refresh the whole intelligence panel so confidence + bottom line update
+                if (riData) { riData.network_rates = data.aggregate; }
+            }
+            input.value = '';
+        } catch (e) {
+            input.style.borderColor = '#ef4444';
+        } finally {
+            input.disabled = false;
+        }
     }
 
     function renderLaneLog() {
-        const log = getLaneLog();
+        const nr = lastNetworkRates;
         const badge = document.getElementById('ri-hist-badge');
         const el = document.getElementById('ri-hist-content');
         if (!el || !badge) return;
 
-        if (!log.length) {
-            badge.textContent = 'NO LOADS LOGGED YET';
+        if (!nr || nr.data_source !== 'real' || !nr.count) {
+            badge.textContent = 'NO LOGGED RATES YET';
             badge.className = 'ri-badge';
             el.innerHTML = `
                 <div style="padding:6px 0;font-size:12px;color:#64748b;line-height:1.6">
-                    No loads logged on this lane yet. Log what you actually pay carriers below —
-                    over time this becomes <strong style="color:#94a3b8">your own private rate history</strong>,
-                    more relevant than any blended average for your repeat lanes.
+                    No broker has logged a rate on this lane yet. Log what you actually pay a carrier below —
+                    it joins the <strong style="color:#94a3b8">shared rate network</strong>. This is the one
+                    <strong style="color:#86efac">real, lane-level rate</strong> the tool has: as loads accumulate,
+                    the network average becomes truer than any cost estimate.
                 </div>`;
             return;
         }
 
-        const rates = log.map(e => e.rate);
-        const avg = rates.reduce((a, b) => a + b, 0) / rates.length;
-        const lo = Math.min(...rates), hi = Math.max(...rates);
-        const recent = log.slice(0, 6);
-
-        badge.textContent = `${log.length} LOAD${log.length > 1 ? 'S' : ''} · AVG $${avg.toFixed(2)}/mi`;
-        badge.className = 'ri-badge ri-badge-blue';
+        badge.textContent = `${nr.count} LOAD${nr.count > 1 ? 'S' : ''} · AVG $${nr.avg.toFixed(2)}/mi`;
+        badge.className = 'ri-badge ri-badge-green';
+        const win = nr.last_30d || nr.last_90d;
         el.innerHTML = `
+            <div style="font-size:10px;color:#86efac;margin-bottom:6px">● REAL logged lane rates — the truest number on this page</div>
             <div class="ri-stat-grid" style="margin-bottom:8px">
-                <div class="ri-stat"><div class="ri-stat-v">$${avg.toFixed(2)}</div><div class="ri-stat-l">Your avg $/mi</div></div>
-                <div class="ri-stat"><div class="ri-stat-v">$${lo.toFixed(2)}–$${hi.toFixed(2)}</div><div class="ri-stat-l">Your range</div></div>
-                <div class="ri-stat"><div class="ri-stat-v">${log.length}</div><div class="ri-stat-l">Loads logged</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">$${nr.avg.toFixed(2)}</div><div class="ri-stat-l">Network avg $/mi</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">$${nr.median.toFixed(2)}</div><div class="ri-stat-l">Median</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">$${nr.low.toFixed(2)}–$${nr.high.toFixed(2)}</div><div class="ri-stat-l">Range</div></div>
             </div>
-            ${recent.map((e, i) => `<div class="ri-mkt-row"><span class="ri-mkt-label">${e.date}</span><span class="ri-mkt-val">$${e.rate.toFixed(2)}/mi <span onclick="deleteLaneEntry(${i})" style="cursor:pointer;color:#475569;font-size:10px;margin-left:6px" title="Remove">✕</span></span></div>`).join('')}
-            ${log.length > 6 ? `<div style="font-size:9px;color:#475569;padding:3px 0">+ ${log.length - 6} older entries</div>` : ''}
-            <div style="font-size:9px;color:#22c55e;margin-top:4px">● Your data — stored on this device, never uploaded</div>`;
+            ${win ? `<div style="font-size:10px;color:#64748b;margin-bottom:6px">Last 30–90 days: ${win.count} loads, avg $${win.avg.toFixed(2)}/mi</div>` : ''}
+            ${(nr.recent || []).slice(0,6).map(e => `<div class="ri-mkt-row"><span class="ri-mkt-label">${e.date}${e.origin_city ? ' · ' + e.origin_city : ''}</span><span class="ri-mkt-val">$${e.rate.toFixed(2)}/mi</span></div>`).join('')}
+            <div style="font-size:9px;color:#475569;margin-top:4px">Anonymous · ${nr.count} broker-logged load${nr.count>1?'s':''} on ${document.getElementById('ri-origin-state').value.toUpperCase()}→${document.getElementById('ri-dest-state').value.toUpperCase()}</div>`;
     }
 
     function renderRateIntelligence(d) {
@@ -1783,7 +1794,8 @@
             ${cap.backhaul_available ? '<div class="ri-note" style="margin-top:4px">↩ <strong>Backhaul market</strong> at destination — carriers may discount slightly to avoid empty return.</div>' : ''}`;
         document.getElementById('ri-cap-card').style.display = 'block';
 
-        // ── My lane history — broker-logged rates (localStorage, private to this device) ──
+        // ── Shared lane-rate network — the one real lane-level number ──
+        lastNetworkRates = d.network_rates || null;
         renderLaneLog();
 
         // ── Negotiation coach (auto-expanded) ──
