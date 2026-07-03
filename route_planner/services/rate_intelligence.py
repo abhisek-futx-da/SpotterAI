@@ -154,7 +154,7 @@ class LaneRateIntelligenceService:
 
         ppi = results.get("ppi") or BLSPPIService._unavailable(equipment_type)
         employment = results.get("employment") or employment_service._unavailable(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
-        fred = results.get("fred") or {"pmi": None, "freight_volume": None, "data_source": "unavailable"}
+        fred = results.get("fred") or {"freight_volume": None, "data_source": "unavailable"}
         nat_gas = results.get("nat_gas")
         weather = results.get("weather") or no_weather
         diesel_trend_data = results.get("diesel_trend") or []
@@ -272,17 +272,6 @@ class LaneRateIntelligenceService:
         demand_vote("cass_index", "Cass Freight Index")
         demand_vote("truck_tonnage", "ATA Truck Tonnage")
         demand_vote("freight_volume", "US Truck Freight Volume")
-
-        # ISM PMI — above/below 50 is a level signal, not just trend
-        pmi = (fred or {}).get("pmi")
-        if pmi:
-            v = pmi.get("value", 50)
-            votes.append({
-                "source": "ISM Manufacturing PMI",
-                "period": pmi.get("period"),
-                "vote": "FIRMING" if v >= 52 else ("SOFTENING" if v < 48 else "NEUTRAL"),
-                "detail": f"PMI {v}",
-            })
 
         firming = sum(1 for v in votes if v["vote"] == "FIRMING")
         softening = sum(1 for v in votes if v["vote"] == "SOFTENING")
@@ -459,13 +448,8 @@ class LaneRateIntelligenceService:
             trend_source = "seasonal estimate"
 
         # FRED demand context
-        pmi_value = None
-        pmi_signal = None
         freight_yoy = None
         if fred and fred.get("data_source") == "real":
-            if fred.get("pmi"):
-                pmi_value = fred["pmi"]["value"]
-                pmi_signal = fred["pmi"]["signal"]
             if fred.get("freight_volume"):
                 freight_yoy = fred["freight_volume"]["yoy_delta_pct"]
 
@@ -477,8 +461,6 @@ class LaneRateIntelligenceService:
             "trend_30d": trend,
             "trend_source": trend_source,
             "ppi_yoy_delta_pct": ppi.get("yoy_delta_pct") if ppi else None,
-            "pmi_value": pmi_value,
-            "pmi_signal": pmi_signal,
             "freight_volume_yoy_pct": freight_yoy,
         }
 
@@ -687,10 +669,6 @@ class LaneRateIntelligenceService:
             yoy_str = f", YoY {hc_yoy:+.1f}%" if hc_yoy is not None else ""
             employment_note = f"\nBLS truck drivers: {hc:.1f}k employed ({hc_trend}{yoy_str})"
 
-        pmi_note = ""
-        if mkt.get("pmi_value"):
-            pmi_note = f"\nISM PMI: {mkt['pmi_value']} — {mkt.get('pmi_signal','')}"
-
         freight_note = ""
         if mkt.get("freight_volume_yoy_pct") is not None:
             freight_note = f"\nUS truck freight volume: {mkt['freight_volume_yoy_pct']:+.1f}% YoY"
@@ -706,7 +684,7 @@ Broker's carrier pay entered: ${signals['carrier_pay_per_mile']}/mi
 Delta vs market estimate: {mkt['delta_pct']:+.1f}%
 BLS PPI rate trend: {signals['buy_rate'].get('ppi_trend_used','FLAT')} (YoY index: {mkt.get('ppi_yoy_delta_pct') or 'N/A'}%)
 Capacity: {cap['signal']} — BLS employment {hc:.1f}k drivers{employment_note}
-Season: {signals['seasonality']['signal']}{pmi_note}{freight_note}
+Season: {signals['seasonality']['signal']}{freight_note}
 EIA diesel: ${signals['fuel_surcharge']['diesel_price_per_gallon']}/gal ({signals['fuel_surcharge']['data_source']}){weather_note}
 
 Write 4 sentences max. Be direct and specific — name the actual numbers. Tell the broker:

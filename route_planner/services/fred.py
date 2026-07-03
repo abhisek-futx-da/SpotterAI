@@ -3,7 +3,6 @@ Free API key from fred.stlouisfed.org (5 min registration).
 Set env var: FRED_API_KEY
 
 Signals used for freight market context:
-  NAPM              — ISM Manufacturing PMI (above 50 = expansion = more freight)
   TRFVOLUSM227NFWA  — US truck freight volume, ton-miles SA (actual freight moving)
   FRGSHPUSM649NCIS  — Cass Freight Index: Shipments (industry-standard demand benchmark)
   TRUCKD11          — ATA Truck Tonnage Index
@@ -52,16 +51,14 @@ class FREDService:
 
         if not has_key:
             return {
-                "pmi": None,
                 "freight_volume": None,
                 "data_source": "unavailable",
                 "reason": "FRED_API_KEY not set — free key at fred.stlouisfed.org",
                 "fetched_at": fetched_at,
             }
 
-        # Fetch all series in parallel — 7 sequential calls would be too slow
-        with ThreadPoolExecutor(max_workers=7) as pool:
-            f_pmi = pool.submit(self._get_pmi)
+        # Fetch all series in parallel — sequential calls would be too slow
+        with ThreadPoolExecutor(max_workers=6) as pool:
             f_freight = pool.submit(self._get_freight_volume)
             f_cass = pool.submit(self._get_trend_series, "FRGSHPUSM649NCIS", "Cass Freight Index (shipments)")
             f_tonnage = pool.submit(self._get_trend_series, "TRUCKD11", "ATA Truck Tonnage Index")
@@ -75,7 +72,6 @@ class FREDService:
                 except Exception:
                     return None
 
-            pmi = safe(f_pmi)
             freight = safe(f_freight)
             cass = safe(f_cass)
             tonnage = safe(f_tonnage)
@@ -84,14 +80,13 @@ class FREDService:
             isratio = safe(f_isratio)
 
         return {
-            "pmi": pmi,
             "freight_volume": freight,
             "cass_index": cass,
             "truck_tonnage": tonnage,
             "housing_starts": housing,
             "industrial_production": indpro,
             "inventories_ratio": isratio,
-            "data_source": "real" if (pmi or freight or cass) else "unavailable",
+            "data_source": "real" if (freight or cass) else "unavailable",
             "source": "FRED — St. Louis Federal Reserve (fred.stlouisfed.org)",
             "fetched_at": fetched_at,
         }
@@ -126,47 +121,6 @@ class FREDService:
             "trend_3m": trend,
             "label": label,
             "series": series_id,
-        }
-
-    def _get_pmi(self) -> dict | None:
-        obs = _fetch("NAPM", limit=13)
-        if not obs:
-            return None
-        latest = obs[0]
-        value = float(latest["value"])
-        # Build 12-month history (newest first → reverse for chart)
-        history = [
-            {"period": o["date"][:7], "value": float(o["value"])}
-            for o in reversed(obs)
-        ]
-        # Signal
-        if value >= 55:
-            signal = "STRONG_EXPANSION"
-            label = "Strong expansion — freight demand rising"
-        elif value >= 50:
-            signal = "EXPANSION"
-            label = "Expanding — freight demand positive"
-        elif value >= 48:
-            signal = "CONTRACTION"
-            label = "Contracting — freight demand softening"
-        else:
-            signal = "RECESSION"
-            label = "Significant contraction — freight demand weak"
-
-        yoy_delta = None
-        if len(obs) >= 12:
-            yoy_val = float(obs[11]["value"])
-            yoy_delta = round(value - yoy_val, 1)
-
-        return {
-            "value": value,
-            "period": latest["date"][:7],
-            "signal": signal,
-            "label": label,
-            "yoy_delta_pts": yoy_delta,
-            "history_12m": history,
-            "series": "NAPM",
-            "note": "ISM Manufacturing PMI — above 50 = expansion = more freight moving",
         }
 
     def _get_freight_volume(self) -> dict | None:

@@ -803,24 +803,6 @@
                         </div><!-- /ri-results -->
                     </div><!-- /ri-body -->
                 </div><!-- /ri-section -->
-
-                <!-- CARRIER VERIFICATION — new section, real FMCSA data -->
-                <div class="ri-section" id="cv-section" style="margin-top:0.6rem;">
-                    <div class="ri-section-header" onclick="toggleCVSection()">
-                        <span>🛡️ Carrier Verification</span>
-                        <span class="ri-chevron" id="cv-chevron">▾</span>
-                    </div>
-                    <div class="ri-section-body" id="cv-body">
-                        <div class="ri-field-group">
-                            <label class="ri-label">DOT Number</label>
-                            <input type="text" id="cv-dot-number" class="ri-input" placeholder="e.g. 80321" inputmode="numeric" />
-                        </div>
-                        <button type="button" class="ri-btn" id="cv-btn" onclick="fetchCarrierVerification()">
-                            Verify Carrier
-                        </button>
-                        <div id="cv-results" style="display:none;margin-top:10px;"></div>
-                    </div>
-                </div>
             </div>
         </aside>
 
@@ -1720,8 +1702,6 @@
 
         const ppiYoy = mkt.ppi_yoy_delta_pct != null
             ? `<div class="ri-mkt-row"><span class="ri-mkt-label">BLS PPI YoY <span style="font-size:9px;color:#22c55e">(real)</span></span><span class="ri-mkt-val" style="color:${mkt.ppi_yoy_delta_pct > 0 ? '#f87171' : '#86efac'}">${mkt.ppi_yoy_delta_pct > 0 ? '+' : ''}${mkt.ppi_yoy_delta_pct.toFixed(1)}%</span></div>` : '';
-        const pmiRow = mkt.pmi_value != null
-            ? `<div class="ri-mkt-row"><span class="ri-mkt-label">ISM PMI <span style="font-size:9px;color:#22c55e">(FRED real)</span></span><span class="ri-mkt-val" style="color:${mkt.pmi_value >= 50 ? '#86efac' : '#fca5a5'}">${mkt.pmi_value} ${mkt.pmi_value >= 50 ? '▲ expanding' : '▼ contracting'}</span></div>` : '';
         const freightRow = mkt.freight_volume_yoy_pct != null
             ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Truck freight vol YoY <span style="font-size:9px;color:#22c55e">(FRED real)</span></span><span class="ri-mkt-val" style="color:${mkt.freight_volume_yoy_pct >= 0 ? '#86efac' : '#fca5a5'}">${mkt.freight_volume_yoy_pct > 0 ? '+' : ''}${mkt.freight_volume_yoy_pct.toFixed(1)}%</span></div>` : '';
 
@@ -1749,7 +1729,7 @@
             <div class="ri-mkt-row"><span class="ri-mkt-label">Market estimate</span><span class="ri-mkt-val">$${mkt.market_avg_per_mile.toFixed(2)}/mi</span></div>
             ${d.market.your_rate_per_mile > 0 ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Your carrier pay</span><span class="ri-mkt-val" style="color:${deltaColor}">$${mkt.your_rate_per_mile.toFixed(2)}/mi (${mkt.delta_pct > 0 ? '+' : ''}${mkt.delta_pct.toFixed(1)}%)</span></div>` : ''}
             <div class="ri-mkt-row"><span class="ri-mkt-label">Rate trend <span style="font-size:9px;color:#475569">(${mkt.trend_source})</span></span><span class="ri-mkt-val" style="color:${trendColor}">${trendArrow} ${mkt.trend_30d}</span></div>
-            ${ppiYoy}${pmiRow}${freightRow}${cassRow}${tonnageRow}${eqRows}`;
+            ${ppiYoy}${freightRow}${cassRow}${tonnageRow}${eqRows}`;
 
         document.getElementById('ri-market-card').style.display = 'block';
 
@@ -1859,7 +1839,7 @@
             document.getElementById('ri-ppi-content').innerHTML = renderPPIChart(ppi);
         }
 
-        // ── FRED PMI + freight volume chart ──
+        // ── FRED freight-volume demand signal ──
         if (d.fred && d.fred.data_source === 'real') {
             renderFREDPanel(d.fred);
         }
@@ -1957,21 +1937,8 @@
     }
 
     function renderFREDPanel(fred) {
-        // Render FRED PMI + freight volume below PPI card
+        // Render FRED freight-volume demand signal below PPI card
         let html = '';
-        if (fred.pmi) {
-            const p = fred.pmi;
-            const pts = p.history_12m || [];
-            const pmiColor = p.value >= 50 ? '#86efac' : '#fca5a5';
-            html += `<div style="margin-bottom:8px">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-                    <span style="font-size:11px;color:#94a3b8">ISM Manufacturing PMI <span style="color:#22c55e;font-size:9px">(FRED real)</span></span>
-                    <span style="font-size:13px;font-weight:700;color:${pmiColor}">${p.value} ${p.value >= 50 ? '▲' : '▼'}</span>
-                </div>
-                <div style="font-size:10px;color:#64748b">${p.label}</div>
-                ${p.yoy_delta_pts != null ? `<div style="font-size:10px;color:#475569;margin-top:2px">YoY: ${p.yoy_delta_pts > 0 ? '+' : ''}${p.yoy_delta_pts} pts · ${p.period}</div>` : ''}
-            </div>`;
-        }
         if (fred.freight_volume) {
             const f = fred.freight_volume;
             const fColor = f.yoy_delta_pct >= 0 ? '#86efac' : '#fca5a5';
@@ -2066,85 +2033,6 @@
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px">
                 <span style="font-size:11px;color:#64748b">Was <strong style="color:#94a3b8">$${first.toFixed(3)}</strong></span>
                 <span style="font-size:12px;font-weight:700;color:${trendColor}">${trendLabel} · $${last.toFixed(3)} now</span>
-            </div>`;
-    }
-
-    // === CARRIER VERIFICATION JS (real FMCSA data) ===
-    function toggleCVSection() {
-        const body = document.getElementById('cv-body');
-        const chev = document.getElementById('cv-chevron');
-        const open = body.style.display !== 'none';
-        body.style.display = open ? 'none' : 'block';
-        chev.textContent = open ? '▸' : '▾';
-    }
-
-    async function fetchCarrierVerification() {
-        const dotNumber = document.getElementById('cv-dot-number').value.trim();
-        if (!dotNumber) {
-            alert('Please enter a DOT number.');
-            return;
-        }
-
-        const btn = document.getElementById('cv-btn');
-        btn.disabled = true;
-        btn.textContent = 'Verifying...';
-        const resultsEl = document.getElementById('cv-results');
-        resultsEl.style.display = 'block';
-        resultsEl.innerHTML = `<div style="text-align:center;padding:12px;color:#94a3b8;font-size:13px">⏳ Checking FMCSA...</div>`;
-
-        try {
-            const resp = await fetch('/api/carrier-verification/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ dot_number: dotNumber })
-            });
-            const d = await resp.json();
-            renderCarrierVerification(d);
-        } catch (err) {
-            resultsEl.innerHTML = `<div style="color:#f87171;font-size:12px;padding:8px">Error: ${err.message}</div>`;
-        } finally {
-            btn.disabled = false;
-            btn.textContent = 'Verify Carrier';
-        }
-    }
-
-    function renderCarrierVerification(d) {
-        const resultsEl = document.getElementById('cv-results');
-
-        if (d.data_source === 'unavailable') {
-            resultsEl.innerHTML = `
-                <div class="ri-card" style="margin-top:0;">
-                    <div class="ri-note" style="margin-top:0;">${d.message}</div>
-                </div>`;
-            return;
-        }
-
-        if (!d.found) {
-            resultsEl.innerHTML = `
-                <div class="ri-card" style="margin-top:0;">
-                    <span class="ri-badge ri-badge-amber">NOT FOUND</span>
-                    <div class="ri-note">${d.message}</div>
-                </div>`;
-            return;
-        }
-
-        const statusBadge = d.allowed_to_operate ? 'ri-badge-green' : 'ri-badge-red';
-        const statusText = d.allowed_to_operate ? 'AUTHORIZED' : 'NOT AUTHORIZED';
-
-        resultsEl.innerHTML = `
-            <div class="ri-card" style="margin-top:0;">
-                <div class="ri-card-header" style="cursor:default;">
-                    <span>${d.legal_name || 'Unknown carrier'}</span>
-                    <span class="ri-badge ri-badge-green">LIVE FMCSA DATA</span>
-                </div>
-                <div class="ri-card-body">
-                    <div class="ri-mkt-row"><span class="ri-mkt-label">Authority status</span><span class="ri-mkt-val"><span class="ri-badge ${statusBadge}">${statusText}</span></span></div>
-                    <div class="ri-mkt-row"><span class="ri-mkt-label">Safety rating</span><span class="ri-mkt-val">${d.safety_rating || 'Not rated'}</span></div>
-                    ${d.dba_name ? `<div class="ri-mkt-row"><span class="ri-mkt-label">DBA</span><span class="ri-mkt-val">${d.dba_name}</span></div>` : ''}
-                    ${d.power_units != null ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Power units</span><span class="ri-mkt-val">${d.power_units}</span></div>` : ''}
-                    ${d.drivers != null ? `<div class="ri-mkt-row"><span class="ri-mkt-label">Drivers</span><span class="ri-mkt-val">${d.drivers}</span></div>` : ''}
-                </div>
-                <div class="ri-note">${d.message}</div>
             </div>`;
     }
 
