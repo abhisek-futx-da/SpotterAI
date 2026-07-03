@@ -127,6 +127,15 @@ class LaneRateIntelligenceService:
         def _fetch_network():
             return self._get_network_rates(origin_state, dest_state, equipment_type)
 
+        def _fetch_usda():
+            if equipment_type != "reefer":
+                return {"data_source": "unavailable"}
+            try:
+                from .usda_rates import get_produce_lane_rate
+                return get_produce_lane_rate(origin_state, dest_state, distance_miles)
+            except Exception:
+                return {"data_source": "unavailable"}
+
         tasks = {
             "ppi": _fetch_ppi,
             "employment": _fetch_employment,
@@ -136,10 +145,11 @@ class LaneRateIntelligenceService:
             "diesel_trend": _fetch_diesel_trend,
             "fsc": _fetch_fsc,
             "network": _fetch_network,
+            "usda": _fetch_usda,
         }
 
         results = {}
-        executor = ThreadPoolExecutor(max_workers=8)
+        executor = ThreadPoolExecutor(max_workers=9)
         future_map = {executor.submit(fn): name for name, fn in tasks.items()}
         try:
             for future in as_completed(future_map, timeout=12):
@@ -164,19 +174,20 @@ class LaneRateIntelligenceService:
         diesel_trend_data = results.get("diesel_trend") or []
         fuel_surcharge = results.get("fsc") or self._fsc_fallback(distance_miles)
         network_rates = results.get("network") or {"count": 0, "data_source": "unavailable"}
+        usda_rate = results.get("usda") or {"data_source": "unavailable"}
 
         capacity = self._compute_capacity(employment, dest_state)
         tightness = capacity.get("market_tightness", "NEUTRAL")
 
         buy_rate = self._compute_buy_rate(equipment_type, distance_miles, month, tightness, ppi)
-        # Blend real logged rates into the headline number — this is what makes the
-        # tool's primary rate market-calibrated instead of pure cost estimate.
-        buy_rate = self._blend_with_network(buy_rate, network_rates)
+        # Blend real rates into the headline number — logged network rates and/or
+        # USDA-surveyed produce rates — so the primary rate is market-calibrated.
+        buy_rate = self._blend_with_network(buy_rate, network_rates, usda_rate)
         sell_rate = self._compute_sell_rate(buy_rate["suggested"], margin_pct)
         market = self._compute_market(buy_rate["suggested"], carrier_pay_per_mile, month, ppi, fred)
         history = self._compute_history()
         seasonality = self._compute_seasonality(equipment_type, month)
-        confidence = self._compute_confidence(0, capacity["signal"], employment, ppi, fuel_surcharge, network_rates)
+        confidence = self._compute_confidence(0, capacity["signal"], employment, ppi, fuel_surcharge, network_rates, usda_rate)
         consensus = self._compute_consensus(ppi, employment, fred)
         equipment_demand = self._compute_equipment_demand(equipment_type, fred, nat_gas)
 
@@ -238,6 +249,7 @@ class LaneRateIntelligenceService:
             "consensus": consensus,
             "equipment_demand": equipment_demand,
             "network_rates": network_rates,
+            "usda_rate": usda_rate,
         }
 
     def _get_network_rates(self, origin_state: str, dest_state: str, equipment_type: str) -> dict:
@@ -249,47 +261,54 @@ class LaneRateIntelligenceService:
         except Exception:
             return {"count": 0, "data_source": "unavailable"}
 
-    def _blend_with_network(self, buy_rate: dict, network: dict) -> dict:
-        """Pull the headline rate toward real logged rates when they exist.
+    def _blend_with_network(self, buy_rate: dict, network: dict, usda: dict | None = None) -> dict:
+        """Pull the headline rate toward real rates when they exist.
 
         This is the accuracy leap: instead of a pure cost estimate, the suggested
-        rate becomes a weighted blend of (cost model, real logged network avg). The
-        more real loads on the exact lane, the more the headline tracks reality.
-        Regional-inferred data pulls less hard than exact-lane data.
+        rate becomes a weighted blend of (cost model, real rate). The real anchor is
+        picked in order of trust: exact-lane logged rates > USDA-surveyed produce
+        rate > regional-inferred logged rates.
         """
         buy_rate = dict(buy_rate)
         buy_rate["cost_model_suggested"] = buy_rate["suggested"]  # keep the pure estimate
         buy_rate["calibrated"] = False
 
-        if not network or network.get("data_source") != "real" or not network.get("avg"):
+        net_ok = bool(network and network.get("data_source") == "real" and network.get("avg"))
+        net_tier = network.get("tier", "exact") if net_ok else None
+        usda_ok = bool(usda and usda.get("data_source") == "real" and usda.get("per_mile"))
+
+        # Choose the strongest real anchor.
+        if net_ok and net_tier == "exact":
+            real_avg, count, basis, weight = (
+                float(network["avg"]), int(network.get("count", 0)), "exact",
+                0.75 if int(network.get("count", 0)) >= 5 else (0.6 if int(network.get("count", 0)) >= 3 else 0.4),
+            )
+            label = f"{count} exact-lane loads"
+        elif usda_ok:
+            real_avg, count, basis, weight = float(usda["per_mile"]), usda.get("sample", 1), "usda", 0.6
+            label = f"USDA-surveyed produce rate (${usda.get('avg_load_usd', 0):,.0f}/load)"
+        elif net_ok and net_tier == "regional":
+            real_avg, count, basis, weight = (
+                float(network["avg"]), int(network.get("count", 0)), "regional",
+                0.45 if int(network.get("count", 0)) >= 8 else 0.35,
+            )
+            label = f"{count} regional loads"
+        else:
             buy_rate["rate_basis"] = "cost_model"
             return buy_rate
 
-        net_avg = float(network["avg"])
-        count = int(network.get("count", 0))
-        tier = network.get("tier", "exact")
-
-        # Weight given to real data vs the cost model.
-        if tier == "exact":
-            weight = 0.75 if count >= 5 else (0.6 if count >= 3 else 0.4)
-        else:  # regional inference — real, but similar lanes not this exact one
-            weight = 0.45 if count >= 8 else 0.35
-
-        blended = round(weight * net_avg + (1 - weight) * buy_rate["suggested"], 2)
-
+        blended = round(weight * real_avg + (1 - weight) * buy_rate["suggested"], 2)
         buy_rate["suggested"] = blended
-        # Re-center the band on the blended number, keeping the ATRI floor as the hard floor.
-        buy_rate["low"] = round(max(buy_rate["atri_floor"] + 0.04, min(net_avg, blended) - 0.06), 2)
-        buy_rate["high"] = round(max(blended, net_avg) + 0.22, 2)
+        buy_rate["low"] = round(max(buy_rate["atri_floor"] + 0.04, min(real_avg, blended) - 0.06), 2)
+        buy_rate["high"] = round(max(blended, real_avg) + 0.22, 2)
         buy_rate["calibrated"] = True
-        buy_rate["rate_basis"] = f"market_calibrated_{tier}"
-        buy_rate["network_avg"] = net_avg
+        buy_rate["rate_basis"] = f"market_calibrated_{basis}"
+        buy_rate["network_avg"] = real_avg
         buy_rate["network_count"] = count
         buy_rate["network_weight"] = weight
         buy_rate["note"] = (
-            f"Market-calibrated: blended {int(weight*100)}% real logged rates "
-            f"({count} {'exact-lane' if tier == 'exact' else 'regional'} loads) "
-            f"with {int((1-weight)*100)}% cost model."
+            f"Market-calibrated: blended {int(weight*100)}% real rate "
+            f"({label}) with {int((1-weight)*100)}% cost model."
         )
         return buy_rate
 
@@ -691,16 +710,19 @@ class LaneRateIntelligenceService:
             return {"signal": "NORMAL", "yoy_delta_pct": 3.0}
         return {"signal": "TROUGH", "yoy_delta_pct": -6.0}
 
-    def _compute_confidence(self, data_points: int, capacity_signal: str, employment: dict | None = None, ppi: dict | None = None, fsc: dict | None = None, network: dict | None = None) -> dict:
+    def _compute_confidence(self, data_points: int, capacity_signal: str, employment: dict | None = None, ppi: dict | None = None, fsc: dict | None = None, network: dict | None = None, usda: dict | None = None) -> dict:
         # Honest confidence: each source scores only if it returned real data.
-        # Network-logged lane rates are the one real lane-level source — they lift
-        # the ceiling from 90 to 100 once enough loads are logged on the lane.
+        # Real lane-level rates (logged network or USDA-surveyed) lift the ceiling
+        # from 90 to 100 — they're the one thing free macro data can't provide.
         net_count = (network or {}).get("count", 0)
         net_tier = (network or {}).get("tier", "")
-        # Exact-lane data can reach full confidence; regional inference is real but
-        # from similar lanes, so it tops out lower — honest about certainty.
+        usda_ok = bool(usda and usda.get("data_source") == "real")
+        # Exact-lane data can reach full confidence; regional inference and USDA are
+        # real but less exact, so they top out lower — honest about certainty.
         if net_tier == "exact" and net_count >= 5:
             lane_pts = 10
+        elif usda_ok:
+            lane_pts = 8   # real USDA-surveyed produce lane rate
         elif net_tier == "exact" and net_count >= 1:
             lane_pts = 6
         elif net_tier == "regional":
@@ -720,12 +742,14 @@ class LaneRateIntelligenceService:
         grade = "HIGH" if score >= 70 else ("MEDIUM" if score >= 45 else "LOW")
         if net_tier == "exact" and net_count >= 5:
             note = f"Full confidence — {net_count} broker-logged loads on this exact lane."
+        elif usda_ok:
+            note = "Calibrated to a real USDA-surveyed produce reefer rate on this lane. Log broker rates for full confidence."
         elif net_tier == "exact":
             note = f"{net_count} logged load(s) on this exact lane. Log more to reach full confidence."
         elif net_tier == "regional":
             note = f"Calibrated from {net_count} logged loads on similar regional lanes. Log this exact lane for full confidence."
         else:
-            note = "Capped at 90/100 — no broker-logged rates on this lane yet. Log loads to unlock 100."
+            note = "Capped at 90/100 — no broker-logged or USDA rates on this lane yet. Log loads to unlock 100."
         return {
             "score": score,
             "grade": grade,
