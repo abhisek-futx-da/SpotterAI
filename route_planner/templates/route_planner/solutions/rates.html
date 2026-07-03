@@ -1600,15 +1600,17 @@
         badge.className = 'ri-badge ri-badge-green';
         const win = nr.last_30d || nr.last_90d;
         el.innerHTML = `
-            <div style="font-size:10px;color:#86efac;margin-bottom:6px">● REAL logged lane rates — the truest number on this page</div>
+            ${nr.tier === 'regional'
+                ? `<div style="font-size:10px;color:#fcd34d;margin-bottom:6px">◐ REGIONAL pattern (${nr.region_pair || ''}) — real loads on similar lanes; log this exact lane for exact data</div>`
+                : `<div style="font-size:10px;color:#86efac;margin-bottom:6px">● REAL logged rates on this exact lane — the truest number on this page</div>`}
             <div class="ri-stat-grid" style="margin-bottom:8px">
-                <div class="ri-stat"><div class="ri-stat-v">$${nr.avg.toFixed(2)}</div><div class="ri-stat-l">Network avg $/mi</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">$${nr.avg.toFixed(2)}</div><div class="ri-stat-l">${nr.tier === 'regional' ? 'Regional' : 'Network'} avg $/mi</div></div>
                 <div class="ri-stat"><div class="ri-stat-v">$${nr.median.toFixed(2)}</div><div class="ri-stat-l">Median</div></div>
                 <div class="ri-stat"><div class="ri-stat-v">$${nr.low.toFixed(2)}–$${nr.high.toFixed(2)}</div><div class="ri-stat-l">Range</div></div>
             </div>
             ${win ? `<div style="font-size:10px;color:#64748b;margin-bottom:6px">Last 30–90 days: ${win.count} loads, avg $${win.avg.toFixed(2)}/mi</div>` : ''}
             ${(nr.recent || []).slice(0,6).map(e => `<div class="ri-mkt-row"><span class="ri-mkt-label">${e.date}${e.origin_city ? ' · ' + e.origin_city : ''}</span><span class="ri-mkt-val">$${e.rate.toFixed(2)}/mi</span></div>`).join('')}
-            <div style="font-size:9px;color:#475569;margin-top:4px">Anonymous · ${nr.count} broker-logged load${nr.count>1?'s':''} on ${document.getElementById('ri-origin-state').value.toUpperCase()}→${document.getElementById('ri-dest-state').value.toUpperCase()}</div>`;
+            <div style="font-size:9px;color:#475569;margin-top:4px">Anonymous · ${nr.count} broker-logged load${nr.count>1?'s':''} ${nr.tier === 'regional' ? 'across the region' : 'on ' + document.getElementById('ri-origin-state').value.toUpperCase()+'→'+document.getElementById('ri-dest-state').value.toUpperCase()}</div>`;
     }
 
     function renderRateIntelligence(d) {
@@ -1624,11 +1626,18 @@
         // Normalize BLS tightness — guard against 'UNKNOWN' when BLS is temporarily unavailable
         const tightnessLabel = (cap.market_tightness && cap.market_tightness !== 'UNKNOWN') ? cap.market_tightness : 'NEUTRAL';
 
-        // ── Buy-rate source badge: ATRI floor is always real ──
+        // ── Buy-rate source badge: shows market-calibration when real rates blended in ──
         const buySrcBadge = document.getElementById('ri-buy-src-badge');
-        buySrcBadge.textContent = 'ATRI 2025 + BLS';
-        buySrcBadge.className = 'ri-badge ri-badge-green';
-        buySrcBadge.title = 'Floor = ATRI 2025 Update (2024 operating data, published July 2025). Range = BLS employment-adjusted.';
+        if (br.calibrated) {
+            const exact = (br.rate_basis || '').indexOf('regional') === -1;
+            buySrcBadge.textContent = exact ? '⚡ MARKET-CALIBRATED' : '⚡ REGION-CALIBRATED';
+            buySrcBadge.className = 'ri-badge ri-badge-green';
+            buySrcBadge.title = br.note || 'Blended with real logged rates.';
+        } else {
+            buySrcBadge.textContent = 'COST ESTIMATE';
+            buySrcBadge.className = 'ri-badge';
+            buySrcBadge.title = 'Cost-anchored estimate (ATRI + BLS). Log real rates to calibrate this to the actual market.';
+        }
 
         // ── Buy rate tiers ──
         const belowFloor = d.market.your_rate_per_mile > 0 && d.market.your_rate_per_mile < br.atri_floor;
@@ -1639,8 +1648,11 @@
 
         document.getElementById('ri-rate-tiers').innerHTML = `
             <div style="font-size:10px;color:#94a3b8;margin-bottom:8px;line-height:1.5">
-                What it should <strong style="color:#e2e8f0">cost</strong> to pay a carrier on this lane — anchored to published carrier operating cost, adjusted for live capacity.
-            </div>
+                ${br.calibrated
+                    ? `<strong style="color:#86efac">Market-calibrated</strong> — the Fair pay number is blended with <strong style="color:#e2e8f0">${br.network_count} real logged rate${br.network_count>1?'s':''}</strong> (avg $${(br.network_avg||0).toFixed(2)}/mi), pulled ${Math.round((br.network_weight||0)*100)}% toward actual market.`
+                    : `What it should <strong style="color:#e2e8f0">cost</strong> to pay a carrier — cost-anchored estimate. Log real rates to calibrate it to the actual market.`}
+            </div>`;
+        document.getElementById('ri-rate-tiers').innerHTML += `
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
                 <div class="ri-rate-tier" onclick="selBuyTier(this)" title="National carrier cost floor (ATRI). Double-click to copy.">
                     <div class="ri-rate-tier-label">Cost floor</div>
@@ -1654,7 +1666,7 @@
                     <div class="ri-rate-tier-val sel-val">$${br.suggested.toFixed(2)}</div>
                     <div class="ri-rate-tier-mi">$/mi</div>
                     <div class="ri-rate-tier-mi">$${(br.suggested * d.lane.distance_miles).toFixed(0)} total</div>
-                    <div style="font-size:9px;color:#60a5fa;margin-top:4px">● BLS ${tightnessLabel}</div>
+                    <div style="font-size:9px;color:${br.calibrated ? '#86efac' : '#60a5fa'};margin-top:4px">${br.calibrated ? '● market ×' + br.network_count : '● BLS ' + tightnessLabel}</div>
                 </div>
                 <div class="ri-rate-tier" onclick="selBuyTier(this)" title="Tight-market ceiling. Double-click to copy.">
                     <div class="ri-rate-tier-label">Tight mkt</div>
@@ -1668,7 +1680,7 @@
             <div style="margin-top:8px;padding:6px 10px;background:rgba(239,68,68,0.08);border-left:3px solid #ef4444;border-radius:0 4px 4px 0;font-size:11px;color:#fca5a5;line-height:1.5;width:100%;box-sizing:border-box">
                 ⚠ You're paying $${d.market.your_rate_per_mile.toFixed(2)}/mi — below the national cost floor ($${br.atri_floor.toFixed(2)}/mi). Carrier runs at a loss; expect pushback or fall-through.
             </div>` : ''}
-            <div style="font-size:9px;color:#475569;margin-top:6px;line-height:1.4">Cost-anchored guidance — a realistic floor, not a live spot quote. On soft lanes real spot can run below cost. Confirm with DAT/your logged rates.</div>`;
+            <div style="font-size:9px;color:#475569;margin-top:6px;line-height:1.4">${br.calibrated ? 'Fair pay is calibrated to real broker-logged rates on this lane/region — the closest to true market this tool gets for free.' : 'Cost-anchored guidance — a realistic floor, not a live spot quote. Log real rates to calibrate this to actual market.'}</div>`;
 
         document.querySelectorAll('.ri-rate-tier').forEach(el => {
             el.ondblclick = () => {

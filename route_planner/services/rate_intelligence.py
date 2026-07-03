@@ -169,6 +169,9 @@ class LaneRateIntelligenceService:
         tightness = capacity.get("market_tightness", "NEUTRAL")
 
         buy_rate = self._compute_buy_rate(equipment_type, distance_miles, month, tightness, ppi)
+        # Blend real logged rates into the headline number — this is what makes the
+        # tool's primary rate market-calibrated instead of pure cost estimate.
+        buy_rate = self._blend_with_network(buy_rate, network_rates)
         sell_rate = self._compute_sell_rate(buy_rate["suggested"], margin_pct)
         market = self._compute_market(buy_rate["suggested"], carrier_pay_per_mile, month, ppi, fred)
         history = self._compute_history()
@@ -245,6 +248,50 @@ class LaneRateIntelligenceService:
             return aggregate_lane(origin_state, dest_state, equipment_type)
         except Exception:
             return {"count": 0, "data_source": "unavailable"}
+
+    def _blend_with_network(self, buy_rate: dict, network: dict) -> dict:
+        """Pull the headline rate toward real logged rates when they exist.
+
+        This is the accuracy leap: instead of a pure cost estimate, the suggested
+        rate becomes a weighted blend of (cost model, real logged network avg). The
+        more real loads on the exact lane, the more the headline tracks reality.
+        Regional-inferred data pulls less hard than exact-lane data.
+        """
+        buy_rate = dict(buy_rate)
+        buy_rate["cost_model_suggested"] = buy_rate["suggested"]  # keep the pure estimate
+        buy_rate["calibrated"] = False
+
+        if not network or network.get("data_source") != "real" or not network.get("avg"):
+            buy_rate["rate_basis"] = "cost_model"
+            return buy_rate
+
+        net_avg = float(network["avg"])
+        count = int(network.get("count", 0))
+        tier = network.get("tier", "exact")
+
+        # Weight given to real data vs the cost model.
+        if tier == "exact":
+            weight = 0.75 if count >= 5 else (0.6 if count >= 3 else 0.4)
+        else:  # regional inference — real, but similar lanes not this exact one
+            weight = 0.45 if count >= 8 else 0.35
+
+        blended = round(weight * net_avg + (1 - weight) * buy_rate["suggested"], 2)
+
+        buy_rate["suggested"] = blended
+        # Re-center the band on the blended number, keeping the ATRI floor as the hard floor.
+        buy_rate["low"] = round(max(buy_rate["atri_floor"] + 0.04, min(net_avg, blended) - 0.06), 2)
+        buy_rate["high"] = round(max(blended, net_avg) + 0.22, 2)
+        buy_rate["calibrated"] = True
+        buy_rate["rate_basis"] = f"market_calibrated_{tier}"
+        buy_rate["network_avg"] = net_avg
+        buy_rate["network_count"] = count
+        buy_rate["network_weight"] = weight
+        buy_rate["note"] = (
+            f"Market-calibrated: blended {int(weight*100)}% real logged rates "
+            f"({count} {'exact-lane' if tier == 'exact' else 'regional'} loads) "
+            f"with {int((1-weight)*100)}% cost model."
+        )
+        return buy_rate
 
     def _compute_consensus(self, ppi: dict, employment: dict, fred: dict) -> dict:
         """Combine every independent real signal into one verdict with stated conviction.
@@ -649,9 +696,14 @@ class LaneRateIntelligenceService:
         # Network-logged lane rates are the one real lane-level source — they lift
         # the ceiling from 90 to 100 once enough loads are logged on the lane.
         net_count = (network or {}).get("count", 0)
-        if net_count >= 5:
+        net_tier = (network or {}).get("tier", "")
+        # Exact-lane data can reach full confidence; regional inference is real but
+        # from similar lanes, so it tops out lower — honest about certainty.
+        if net_tier == "exact" and net_count >= 5:
             lane_pts = 10
-        elif net_count >= 1:
+        elif net_tier == "exact" and net_count >= 1:
+            lane_pts = 6
+        elif net_tier == "regional":
             lane_pts = 5
         else:
             lane_pts = 0
@@ -666,10 +718,12 @@ class LaneRateIntelligenceService:
         }
         score = sum(score_breakdown.values())
         grade = "HIGH" if score >= 70 else ("MEDIUM" if score >= 45 else "LOW")
-        if net_count >= 5:
+        if net_tier == "exact" and net_count >= 5:
             note = f"Full confidence — {net_count} broker-logged loads on this exact lane."
-        elif net_count >= 1:
-            note = f"{net_count} logged load(s) on this lane. Log more to reach full confidence."
+        elif net_tier == "exact":
+            note = f"{net_count} logged load(s) on this exact lane. Log more to reach full confidence."
+        elif net_tier == "regional":
+            note = f"Calibrated from {net_count} logged loads on similar regional lanes. Log this exact lane for full confidence."
         else:
             note = "Capped at 90/100 — no broker-logged rates on this lane yet. Log loads to unlock 100."
         return {
