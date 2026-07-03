@@ -865,7 +865,7 @@
                 </div>
                 <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
                     <span class="lr-badge" id="lr-per-mi-badge" style="background:linear-gradient(135deg,rgba(13,207,186,0.15),rgba(13,207,186,0.05));border-color:rgba(13,207,186,0.3);color:var(--sky);">Gross —/mi</span>
-                    <span id="lr-breakeven-badge" style="font-size:0.78rem;font-weight:600;color:var(--text2);background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:100px;padding:0.25rem 0.9rem;">Carrier floor: —</span>
+                    <span id="lr-breakeven-badge" style="font-size:0.78rem;font-weight:600;color:var(--text2);background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:100px;padding:0.25rem 0.9rem;">Your carrier pay: —</span>
                 </div>
             </div>
 
@@ -884,32 +884,19 @@
                     <div id="lr-invoice-table" style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;"></div>
                 </div>
 
-                <!-- COL 3: QUOTE TIERS -->
+                <!-- COL 3: MARKET CHECK — cross-check the deal against the intelligence engine -->
                 <div style="display:flex;flex-direction:column;gap:0.75rem;">
-                    <p style="font-size:0.63rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.15rem;">📊 Shipper Quote Tiers</p>
-                    <div class="lr-qcard">
-                        <span class="lr-qlabel">Conservative</span>
-                        <span class="lr-qprice" id="lr-val-low">—</span>
-                        <span class="lr-qmi" id="lr-mi-low">—</span>
+                    <p style="font-size:0.63rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.15rem;">✅ Market Check</p>
+                    <div id="lr-market-check" style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.3rem;">
+                        <div style="font-size:0.85rem;color:var(--text2);line-height:1.7;">Loading market data — ATRI floor, BLS capacity, and quote guidance appear here once the lane analysis finishes…</div>
                     </div>
-                    <div class="lr-qcard mid">
-                        <span class="lr-qlabel">Suggested Quote</span>
-                        <span class="lr-qprice" id="lr-val-mid">—</span>
-                        <span class="lr-qmi" id="lr-mi-mid">—</span>
-                    </div>
-                    <div class="lr-qcard">
-                        <span class="lr-qlabel">Premium</span>
-                        <span class="lr-qprice" id="lr-val-high">—</span>
-                        <span class="lr-qmi" id="lr-mi-high">—</span>
-                    </div>
-                    <div class="lr-margin-note">Net after factoring: <strong id="lr-net-text" style="color:var(--green);">—</strong></div>
                 </div>
             </div>
 
-            <!-- Carrier Cost Detail (collapsible) -->
+            <!-- Custom cost worksheet (collapsible, manual inputs only) -->
             <div style="margin-top:1.5rem;border:1px solid var(--border);border-radius:12px;overflow:hidden;">
                 <div onclick="toggleCarrierCostDetail(this)" style="display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.2rem;cursor:pointer;background:rgba(255,255,255,0.02);">
-                    <span style="font-size:0.7rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.08em;">🔧 Carrier Cost Detail (Reference)</span>
+                    <span style="font-size:0.7rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.08em;">🔧 Your Custom Cost Worksheet <span style="color:var(--text3);text-transform:none;font-weight:500;">(your sidebar inputs — tool pricing uses the ATRI floor, not this)</span></span>
                     <span id="carrier-cost-detail-icon" style="font-size:0.65rem;color:var(--text3);transition:transform 0.2s;">▼</span>
                 </div>
                 <div id="lr-carrier-cost-detail" style="display:none;">
@@ -1299,13 +1286,6 @@
         const factoringFee     = shipperTotal * (factoringPct / 100);
         const netProfit        = grossProfit - factoringFee;
 
-        // --- Shipper quote tiers (based on carrier all-in + margin) ---
-        const margin           = carrierAllIn * (marginPct / 100);
-        const quoteLow         = carrierAllIn + margin * 0.85;
-        const quoteMid         = carrierAllIn + margin;
-        const quoteHigh        = carrierAllIn + margin * 1.20;
-        const netAfterFactor   = quoteMid - quoteMid * (factoringPct / 100);
-
         const fmt  = v  => '$' + v.toFixed(2);
         const fmtN = v  => '$' + Math.abs(v).toFixed(0);
         const pmi  = v  => '$' + (v / dist).toFixed(2) + '/mi';
@@ -1370,17 +1350,10 @@
             <div class="lr-cost-row lr-total"><span class="lr-lbl">Carrier All-In</span><span class="lr-val lr-total-val">${fmt(carrierAllIn)}</span></div>
         `;
 
-        // ── 4. BADGES & QUOTE TIERS ──
+        // ── 4. BADGES ── (quote guidance lives in the Market Check panel, fed by rate intelligence)
         document.getElementById('lr-route-label').textContent     = `${startLabel} → ${finishLabel}`;
         document.getElementById('lr-per-mi-badge').textContent    = 'Gross ' + pmi(grossProfit);
-        document.getElementById('lr-breakeven-badge').textContent = 'Carrier floor: ' + pmi(carrierAllIn);
-        document.getElementById('lr-val-low').textContent         = fmtN(quoteLow);
-        document.getElementById('lr-mi-low').textContent          = pmi(quoteLow);
-        document.getElementById('lr-val-mid').textContent         = fmtN(quoteMid);
-        document.getElementById('lr-mi-mid').textContent          = pmi(quoteMid);
-        document.getElementById('lr-val-high').textContent        = fmtN(quoteHigh);
-        document.getElementById('lr-mi-high').textContent         = pmi(quoteHigh);
-        document.getElementById('lr-net-text').textContent        = fmt(netAfterFactor) + ' (' + pmi(netAfterFactor) + ')';
+        document.getElementById('lr-breakeven-badge').textContent = 'Your carrier pay: ' + pmi(carrierPay);
 
         document.getElementById('lane-rate-section').style.display = 'block';
     }
@@ -1880,6 +1853,50 @@
                     </div>`;
             }
         }
+
+        // ── Market Check panel (bottom deal section) — the bridge between deal P&L and market intelligence ──
+        renderMarketCheck(d);
+    }
+
+    function renderMarketCheck(d) {
+        const mc = document.getElementById('lr-market-check');
+        if (!mc) return;
+        const br = d.buy_rate;
+        const dist = d.lane.distance_miles;
+        const carrierPay = d.market.your_rate_per_mile || 0;
+        const sellSuggested = d.sell_rate?.suggested;
+        const belowFloor = carrierPay > 0 && carrierPay < br.atri_floor;
+        const payColor = belowFloor ? '#f87171' : '#86efac';
+        const cons = d.consensus || {};
+        const consLine = (cons.verdict && cons.verdict !== 'UNKNOWN')
+            ? `<div style="font-size:0.72rem;color:var(--text2);padding-top:0.6rem;border-top:1px solid var(--border);margin-top:0.6rem;">🧭 Market: <strong style="color:${cons.verdict === 'FIRMING' ? '#f87171' : cons.verdict === 'SOFTENING' ? '#86efac' : '#fcd34d'}">${cons.verdict}</strong> — ${cons.firming_count ?? 0}/${cons.total_sources ?? 0} sources firming</div>`
+            : '';
+
+        mc.innerHTML = `
+            <div class="lr-cost-row" style="padding:0.55rem 0;border-bottom:1px solid var(--border);">
+                <span class="lr-lbl" style="font-size:0.8rem;">ATRI cost floor</span>
+                <span class="lr-val" style="color:#86efac;">$${br.atri_floor.toFixed(2)}/mi</span>
+            </div>
+            <div class="lr-cost-row" style="padding:0.55rem 0;border-bottom:1px solid var(--border);">
+                <span class="lr-lbl" style="font-size:0.8rem;">Market buy estimate</span>
+                <span class="lr-val">$${br.suggested.toFixed(2)}/mi <small style="color:var(--text3);">($${(br.suggested * dist).toFixed(0)})</small></span>
+            </div>
+            ${sellSuggested ? `
+            <div class="lr-cost-row" style="padding:0.55rem 0;border-bottom:1px solid var(--border);">
+                <span class="lr-lbl" style="font-size:0.8rem;">Suggested shipper quote</span>
+                <span class="lr-val" style="color:var(--orange);font-weight:700;">$${sellSuggested.toFixed(2)}/mi <small style="color:var(--text3);">($${(sellSuggested * dist).toFixed(0)})</small></span>
+            </div>` : ''}
+            ${carrierPay > 0 ? `
+            <div class="lr-cost-row" style="padding:0.55rem 0;">
+                <span class="lr-lbl" style="font-size:0.8rem;">Your carrier pay</span>
+                <span class="lr-val" style="color:${payColor};">$${carrierPay.toFixed(2)}/mi</span>
+            </div>` : ''}
+            ${belowFloor ? `
+            <div style="margin-top:0.5rem;padding:0.5rem 0.7rem;background:rgba(239,68,68,0.08);border-left:3px solid #ef4444;border-radius:0 6px 6px 0;font-size:0.72rem;color:#fca5a5;line-height:1.5;">
+                ⚠ Below the ATRI floor — a carrier at $${carrierPay.toFixed(2)}/mi is losing money and may not perform.
+            </div>` : ''}
+            ${consLine}
+            <div style="font-size:0.62rem;color:var(--text3);margin-top:0.6rem;">Same engine as Lane Rate Intelligence above — ATRI 2025 + BLS live data.</div>`;
     }
 
     function renderFREDPanel(fred) {
