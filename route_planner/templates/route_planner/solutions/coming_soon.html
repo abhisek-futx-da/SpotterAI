@@ -1,0 +1,29 @@
+{% extends "route_planner/base.html" %}
+
+{% block title %}{{ sol_title }} — Spotter AI{% endblock %}
+
+{% block content %}
+<section class="sol-hero" style="min-height: 55vh; align-items: center;">
+    <div class="sol-hero-left">
+        <span class="sec-eyebrow">Coming Soon · {{ sol_title }}</span>
+        <h1>{{ sol_title }}</h1>
+        <p class="sol-hero-desc">{{ sol_description }}</p>
+        <p class="sol-hero-desc" style="color: var(--text3);">
+            This solution is under active development. In the meantime, our Fuel Rate
+            Intelligence tools are live — optimize a route, check lane rates, and verify carriers today.
+        </p>
+        <div class="sol-hero-ctas">
+            <a class="btn-primary" href="/#optimizer-section">Try Rate Intelligence →</a>
+            <a class="btn-ghost" href="/">Back to Home</a>
+        </div>
+    </div>
+    <div class="sol-hero-right">
+        <div class="sol-visual">
+            <div class="sol-visual-icon" style="opacity: 0.35;">{{ sol_icon }}</div>
+            <div class="sol-visual-cards">
+                <div class="sol-vc"><span class="sol-vc-v">Soon</span><span class="sol-vc-l">In Development</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

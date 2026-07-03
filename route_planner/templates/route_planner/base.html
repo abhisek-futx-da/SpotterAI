@@ -634,6 +634,47 @@
             <div class="nav-logo">⛽</div>
             <span class="nav-name">Spotter<em>.ai</em></span>
         </a>
+        <div class="nav-items">
+            <button class="nav-item" id="nav-solutions-btn" type="button" aria-expanded="false" aria-controls="nav-solutions-dd">
+                Solutions
+                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <a class="nav-item" href="/#optimizer-section">Fuel Optimizer</a>
+            <a class="nav-item" href="/#faq">FAQ</a>
+        </div>
+        <div class="nav-login">
+            <a class="nav-login-btn" href="/admin/">Log In</a>
+        </div>
+    </div>
+    <div class="nav-dropdown" id="nav-solutions-dd">
+        <div class="nav-dropdown-inner">
+            <div class="dd-left">
+                <p>One network for freight intelligence and financial services — rates, capacity, payments, and more.</p>
+                <a class="dd-cta" href="/#optimizer-section">Try the Optimizer →</a>
+            </div>
+            <div class="dd-col">
+                <div>
+                    <span class="dd-section-label">Available Now</span>
+                    <div class="dd-links">
+                        <a class="dd-link" href="/solutions/rates/">Fuel Rate Intelligence</a>
+                        <a class="dd-link" href="/#optimizer-section">Fuel Route Optimizer</a>
+                        <a class="dd-link" href="/#faq">Lane Rate FAQ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="dd-col">
+                <div>
+                    <span class="dd-section-label">Coming Soon</span>
+                    <div class="dd-links">
+                        <a class="dd-link" href="/solutions/capacity/">Capacity Solutions</a>
+                        <a class="dd-link" href="/solutions/payments/">Payments</a>
+                        <a class="dd-link" href="/solutions/factoring/">Factoring</a>
+                        <a class="dd-link" href="/solutions/banking/">Banking</a>
+                        <a class="dd-link" href="/solutions/insurance/">Insurance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
 
@@ -659,6 +700,32 @@
     document.querySelectorAll('.faq-q').forEach(btn => {
         btn.addEventListener('click', () => btn.closest('.faq-item').classList.toggle('open'));
     });
+
+    (function () {
+        const btn = document.getElementById('nav-solutions-btn');
+        const dd = document.getElementById('nav-solutions-dd');
+        if (!btn || !dd) return;
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const open = dd.classList.toggle('open');
+            btn.classList.toggle('active', open);
+            btn.setAttribute('aria-expanded', open);
+        });
+        document.addEventListener('click', (e) => {
+            if (dd.classList.contains('open') && !dd.contains(e.target)) {
+                dd.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && dd.classList.contains('open')) {
+                dd.classList.remove('open');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
 </script>
 
 {% block extra_scripts %}{% endblock %}

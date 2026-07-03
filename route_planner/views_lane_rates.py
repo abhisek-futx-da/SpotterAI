@@ -2,11 +2,16 @@
 in the product. Brokers log what they actually paid; the network aggregate on
 that lane becomes real market data no free government feed can provide.
 
-POST /api/lane-rates/  — log a rate (anonymous)
-GET  /api/lane-rates/?origin_state=NY&dest_state=IL&equipment_type=dry_van
-                       — network aggregate for the lane
+POST   /api/lane-rates/  — log a rate (anonymous)
+GET    /api/lane-rates/?origin_state=NY&dest_state=IL&equipment_type=dry_van
+                         — network aggregate for the lane
+DELETE /api/lane-rates/  — moderation: remove bad entries on a lane. Requires
+                           X-Admin-Token header matching the ADMIN_TOKEN env var;
+                           disabled entirely (403) when ADMIN_TOKEN is unset.
 """
+import hmac
 import json
+import os
 
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
@@ -21,7 +26,36 @@ VALID_EQUIPMENT = {"dry_van", "reefer", "flatbed"}
 
 @method_decorator(csrf_exempt, name="dispatch")
 class LaneRateView(View):
-    http_method_names = ["get", "post", "options"]
+    http_method_names = ["get", "post", "delete", "options"]
+
+    def delete(self, request, *args, **kwargs):
+        admin_token = os.environ.get("ADMIN_TOKEN", "")
+        supplied = request.headers.get("X-Admin-Token", "")
+        if not admin_token or not hmac.compare_digest(supplied, admin_token):
+            return JsonResponse({"error": "Forbidden"}, status=403)
+
+        try:
+            body = json.loads(request.body.decode("utf-8") or "{}")
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+
+        o = (body.get("origin_state", "") or "").strip().upper()[:2]
+        d = (body.get("dest_state", "") or "").strip().upper()[:2]
+        eq = (body.get("equipment_type", "") or "").strip()
+        if not o or not d or eq not in VALID_EQUIPMENT:
+            return JsonResponse({"error": "origin_state, dest_state, equipment_type required"}, status=400)
+
+        qs = LaneRate.objects.filter(origin_state=o, dest_state=d, equipment_type=eq)
+        # Optional narrowing to a specific bad entry by its exact rate
+        rate = body.get("rate_per_mile")
+        if rate is not None:
+            try:
+                qs = qs.filter(rate_per_mile=round(float(rate), 2))
+            except (TypeError, ValueError):
+                return JsonResponse({"error": "rate_per_mile must be a number"}, status=400)
+
+        deleted, _ = qs.delete()
+        return JsonResponse({"ok": True, "deleted": deleted, "aggregate": _aggregate(o, d, eq)})
 
     def get(self, request, *args, **kwargs):
         o = (request.GET.get("origin_state", "") or "").strip().upper()[:2]

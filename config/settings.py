@@ -5,8 +5,19 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-only-route-fuel-optimizer-secret")
-DEBUG = os.getenv("DJANGO_DEBUG", "1").lower() in {"1", "true", "yes", "on"}
+# Safe-by-default: production behavior unless DJANGO_DEBUG is explicitly enabled
+# (local dev sets DJANGO_DEBUG=1 in .env, which run.sh sources).
+DEBUG = os.getenv("DJANGO_DEBUG", "0").lower() in {"1", "true", "yes", "on"}
+
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "")
+if not SECRET_KEY:
+    if DEBUG:
+        SECRET_KEY = "dev-only-route-fuel-optimizer-secret"
+    else:
+        raise RuntimeError(
+            "DJANGO_SECRET_KEY must be set when DJANGO_DEBUG is off. "
+            "Generate one with: python -c \"import secrets; print(secrets.token_urlsafe(50))\""
+        )
 ALLOWED_HOSTS = [
     host.strip()
     for host in os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
@@ -32,7 +43,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "route_planner.middleware.ApiRateLimitMiddleware",
 ]
+
+# Per-IP sliding-window rate limit for /api/ endpoints (in-memory, per worker).
+API_RATE_LIMIT = int(os.getenv("API_RATE_LIMIT", "30"))          # requests
+API_RATE_WINDOW_SECONDS = int(os.getenv("API_RATE_WINDOW_SECONDS", "60"))
 
 # Railway (and most PaaS) terminate TLS at a proxy and forward plain HTTP —
 # without this, Django thinks every request is insecure and CSRF/redirects break.
