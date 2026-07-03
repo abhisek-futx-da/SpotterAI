@@ -662,6 +662,11 @@
                                 ⏳ Analyzing lane...
                             </div>
 
+                            <!-- Step 1 framing -->
+                            <div id="ri-step1-intro" style="display:none;font-size:10px;font-weight:600;color:#60a5fa;text-transform:uppercase;letter-spacing:0.08em;padding:2px 2px 8px;">
+                                Step 1 · Market Intelligence — live data on this lane
+                            </div>
+
                             <!-- Market consensus — the one-line verdict, always first -->
                             <div class="ri-card" id="ri-consensus-card" style="display:none">
                                 <div class="ri-card-header" onclick="toggleCard('ri-consensus-body')">
@@ -675,12 +680,12 @@
                             <!-- Rate hero -->
                             <div class="ri-card" id="ri-hero" style="display:none">
                                 <div class="ri-card-label" style="display:flex;justify-content:space-between;align-items:center;">
-                                    <span>Carrier buy rate</span>
+                                    <span>💵 What to pay the carrier</span>
                                     <span id="ri-buy-src-badge" class="ri-badge">LOADING…</span>
                                 </div>
                                 <div class="ri-rate-tiers" id="ri-rate-tiers"></div>
                                 <div class="ri-divider"></div>
-                                <div class="ri-card-label" style="margin-top:8px">Shipper quote tiers</div>
+                                <div class="ri-card-label" style="margin-top:8px">🧾 What to charge the shipper <span style="text-transform:none;letter-spacing:0;color:#475569;font-size:9px">(pay + your margin)</span></div>
                                 <div class="ri-sell-tiers" id="ri-sell-tiers"></div>
                             </div>
 
@@ -860,14 +865,18 @@
             <!-- Header -->
             <div class="lr-header">
                 <div>
-                    <span class="sec-eyebrow">UltraShip Broker Rate Analysis</span>
+                    <span class="sec-eyebrow">Step 2 · Your Deal</span>
                     <h3 class="lr-h3">Lane: <span id="lr-route-label">—</span></h3>
+                    <p style="font-size:0.85rem;color:var(--text2);margin-top:0.35rem;max-width:560px;line-height:1.6;">Your profit on this specific load, using the rate you charge the shipper and pay the carrier. Cross-checked against the market intelligence above.</p>
                 </div>
                 <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
                     <span class="lr-badge" id="lr-per-mi-badge" style="background:linear-gradient(135deg,rgba(13,207,186,0.15),rgba(13,207,186,0.05));border-color:rgba(13,207,186,0.3);color:var(--sky);">Gross —/mi</span>
                     <span id="lr-breakeven-badge" style="font-size:0.78rem;font-weight:600;color:var(--text2);background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:100px;padding:0.25rem 0.9rem;">Your carrier pay: —</span>
                 </div>
             </div>
+
+            <!-- Bottom-line plain-English summary — ties market + cost + deal into one sentence -->
+            <div id="lr-bottom-line" style="margin-bottom:1.75rem;padding:1.1rem 1.35rem;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;font-size:0.95rem;line-height:1.7;color:var(--text);"></div>
 
             <!-- 3-column broker layout -->
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:1.5rem;">
@@ -1355,7 +1364,51 @@
         document.getElementById('lr-per-mi-badge').textContent    = 'Gross ' + pmi(grossProfit);
         document.getElementById('lr-breakeven-badge').textContent = 'Your carrier pay: ' + pmi(carrierPay);
 
+        // Stash the deal numbers so the bottom-line summary can combine them with market data
+        lastDeal = {
+            shipperPerMi: shipperRatePerMi,
+            carrierPerMi: carrierPayPerMi,
+            netProfit: netProfit,
+            grossProfit: grossProfit,
+            netPerMi: netProfit / dist,
+            dist: dist,
+            route: `${startLabel} → ${finishLabel}`,
+        };
+        renderBottomLine();
+
         document.getElementById('lane-rate-section').style.display = 'block';
+    }
+
+    let lastDeal = null;   // deal P&L stashed from computeRateCard
+    let lastRI = null;     // rate-intelligence payload stashed from renderRateIntelligence
+
+    function renderBottomLine() {
+        const el = document.getElementById('lr-bottom-line');
+        if (!el || !lastDeal) return;
+        const d = lastDeal;
+        const money = v => '$' + Math.round(v).toLocaleString();
+        const pm = v => '$' + v.toFixed(2) + '/mi';
+
+        const profitColor = d.netProfit >= 0 ? 'var(--green)' : '#f87171';
+        let s = `You bill the shipper <strong>${pm(d.shipperPerMi)}</strong> and pay the carrier <strong>${pm(d.carrierPerMi)}</strong> → `;
+        s += `<strong style="color:${profitColor}">${money(d.netProfit)} net profit</strong> on this load (${pm(d.netPerMi)}).`;
+
+        // Add market context if rate intelligence has loaded
+        if (lastRI) {
+            const floor = lastRI.buy_rate?.atri_floor;
+            const cons = lastRI.consensus || {};
+            if (floor && d.carrierPerMi > 0 && d.carrierPerMi < floor) {
+                s += ` <span style="color:#fca5a5">⚠ Your carrier pay is below the national carrier cost floor (${pm(floor)} ATRI) — expect pushback or fall-through unless the carrier has a cheap backhaul.</span>`;
+            } else if (floor && d.carrierPerMi >= floor) {
+                s += ` <span style="color:#86efac">✓ Your carrier pay covers the national cost floor (${pm(floor)} ATRI).</span>`;
+            }
+            if (cons.verdict === 'FIRMING') {
+                s += ` Market is <strong style="color:#f87171">firming</strong> (${cons.firming_count}/${cons.total_sources} sources) — carriers gaining leverage, lock capacity sooner.`;
+            } else if (cons.verdict === 'SOFTENING') {
+                s += ` Market is <strong style="color:#86efac">softening</strong> (${cons.softening_count}/${cons.total_sources} sources) — you have time to shop carriers.`;
+            }
+        }
+        el.innerHTML = s;
     }
 
     function toggleRateInputs(el) {
@@ -1567,6 +1620,8 @@
 
     function renderRateIntelligence(d) {
         document.getElementById('ri-loading').style.display = 'none';
+        const step1 = document.getElementById('ri-step1-intro');
+        if (step1) step1.style.display = 'block';
 
         const br = d.buy_rate;
         const cap = d.capacity;
@@ -1590,37 +1645,37 @@
                </div>` : '';
 
         document.getElementById('ri-rate-tiers').innerHTML = `
-            <div style="font-size:9px;color:#475569;margin-bottom:6px;line-height:1.4">
-                Floor = ATRI 2025 (2024 data) &nbsp;·&nbsp; Range = BLS ${tightnessLabel} market
+            <div style="font-size:10px;color:#94a3b8;margin-bottom:8px;line-height:1.5">
+                What it should <strong style="color:#e2e8f0">cost</strong> to pay a carrier on this lane — anchored to published carrier operating cost, adjusted for live capacity.
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
-                <div class="ri-rate-tier" onclick="selBuyTier(this)" title="ATRI carrier cost floor. Double-click to copy.">
-                    <div class="ri-rate-tier-label">Floor</div>
+                <div class="ri-rate-tier" onclick="selBuyTier(this)" title="National carrier cost floor (ATRI). Double-click to copy.">
+                    <div class="ri-rate-tier-label">Cost floor</div>
                     <div class="ri-rate-tier-val">$${br.atri_floor.toFixed(2)}</div>
                     <div class="ri-rate-tier-mi">$/mi</div>
                     <div class="ri-rate-tier-mi">$${(br.atri_floor * d.lane.distance_miles).toFixed(0)} total</div>
-                    <div style="font-size:9px;color:#22c55e;margin-top:4px">● ATRI real</div>
+                    <div style="font-size:9px;color:#22c55e;margin-top:4px">● ATRI national</div>
                 </div>
-                <div class="ri-rate-tier sel" onclick="selBuyTier(this)" title="ATRI floor + BLS capacity premium. Double-click to copy.">
-                    <div class="ri-rate-tier-label">Suggested ★</div>
+                <div class="ri-rate-tier sel" onclick="selBuyTier(this)" title="Cost floor + live capacity premium. Double-click to copy.">
+                    <div class="ri-rate-tier-label">Fair pay ★</div>
                     <div class="ri-rate-tier-val sel-val">$${br.suggested.toFixed(2)}</div>
                     <div class="ri-rate-tier-mi">$/mi</div>
                     <div class="ri-rate-tier-mi">$${(br.suggested * d.lane.distance_miles).toFixed(0)} total</div>
                     <div style="font-size:9px;color:#60a5fa;margin-top:4px">● BLS ${tightnessLabel}</div>
                 </div>
-                <div class="ri-rate-tier" onclick="selBuyTier(this)" title="Tight market ceiling. Double-click to copy.">
-                    <div class="ri-rate-tier-label">High</div>
+                <div class="ri-rate-tier" onclick="selBuyTier(this)" title="Tight-market ceiling. Double-click to copy.">
+                    <div class="ri-rate-tier-label">Tight mkt</div>
                     <div class="ri-rate-tier-val">$${br.high.toFixed(2)}</div>
                     <div class="ri-rate-tier-mi">$/mi</div>
                     <div class="ri-rate-tier-mi">$${(br.high * d.lane.distance_miles).toFixed(0)} total</div>
-                    <div style="font-size:9px;color:#64748b;margin-top:4px">● tight mkt est.</div>
+                    <div style="font-size:9px;color:#64748b;margin-top:4px">● ceiling est.</div>
                 </div>
             </div>
             ${belowFloor ? `
             <div style="margin-top:8px;padding:6px 10px;background:rgba(239,68,68,0.08);border-left:3px solid #ef4444;border-radius:0 4px 4px 0;font-size:11px;color:#fca5a5;line-height:1.5;width:100%;box-sizing:border-box">
-                ⚠ $${d.market.your_rate_per_mile.toFixed(2)}/mi entered is below the ATRI floor ($${br.atri_floor.toFixed(2)}/mi). Carrier loses money at this rate.
+                ⚠ You're paying $${d.market.your_rate_per_mile.toFixed(2)}/mi — below the national cost floor ($${br.atri_floor.toFixed(2)}/mi). Carrier runs at a loss; expect pushback or fall-through.
             </div>` : ''}
-            <div style="font-size:9px;color:#334155;margin-top:6px">Double-click any rate to copy · Verify with DAT for live O&amp;D spot rate</div>`;
+            <div style="font-size:9px;color:#475569;margin-top:6px;line-height:1.4">Cost-anchored guidance — a realistic floor, not a live spot quote. On soft lanes real spot can run below cost. Confirm with DAT/your logged rates.</div>`;
 
         document.querySelectorAll('.ri-rate-tier').forEach(el => {
             el.ondblclick = () => {
@@ -1783,12 +1838,12 @@
             ${bdRows}`;
 
         // ── Fuel surcharge ──
-        const fscParts = [`$${fsc.per_mile}/mi`, `$${fsc.total.toFixed(2)} total`, `diesel $${fsc.diesel_price_per_gallon}/gal`];
-        if (fsc.origin_state_price) fscParts.push(`origin $${fsc.origin_state_price}/gal`);
-        if (fsc.dest_state_price)   fscParts.push(`dest $${fsc.dest_state_price}/gal`);
+        const fscParts = [`$${fsc.per_mile}/mi`, `$${fsc.total.toFixed(2)} total`, `avg diesel $${fsc.diesel_price_per_gallon}/gal`];
+        if (fsc.origin_region_price) fscParts.push(`${fsc.origin_region_name || 'origin'} $${fsc.origin_region_price}/gal`);
+        if (fsc.dest_region_price)   fscParts.push(`${fsc.dest_region_name || 'dest'} $${fsc.dest_region_price}/gal`);
         document.getElementById('ri-fsc-text').textContent = fscParts.join(' · ');
         const fscBadge = document.getElementById('ri-fsc-badge');
-        fscBadge.textContent = fsc.data_source === 'real' ? 'LIVE EIA' : 'ESTIMATED';
+        fscBadge.textContent = fsc.data_source === 'real' ? 'LIVE EIA REGIONAL' : 'ESTIMATED';
         fscBadge.className = `ri-badge ${fsc.data_source === 'real' ? 'ri-badge-green' : ''}`;
 
         // ── Diesel trend sparkline ──
@@ -1859,6 +1914,8 @@
     }
 
     function renderMarketCheck(d) {
+        lastRI = d;            // make market data available to the bottom-line summary
+        renderBottomLine();
         const mc = document.getElementById('lr-market-check');
         if (!mc) return;
         const br = d.buy_rate;
@@ -1874,16 +1931,16 @@
 
         mc.innerHTML = `
             <div class="lr-cost-row" style="padding:0.55rem 0;border-bottom:1px solid var(--border);">
-                <span class="lr-lbl" style="font-size:0.8rem;">ATRI cost floor</span>
+                <span class="lr-lbl" style="font-size:0.8rem;">Carrier cost floor <small style="color:var(--text3);">(ATRI natl)</small></span>
                 <span class="lr-val" style="color:#86efac;">$${br.atri_floor.toFixed(2)}/mi</span>
             </div>
             <div class="lr-cost-row" style="padding:0.55rem 0;border-bottom:1px solid var(--border);">
-                <span class="lr-lbl" style="font-size:0.8rem;">Market buy estimate</span>
+                <span class="lr-lbl" style="font-size:0.8rem;">Fair carrier pay</span>
                 <span class="lr-val">$${br.suggested.toFixed(2)}/mi <small style="color:var(--text3);">($${(br.suggested * dist).toFixed(0)})</small></span>
             </div>
             ${sellSuggested ? `
             <div class="lr-cost-row" style="padding:0.55rem 0;border-bottom:1px solid var(--border);">
-                <span class="lr-lbl" style="font-size:0.8rem;">Suggested shipper quote</span>
+                <span class="lr-lbl" style="font-size:0.8rem;">Suggested shipper charge</span>
                 <span class="lr-val" style="color:var(--orange);font-weight:700;">$${sellSuggested.toFixed(2)}/mi <small style="color:var(--text3);">($${(sellSuggested * dist).toFixed(0)})</small></span>
             </div>` : ''}
             ${carrierPay > 0 ? `
@@ -1893,10 +1950,10 @@
             </div>` : ''}
             ${belowFloor ? `
             <div style="margin-top:0.5rem;padding:0.5rem 0.7rem;background:rgba(239,68,68,0.08);border-left:3px solid #ef4444;border-radius:0 6px 6px 0;font-size:0.72rem;color:#fca5a5;line-height:1.5;">
-                ⚠ Below the ATRI floor — a carrier at $${carrierPay.toFixed(2)}/mi is losing money and may not perform.
+                ⚠ Below the national cost floor — a carrier at $${carrierPay.toFixed(2)}/mi runs at a loss and may not perform.
             </div>` : ''}
             ${consLine}
-            <div style="font-size:0.62rem;color:var(--text3);margin-top:0.6rem;">Same engine as Lane Rate Intelligence above — ATRI 2025 + BLS live data.</div>`;
+            <div style="font-size:0.62rem;color:var(--text3);margin-top:0.6rem;">Cost-anchored guidance (ATRI 2025 + BLS) — a floor, not a live spot quote. Same engine as the intelligence above.</div>`;
     }
 
     function renderFREDPanel(fred) {

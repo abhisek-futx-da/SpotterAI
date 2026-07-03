@@ -507,25 +507,27 @@ class LaneRateIntelligenceService:
     def _compute_fuel_surcharge(
         self, distance_miles: float, origin_state: str = "", dest_state: str = ""
     ) -> dict:
-        # Try state-level price for the origin state first, then dest, then national
-        origin_price, origin_source = self._get_diesel_price_state(origin_state)
-        dest_price, dest_source = self._get_diesel_price_state(dest_state)
+        # Regional diesel for origin + destination (EIA PADD regions), avg for the lane
+        origin_price, origin_source, origin_region = self._get_diesel_price_state(origin_state)
+        dest_price, dest_source, dest_region = self._get_diesel_price_state(dest_state)
 
         if origin_source == "real" and dest_source == "real":
             diesel_price = round((origin_price + dest_price) / 2, 3)
             source = "real"
             price_breakdown = {
-                "origin_state_price": round(origin_price, 3),
-                "dest_state_price": round(dest_price, 3),
+                "origin_region_price": round(origin_price, 3),
+                "origin_region_name": origin_region,
+                "dest_region_price": round(dest_price, 3),
+                "dest_region_name": dest_region,
             }
         elif origin_source == "real":
             diesel_price = origin_price
             source = "real"
-            price_breakdown = {"origin_state_price": round(origin_price, 3)}
+            price_breakdown = {"origin_region_price": round(origin_price, 3), "origin_region_name": origin_region}
         elif dest_source == "real":
             diesel_price = dest_price
             source = "real"
-            price_breakdown = {"dest_state_price": round(dest_price, 3)}
+            price_breakdown = {"dest_region_price": round(dest_price, 3), "dest_region_name": dest_region}
         else:
             national, national_source = self._get_diesel_price_national()
             diesel_price = national
@@ -542,25 +544,45 @@ class LaneRateIntelligenceService:
             **price_breakdown,
         }
 
-    # EIA PADD region mapping (state → PADD duoarea code for state-level prices)
+    # EIA only publishes weekly retail diesel at PADD *region* level (plus California),
+    # NOT per individual state. Map each state to its EIA diesel region code.
+    # Regions verified live: R1X New England, R1Y Central Atlantic, R1Z Lower Atlantic,
+    # R20 Midwest, R30 Gulf Coast, R40 Rocky Mtn, R50 West Coast, SCA California.
     STATE_TO_EIA_DUOAREA = {
-        "CT": "SCT", "ME": "SME", "MA": "SMA", "NH": "SNH", "RI": "SRI", "VT": "SVT",
-        "DE": "SDE", "DC": "SDC", "MD": "SMD", "NJ": "SNJ", "NY": "SNY", "PA": "SPA",
-        "IL": "SIL", "IN": "SIN", "MI": "SMI", "MN": "SMN", "OH": "SOH", "WI": "SWI",
-        "IA": "SIA", "KS": "SKS", "MO": "SMO", "NE": "SNE", "ND": "SND", "SD": "SSD",
-        "AL": "SAL", "AR": "SAR", "FL": "SFL", "GA": "SGA", "KY": "SKY", "LA": "SLA",
-        "MS": "SMS", "NC": "SNC", "SC": "SSC", "TN": "STN", "VA": "SVA", "WV": "SWV",
-        "AZ": "SAZ", "CO": "SCO", "ID": "SID", "MT": "SMT", "NV": "SNV", "NM": "SNM",
-        "UT": "SUT", "WY": "SWY", "AK": "SAK", "CA": "SCA", "HI": "SHI", "OR": "SOR",
-        "WA": "SWA", "TX": "STX", "OK": "SOK",
+        # PADD 1A — New England
+        "CT": "R1X", "ME": "R1X", "MA": "R1X", "NH": "R1X", "RI": "R1X", "VT": "R1X",
+        # PADD 1B — Central Atlantic
+        "DE": "R1Y", "DC": "R1Y", "MD": "R1Y", "NJ": "R1Y", "NY": "R1Y", "PA": "R1Y",
+        # PADD 1C — Lower Atlantic
+        "FL": "R1Z", "GA": "R1Z", "NC": "R1Z", "SC": "R1Z", "VA": "R1Z", "WV": "R1Z",
+        # PADD 2 — Midwest
+        "IL": "R20", "IN": "R20", "IA": "R20", "KS": "R20", "KY": "R20", "MI": "R20",
+        "MN": "R20", "MO": "R20", "NE": "R20", "ND": "R20", "OH": "R20", "OK": "R20",
+        "SD": "R20", "TN": "R20", "WI": "R20",
+        # PADD 3 — Gulf Coast
+        "AL": "R30", "AR": "R30", "LA": "R30", "MS": "R30", "NM": "R30", "TX": "R30",
+        # PADD 4 — Rocky Mountain
+        "CO": "R40", "ID": "R40", "MT": "R40", "UT": "R40", "WY": "R40",
+        # PADD 5 — West Coast
+        "AZ": "R50", "AK": "R50", "HI": "R50", "NV": "R50", "OR": "R50", "WA": "R50",
+        "CA": "SCA",  # California has its own published series
+    }
+
+    # Human-readable region names for UI display
+    EIA_REGION_NAMES = {
+        "R1X": "New England", "R1Y": "Central Atlantic", "R1Z": "Lower Atlantic",
+        "R20": "Midwest", "R30": "Gulf Coast", "R40": "Rocky Mountain",
+        "R50": "West Coast", "SCA": "California",
     }
 
     def _get_diesel_price_state(self, state: str) -> tuple:
-        """State-level weekly retail diesel from EIA. Returns (price, source)."""
+        """Regional weekly retail diesel from EIA (PADD region for the state).
+        Returns (price, source, region_name)."""
         api_key = os.environ.get("EIA_API_KEY", "")
         duoarea = self.STATE_TO_EIA_DUOAREA.get((state or "").upper(), "")
+        region_name = self.EIA_REGION_NAMES.get(duoarea, "")
         if not api_key or not duoarea:
-            return self.DEFAULT_DIESEL_PRICE, "estimated"
+            return self.DEFAULT_DIESEL_PRICE, "estimated", region_name
 
         url = (
             "https://api.eia.gov/v2/petroleum/pri/gnd/data/"
@@ -573,10 +595,10 @@ class LaneRateIntelligenceService:
                 payload = json.loads(resp.read().decode("utf-8"))
             records = payload["response"]["data"]
             if not records:
-                return self.DEFAULT_DIESEL_PRICE, "estimated"
-            return float(records[0]["value"]), "real"
+                return self.DEFAULT_DIESEL_PRICE, "estimated", region_name
+            return float(records[0]["value"]), "real", region_name
         except (urllib.error.URLError, KeyError, IndexError, ValueError, TypeError, json.JSONDecodeError):
-            return self.DEFAULT_DIESEL_PRICE, "estimated"
+            return self.DEFAULT_DIESEL_PRICE, "estimated", region_name
 
     def _get_diesel_price_national(self) -> tuple:
         """National weekly retail diesel from EIA."""
