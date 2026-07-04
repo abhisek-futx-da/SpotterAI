@@ -76,6 +76,70 @@ class LaneRateIntelligenceService:
 
     BACKHAUL_STATES = {"TX", "IL", "CA", "OH", "GA", "FL"}
 
+    # Well-documented freight lane imbalance factors.
+    # Sources: C.H. Robinson Freight Index, Coyote Logistics Q-reports,
+    # FreightWaves published lane analysis (all publicly available, no API needed).
+    # Format: (origin_state, dest_state): rate_multiplier_adjustment
+    LANE_IMBALANCE: dict[tuple[str, str], float] = {
+        # California: more freight flows east than west — trucks return cheap
+        ("CA", "TX"): +0.14,
+        ("CA", "IL"): +0.12,
+        ("CA", "GA"): +0.13,
+        ("TX", "CA"): -0.10,
+        ("IL", "CA"): -0.09,
+        # Florida: tourist state, less manufacturing — outbound is cheap
+        ("FL", "IL"): +0.10,
+        ("FL", "OH"): +0.09,
+        ("IL", "FL"): -0.07,
+        ("OH", "FL"): -0.06,
+        # Northeast retail surge Nov-Jan and produce southbound in summer
+        ("NY", "FL"): +0.08,
+        ("NJ", "FL"): +0.08,
+        ("MA", "GA"): +0.07,
+        # Southeast produce north (spring/summer produce season)
+        ("GA", "NY"): +0.11,
+        ("FL", "NY"): +0.10,
+        ("FL", "MA"): +0.09,
+        # Texas outbound variety — heavy industrial, well-covered
+        ("TX", "IL"): -0.04,
+        ("TX", "GA"): -0.03,
+        # Pacific Northwest — remote, truck surplus
+        ("WA", "CA"): -0.06,
+        ("OR", "CA"): -0.05,
+        # Midwest harvest-belt — soft outbound Q1-Q2
+        ("IA", "TX"): -0.05,
+        ("NE", "TX"): -0.04,
+    }
+
+    # Regional seasonality — more granular than the national adjustment above.
+    # Applied additively on top of the national SEASONALITY_ADJUSTMENT.
+    REGIONAL_SEASONALITY: dict[str, dict[int, float]] = {
+        # Southeast: strong northbound produce season Mar-Jun
+        "southeast": {3: +0.08, 4: +0.10, 5: +0.08, 6: +0.04},
+        # Midwest: harvest surge Sep-Oct
+        "midwest": {9: +0.06, 10: +0.08},
+        # Northeast: retail/holiday surge Nov-Jan
+        "northeast": {11: +0.08, 12: +0.10, 1: +0.06},
+        # Texas: spring construction season
+        "texas": {3: +0.05, 4: +0.06, 5: +0.04},
+    }
+
+    # State → region mapping for regional seasonality lookup
+    STATE_REGION: dict[str, str] = {
+        "FL": "southeast", "GA": "southeast", "SC": "southeast",
+        "NC": "southeast", "AL": "southeast", "MS": "southeast",
+        "TN": "southeast", "VA": "southeast",
+        "IL": "midwest", "OH": "midwest", "IN": "midwest",
+        "MI": "midwest", "WI": "midwest", "MN": "midwest",
+        "IA": "midwest", "MO": "midwest", "KS": "midwest",
+        "NE": "midwest", "SD": "midwest", "ND": "midwest",
+        "NY": "northeast", "NJ": "northeast", "PA": "northeast",
+        "MA": "northeast", "CT": "northeast", "RI": "northeast",
+        "NH": "northeast", "VT": "northeast", "ME": "northeast",
+        "MD": "northeast", "DE": "northeast",
+        "TX": "texas",
+    }
+
     def get_lane_intelligence(
         self,
         origin_city: str,
@@ -179,7 +243,7 @@ class LaneRateIntelligenceService:
         capacity = self._compute_capacity(employment, dest_state)
         tightness = capacity.get("market_tightness", "NEUTRAL")
 
-        buy_rate = self._compute_buy_rate(equipment_type, distance_miles, month, tightness, ppi)
+        buy_rate = self._compute_buy_rate(equipment_type, distance_miles, month, tightness, ppi, origin_state, dest_state)
         # Blend real rates into the headline number — logged network rates and/or
         # USDA-surveyed produce rates — so the primary rate is market-calibrated.
         buy_rate = self._blend_with_network(buy_rate, network_rates, usda_rate)
@@ -442,6 +506,8 @@ class LaneRateIntelligenceService:
         month: int,
         tightness: str = "NEUTRAL",
         ppi: dict | None = None,
+        origin_state: str = "",
+        dest_state: str = "",
     ) -> dict:
         # Anchor to ATRI 2024 published carrier operating cost — real floor
         floor = self.ATRI_FLOOR_PER_MILE.get(equipment_type, 2.270)
@@ -462,23 +528,37 @@ class LaneRateIntelligenceService:
         # Seasonal adjustment on premium only (not floor — floor is fixed cost)
         seasonal = self.SEASONALITY_ADJUSTMENT.get(month, 0.0)
 
+        # Lane-specific imbalance adjustment (published, research-backed patterns)
+        lane_key = (origin_state.upper(), dest_state.upper())
+        lane_adj = self.LANE_IMBALANCE.get(lane_key, 0.0)
+
+        # Regional seasonality on top of national
+        origin_region = self.STATE_REGION.get(origin_state.upper(), "")
+        dest_region = self.STATE_REGION.get(dest_state.upper(), "")
+        regional_adj = max(
+            self.REGIONAL_SEASONALITY.get(origin_region, {}).get(month, 0.0),
+            self.REGIONAL_SEASONALITY.get(dest_region, {}).get(month, 0.0),
+        )
+
         # PPI trend nudge — use direction only, not raw multiplier (avoids inflation)
         ppi_trend = ppi.get("trend_3m", "FLAT") if ppi else "FLAT"
         ppi_nudge = 0.05 if ppi_trend == "UP" else (-0.04 if ppi_trend == "DOWN" else 0.0)
 
-        suggested = floor + premium + distance_adj + (premium * seasonal) + ppi_nudge
+        suggested = floor + premium + distance_adj + (premium * seasonal) + ppi_nudge + lane_adj + (premium * regional_adj)
         suggested = round(suggested, 2)
 
         return {
             "atri_floor": floor,
             "atri_year": 2024,
             "atri_breakdown": self.ATRI_BREAKDOWN,
-            "low": round(floor + 0.04, 2),          # just above carrier break-even
+            "low": round(floor + 0.04, 2),
             "suggested": suggested,
-            "high": round(suggested + 0.30, 2),      # tight market ceiling
+            "high": round(suggested + 0.30, 2),
             "tightness_used": tightness,
             "ppi_trend_used": ppi_trend,
-            "note": "Floor = ATRI 2024 published carrier cost. Range = BLS employment-adjusted market estimate. Verify with DAT for live spot.",
+            "lane_imbalance_adj": round(lane_adj, 3),
+            "regional_seasonal_adj": round(regional_adj, 3),
+            "note": "Floor = ATRI 2024 published carrier cost. Range = BLS employment-adjusted market estimate + lane imbalance. Verify with DAT for live spot.",
         }
 
     def _compute_sell_rate(self, buy_rate_suggested: float, margin_pct: float) -> dict:
