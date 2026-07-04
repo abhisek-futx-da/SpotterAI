@@ -3,9 +3,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
-
-def tv(template):
-    return TemplateView.as_view(template_name=f"route_planner/{template}")
+from route_planner.views import rates_page
 
 
 def coming_soon(title, icon, description):
@@ -19,9 +17,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("route_planner.urls")),
 
-    # Homepage — Fuel Route Optimizer + Lane Rate Intelligence + Carrier Verification
-    path("", tv("solutions/rates.html"), name="home"),
-    path("solutions/rates/", tv("solutions/rates.html"), name="solution-rates"),
+    # Homepage — stats rendered from the real dataset, never hardcoded
+    path("", rates_page, name="home"),
+    path("solutions/rates/", rates_page, name="solution-rates"),
 
     # Upcoming solutions — real pages so nav links never dead-end
     path("solutions/capacity/", coming_soon(

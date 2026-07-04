@@ -25,3 +25,32 @@ class OptimizeRouteView(View):
             return JsonResponse({"error": str(exc), "code": exc.code}, status=exc.status_code)
 
         return JsonResponse(plan, status=200)
+
+
+US_STATE_CODES = {
+    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID",
+    "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS",
+    "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK",
+    "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WV", "WI",
+    "WY", "DC",
+}
+
+
+def rates_page(request):
+    """Homepage — renders with REAL dataset stats queried from the DB, so the
+    page never claims a station count or coverage the data doesn't back up."""
+    from django.shortcuts import render
+    from .models import FuelStation
+
+    station_count = FuelStation.objects.count()
+    states = set(
+        FuelStation.objects.exclude(state="").values_list("state", flat=True).distinct()
+    )
+    us_states = {s for s in states if s.upper().strip() in US_STATE_CODES}
+    has_canada = len(states) > len(us_states)
+
+    return render(request, "route_planner/solutions/rates.html", {
+        "station_count": f"{station_count:,}",
+        "us_state_count": len(us_states),
+        "has_canada": has_canada,
+    })

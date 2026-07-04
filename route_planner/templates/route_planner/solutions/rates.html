@@ -394,9 +394,9 @@
 
 <!-- ─── STATS BAR ─── -->
 <div class="stats-bar">
-    <div class="stat-item"><span class="stat-num">2,400+</span><span class="stat-lbl">Fuel Stations Tracked</span></div>
+    <div class="stat-item"><span class="stat-num">{{ station_count }}</span><span class="stat-lbl">Fuel Stations in Dataset</span></div>
     <div class="stat-item"><span class="stat-num">Verified</span><span class="stat-lbl">Industry Price Data</span></div>
-    <div class="stat-item"><span class="stat-num">50</span><span class="stat-lbl">States of Coverage</span></div>
+    <div class="stat-item"><span class="stat-num">{{ us_state_count }}</span><span class="stat-lbl">US States{% if has_canada %} + Canada{% endif %}</span></div>
     <div class="stat-item"><span class="stat-num">AI</span><span class="stat-lbl">Cost Optimization Engine</span></div>
 </div>
 
@@ -418,7 +418,7 @@
         <div class="bc">
             <div class="bc-icon">📡</div>
             <h3 class="bc-h3">Verified Price Intelligence</h3>
-            <p class="bc-p">We deliver verified fuel prices across 2,400+ monitored stations. Our data prioritizes accuracy over sheer volume — giving fleets and carriers a more precise alternative to legacy pricing tools.</p>
+            <p class="bc-p">We deliver verified fuel prices across a {{ station_count }}-station industry dataset. Our data prioritizes accuracy over sheer volume — giving fleets and carriers a more precise alternative to legacy pricing tools.</p>
             <a class="btn-rm" href="#faq">Read More →</a>
         </div>
         <div class="bc">
@@ -449,7 +449,7 @@
         <aside class="sidebar">
             <div class="sb">
                 <div class="sb-metrics">
-                    <div class="sb-m"><span class="sb-m-v">2.4K+</span><span class="sb-m-l">Stations</span></div>
+                    <div class="sb-m"><span class="sb-m-v">{{ station_count }}</span><span class="sb-m-l">Stations</span></div>
                     <div class="sb-m"><span class="sb-m-v">Verified</span><span class="sb-m-l">Prices</span></div>
                     <div class="sb-m"><span class="sb-m-v">AI</span><span class="sb-m-l">Optimized</span></div>
                 </div>
@@ -932,7 +932,7 @@
         </div>
         <div class="faq-item">
             <button class="faq-q">How current is the fuel price data?<span class="faq-icon">+</span></button>
-            <div class="faq-a">Spotter's pricing covers 2,400+ stations across all 50 states, sourced from a verified industry dataset. The optimizer focuses on the station-to-station price differences along your corridor — the spread that actually drives your savings — rather than chasing minute-by-minute feeds.</div>
+            <div class="faq-a">Spotter's pricing covers {{ station_count }} stations across {{ us_state_count }} US states{% if has_canada %} plus Canadian provinces{% endif %}, sourced from a verified industry dataset. The optimizer focuses on the station-to-station price differences along your corridor — the spread that actually drives your savings — rather than chasing minute-by-minute feeds.</div>
         </div>
         <div class="faq-item">
             <button class="faq-q">What is the corridor width setting?<span class="faq-icon">+</span></button>
