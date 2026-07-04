@@ -82,7 +82,7 @@ class Command(BaseCommand):
 
         for state in target_states:
             try:
-                eia_price, source, _ = service._get_diesel_price_state(state)
+                eia_price, source = service._get_diesel_price_state(state)
             except Exception as exc:
                 self.stdout.write(
                     self.style.WARNING(f"  {state}: EIA fetch failed — {exc}")

@@ -106,8 +106,9 @@ class FREDService:
                 yoy_delta_pct = round((value - yoy_val) / yoy_val * 100, 2)
 
         trend = "FLAT"
-        if len(obs) >= 3:
-            three_ago = float(obs[2]["value"])
+        # obs is sorted DESC: index 0 = latest, 3 = three months ago
+        if len(obs) >= 4:
+            three_ago = float(obs[3]["value"])
             delta = value - three_ago
             if delta > abs(value) * 0.01:
                 trend = "UP"
@@ -140,8 +141,9 @@ class FREDService:
                 yoy_delta_pct = round((value - yoy_val) / yoy_val * 100, 2)
 
         trend = "FLAT"
-        if len(obs) >= 3:
-            three_ago = float(obs[2]["value"])
+        # obs is sorted DESC: index 0 = latest, 3 = three months ago
+        if len(obs) >= 4:
+            three_ago = float(obs[3]["value"])
             delta = value - three_ago
             if delta > value * 0.01:
                 trend = "UP"

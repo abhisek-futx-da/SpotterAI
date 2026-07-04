@@ -23,6 +23,11 @@ from .services.lane_rate_stats import aggregate_lane as _aggregate
 
 VALID_EQUIPMENT = {"dry_van", "reefer", "flatbed"}
 
+# Per-equipment sanity ceilings ($/mi). A fat-fingered "20" instead of "2.0"
+# passing validation would poison the lane's network average for everyone.
+RATE_CEILING = {"dry_van": 7.0, "reefer": 9.0, "flatbed": 9.0}
+RATE_FLOOR = 0.50   # below this nobody hauls a full truckload
+
 
 @method_decorator(csrf_exempt, name="dispatch")
 class LaneRateView(View):
@@ -81,8 +86,13 @@ class LaneRateView(View):
             rate = round(float(body.get("rate_per_mile")), 2)
         except (TypeError, ValueError):
             return JsonResponse({"error": "rate_per_mile must be a number"}, status=400)
-        if not (0.1 <= rate <= 20):
-            return JsonResponse({"error": "rate_per_mile out of range (0.1–20)"}, status=400)
+        ceiling = RATE_CEILING.get(eq, 9.0)
+        if not (RATE_FLOOR <= rate <= ceiling):
+            return JsonResponse({
+                "error": f"Rate ${rate:.2f}/mi is outside the realistic range for "
+                         f"{eq.replace('_', ' ')} (${RATE_FLOOR:.2f}–${ceiling:.2f}/mi). "
+                         "Check for a typo (e.g. 20 instead of 2.0) and try again."
+            }, status=400)
 
         distance = body.get("distance_miles")
         try:

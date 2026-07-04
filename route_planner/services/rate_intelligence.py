@@ -200,6 +200,16 @@ class LaneRateIntelligenceService:
             except Exception:
                 return {"data_source": "unavailable"}
 
+        def _fetch_pickup_forecast():
+            if route_points:
+                return weather_service.point_forecast(route_points[0][0], route_points[0][1])
+            return {"periods": [], "data_source": "unavailable"}
+
+        def _fetch_delivery_forecast():
+            if route_points:
+                return weather_service.point_forecast(route_points[-1][0], route_points[-1][1])
+            return {"periods": [], "data_source": "unavailable"}
+
         tasks = {
             "ppi": _fetch_ppi,
             "employment": _fetch_employment,
@@ -210,10 +220,12 @@ class LaneRateIntelligenceService:
             "fsc": _fetch_fsc,
             "network": _fetch_network,
             "usda": _fetch_usda,
+            "pickup_fc": _fetch_pickup_forecast,
+            "delivery_fc": _fetch_delivery_forecast,
         }
 
         results = {}
-        executor = ThreadPoolExecutor(max_workers=9)
+        executor = ThreadPoolExecutor(max_workers=11)
         future_map = {executor.submit(fn): name for name, fn in tasks.items()}
         try:
             for future in as_completed(future_map, timeout=12):
@@ -239,6 +251,20 @@ class LaneRateIntelligenceService:
         fuel_surcharge = results.get("fsc") or self._fsc_fallback(distance_miles)
         network_rates = results.get("network") or {"count": 0, "data_source": "unavailable"}
         usda_rate = results.get("usda") or {"data_source": "unavailable"}
+        pickup_forecast = results.get("pickup_fc") or {"periods": [], "data_source": "unavailable"}
+        delivery_forecast = results.get("delivery_fc") or {"periods": [], "data_source": "unavailable"}
+
+        # Transit time under HOS rules — pure math, no API. 11-hr daily drive limit,
+        # ~50 mph effective speed (stops, fuel, traffic). What a dispatcher pencils out.
+        import math as _math
+        drive_hours = round(distance_miles / 50.0, 1)
+        hos_days = max(1, _math.ceil(drive_hours / 11))
+        transit = {
+            "drive_hours": drive_hours,
+            "hos_days": hos_days,
+            "note": f"~{drive_hours:.0f} drive hrs → {hos_days}-day run under HOS (11-hr daily limit, single driver)",
+            "data_source": "computed",
+        }
 
         capacity = self._compute_capacity(employment, dest_state)
         tightness = capacity.get("market_tightness", "NEUTRAL")
@@ -248,7 +274,7 @@ class LaneRateIntelligenceService:
         # USDA-surveyed produce rates — so the primary rate is market-calibrated.
         buy_rate = self._blend_with_network(buy_rate, network_rates, usda_rate)
         sell_rate = self._compute_sell_rate(buy_rate["suggested"], margin_pct)
-        market = self._compute_market(buy_rate["suggested"], carrier_pay_per_mile, month, ppi, fred)
+        market = self._compute_market(buy_rate["suggested"], carrier_pay_per_mile, month, ppi, fred, network_rates)
         history = self._compute_history()
         seasonality = self._compute_seasonality(equipment_type, month)
         confidence = self._compute_confidence(0, capacity["signal"], employment, ppi, fuel_surcharge, network_rates, usda_rate)
@@ -314,6 +340,9 @@ class LaneRateIntelligenceService:
             "equipment_demand": equipment_demand,
             "network_rates": network_rates,
             "usda_rate": usda_rate,
+            "pickup_forecast": pickup_forecast,
+            "delivery_forecast": delivery_forecast,
+            "transit": transit,
         }
 
     def _get_network_rates(self, origin_state: str, dest_state: str, equipment_type: str) -> dict:
@@ -581,8 +610,17 @@ class LaneRateIntelligenceService:
         month: int,
         ppi: dict | None = None,
         fred: dict | None = None,
+        network: dict | None = None,
     ) -> dict:
-        market_avg = buy_rate_suggested
+        # "Your rate vs market" should mean vs what brokers ACTUALLY paid when we
+        # have real exact-lane data — not vs our own model output (circular).
+        if (network and network.get("data_source") == "real"
+                and network.get("tier") == "exact" and network.get("avg")):
+            market_avg = float(network["avg"])
+            market_avg_source = f"network real ({network.get('count', 0)} logged loads)"
+        else:
+            market_avg = buy_rate_suggested
+            market_avg_source = "model estimate"
 
         if not carrier_pay_per_mile:
             your_rate = market_avg
@@ -616,6 +654,7 @@ class LaneRateIntelligenceService:
 
         return {
             "market_avg_per_mile": round(market_avg, 2),
+            "market_avg_source": market_avg_source,
             "your_rate_per_mile": round(your_rate, 2),
             "delta_pct": round(delta_pct, 2),
             "delta_signal": delta_signal,
@@ -718,14 +757,37 @@ class LaneRateIntelligenceService:
         "R50": "West Coast", "SCA": "California",
     }
 
+    # In-process TTL cache for EIA diesel by region — the same region is often
+    # hit 2-3x per request (origin FSC, dest FSC, price refresh) and diesel is a
+    # WEEKLY series, so re-fetching within the hour is pure quota burn.
+    _EIA_DIESEL_CACHE: dict = {}
+    _EIA_DIESEL_TTL = 3600  # seconds
+
+    @classmethod
+    def _eia_cache_get(cls, duoarea: str):
+        import time as _time
+        hit = cls._EIA_DIESEL_CACHE.get(duoarea)
+        if hit and (_time.time() - hit[0]) < cls._EIA_DIESEL_TTL:
+            return hit[1]
+        return None
+
+    @classmethod
+    def _eia_cache_put(cls, duoarea: str, price: float):
+        import time as _time
+        cls._EIA_DIESEL_CACHE[duoarea] = (_time.time(), price)
+
     def _get_diesel_price_state(self, state: str) -> tuple:
         """Regional weekly retail diesel from EIA (PADD region for the state).
-        Returns (price, source, region_name)."""
+        Returns (price, source, region_name). Cached in-process for 1 hour."""
         api_key = os.environ.get("EIA_API_KEY", "")
         duoarea = self.STATE_TO_EIA_DUOAREA.get((state or "").upper(), "")
         region_name = self.EIA_REGION_NAMES.get(duoarea, "")
         if not api_key or not duoarea:
             return self.DEFAULT_DIESEL_PRICE, "estimated", region_name
+
+        cached = self._eia_cache_get(duoarea)
+        if cached is not None:
+            return cached, "real", region_name
 
         url = (
             "https://api.eia.gov/v2/petroleum/pri/gnd/data/"
@@ -739,7 +801,9 @@ class LaneRateIntelligenceService:
             records = payload["response"]["data"]
             if not records:
                 return self.DEFAULT_DIESEL_PRICE, "estimated", region_name
-            return float(records[0]["value"]), "real", region_name
+            price = float(records[0]["value"])
+            self._eia_cache_put(duoarea, price)
+            return price, "real", region_name
         except (urllib.error.URLError, KeyError, IndexError, ValueError, TypeError, json.JSONDecodeError):
             return self.DEFAULT_DIESEL_PRICE, "estimated", region_name
 
@@ -975,7 +1039,9 @@ No bullet points. Plain spoken language a broker uses on a real call."""
             market_note = f"BLS employment shows a tight carrier market — driver headcount is shrinking. Carriers have leverage right now."
             action = "Quote your shipper at the High rate and hold firm — capacity is genuinely limited."
         elif cap == "LOOSE":
-            market_note = f"BLS employment shows a loose market — 1,464k+ drivers available. Brokers have pricing power."
+            hc_live = signals["capacity"].get("headcount_thousands") or 0
+            hc_str = f"{hc_live:,.0f}k" if hc_live else "plenty of"
+            market_note = f"BLS employment shows a loose market — {hc_str} drivers available. Brokers have pricing power."
             action = "Negotiate the carrier rate toward the Low band — trucks are available and carriers need freight."
         else:
             market_note = f"BLS shows a neutral market — normal availability."

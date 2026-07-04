@@ -20,9 +20,16 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-# File-based cache — survives server restarts, prevents hitting BLS daily limit (25 req/day unregistered)
-# Each series cached for 6 hours. Cache stored alongside db.sqlite3 in project root.
-_CACHE_DIR = Path(__file__).resolve().parents[2] / ".bls_cache"
+# File-based cache — survives server restarts, prevents hitting BLS daily limit
+# (25 req/day unregistered, 500/day with a key). When SQLITE_PATH points at a
+# persistent volume (Railway /data), the cache lives there too so it survives
+# redeploys; otherwise it sits in the repo dir (fine locally).
+import os as _os
+
+if _os.environ.get("SQLITE_PATH"):
+    _CACHE_DIR = Path(_os.environ["SQLITE_PATH"]).resolve().parent / ".bls_cache"
+else:
+    _CACHE_DIR = Path(__file__).resolve().parents[2] / ".bls_cache"
 _CACHE_TTL_SECONDS = 6 * 3600  # 6 hours
 
 
@@ -156,10 +163,10 @@ class BLSPPIService:
             if yoy_value:
                 yoy_delta_pct = round((latest_value - yoy_value) / yoy_value * 100, 2)
 
-        # 3-month trend direction
+        # 3-month trend direction — records sorted ASC: [-1] latest, [-4] = 3 months ago
         trend = "FLAT"
-        if len(records) >= 3:
-            three_months_ago = float(records[-3]["value"])
+        if len(records) >= 4:
+            three_months_ago = float(records[-4]["value"])
             delta = latest_value - three_months_ago
             if delta > 1.0:
                 trend = "UP"
@@ -249,10 +256,10 @@ class BLSEmploymentService:
             if yoy_hc:
                 hc_yoy_pct = round((headcount - yoy_hc) / yoy_hc * 100, 2)
 
-        # 3-month trend
+        # 3-month trend — records sorted ASC: [-1] latest, [-4] = 3 months ago
         hc_trend = "FLAT"
-        if len(hc_records) >= 3:
-            three_ago = float(hc_records[-3]["value"])
+        if len(hc_records) >= 4:
+            three_ago = float(hc_records[-4]["value"])
             delta = headcount - three_ago
             if delta > 5:
                 hc_trend = "GROWING"
