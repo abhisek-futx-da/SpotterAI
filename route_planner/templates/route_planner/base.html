@@ -239,54 +239,7 @@
         .dd-link::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #d1d5db; flex-shrink: 0; transition: background 0.12s; }
         .dd-link:hover::before { background: #0dcfba; }
 
-        /* Login */
-        .nav-login { margin-left: auto; position: relative; }
 
-        .nav-login-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: var(--sky);
-            color: #000;
-            border: none;
-            border-radius: 100px;
-            padding: 0.5rem 1.2rem;
-            font-family: var(--font);
-            font-size: 0.84rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.15s;
-            white-space: nowrap;
-        }
-        .nav-login-btn:hover { background: #0ab8a5; }
-        .nav-login-btn svg { width: 12px; height: 12px; transition: transform 0.2s; }
-        .nav-login-btn.open svg { transform: rotate(180deg); }
-
-        .login-dropdown {
-            position: absolute;
-            top: calc(100% + 0.65rem);
-            right: 0;
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.14);
-            display: none;
-            min-width: 190px;
-            overflow: hidden;
-        }
-        .login-dropdown.open { display: block; }
-
-        .login-option {
-            display: block;
-            padding: 0.75rem 1.2rem;
-            font-size: 0.875rem;
-            color: #374151;
-            text-decoration: none;
-            transition: background 0.12s, color 0.12s;
-            border-bottom: 1px solid #f3f4f6;
-        }
-        .login-option:last-child { border-bottom: none; }
-        .login-option:hover { background: #f9fafb; color: #111; }
 
         /* ─── FOOTER ─── */
         .footer { background: #050508; border-top: 1px solid var(--border); }
@@ -642,9 +595,7 @@
             <a class="nav-item" href="/#optimizer-section">Fuel Optimizer</a>
             <a class="nav-item" href="/#faq">FAQ</a>
         </div>
-        <div class="nav-login">
-            <a class="nav-login-btn" href="/admin/">Log In</a>
-        </div>
+
     </div>
     <div class="nav-dropdown" id="nav-solutions-dd">
         <div class="nav-dropdown-inner">
