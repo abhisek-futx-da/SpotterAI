@@ -20,11 +20,26 @@ from datetime import datetime, timezone
 FRED_BASE = "https://api.stlouisfed.org/fred/series/observations"
 TIMEOUT = 6
 
+# In-process TTL cache — FRED series here are MONTHLY, so re-fetching six series
+# on every lane request is pure latency and quota burn. 30-min TTL is far inside
+# any publication cadence. (Do NOT cache the whole lane response: logged network
+# rates must appear immediately after a broker logs a load.)
+import time as _time
+
+_FRED_CACHE: dict = {}
+_FRED_TTL = 1800  # seconds
+
 
 def _fetch(series_id: str, limit: int = 13) -> list[dict]:
     api_key = os.environ.get("FRED_API_KEY", "")
     if not api_key:
         return []
+
+    cache_key = (series_id, limit)
+    hit = _FRED_CACHE.get(cache_key)
+    if hit and (_time.time() - hit[0]) < _FRED_TTL:
+        return hit[1]
+
     url = (
         f"{FRED_BASE}?series_id={series_id}&api_key={api_key}"
         f"&sort_order=desc&limit={limit}&file_type=json"
@@ -37,7 +52,10 @@ def _fetch(series_id: str, limit: int = 13) -> list[dict]:
             data = json.loads(resp.read().decode("utf-8"))
         obs = data.get("observations", [])
         # Filter out missing values (".")
-        return [o for o in obs if o.get("value", ".") != "."]
+        result = [o for o in obs if o.get("value", ".") != "."]
+        if result:
+            _FRED_CACHE[cache_key] = (_time.time(), result)
+        return result
     except (urllib.error.URLError, json.JSONDecodeError, TimeoutError, KeyError):
         return []
 

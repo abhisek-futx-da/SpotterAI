@@ -275,7 +275,7 @@ class LaneRateIntelligenceService:
         buy_rate = self._blend_with_network(buy_rate, network_rates, usda_rate)
         sell_rate = self._compute_sell_rate(buy_rate["suggested"], margin_pct)
         market = self._compute_market(buy_rate["suggested"], carrier_pay_per_mile, month, ppi, fred, network_rates)
-        history = self._compute_history()
+        history = self._compute_history(network_rates)
         seasonality = self._compute_seasonality(equipment_type, month)
         confidence = self._compute_confidence(0, capacity["signal"], employment, ppi, fuel_surcharge, network_rates, usda_rate)
         consensus = self._compute_consensus(ppi, employment, fred)
@@ -283,8 +283,7 @@ class LaneRateIntelligenceService:
 
         for section in (sell_rate, seasonality, confidence):
             section["data_source"] = "estimated"
-        for window in history.values():
-            window["data_source"] = "estimated"
+        # history windows carry their own honest data_source (real when logged loads exist)
         # buy_rate floor is real (ATRI); range is ATRI+BLS estimate
         buy_rate["data_source"] = "real"
         market["data_source"] = "real" if ppi["data_source"] == "real" else "estimated"
@@ -827,9 +826,9 @@ class LaneRateIntelligenceService:
         except (urllib.error.URLError, KeyError, IndexError, ValueError, TypeError, json.JSONDecodeError):
             return self.DEFAULT_DIESEL_PRICE, "estimated"
 
-    def _compute_history(self, *args, **kwargs) -> dict:
-        # No real lane transaction data available without DAT/Truckstop integration.
-        # Returning honest zero rather than fabricated numbers.
+    def _compute_history(self, network: dict | None = None) -> dict:
+        """Lane history from the broker-logged rate network — real windows when
+        loads exist, honest NO_DATA otherwise. Never fabricates numbers."""
         no_data = {
             "load_count": 0,
             "avg_carrier_rate": None,
@@ -837,9 +836,38 @@ class LaneRateIntelligenceService:
             "cover_time_hrs": None,
             "confidence": "NO_DATA",
             "data_source": "unavailable",
-            "note": "Real lane history requires DAT One or TMS integration.",
+            "note": "No broker-logged loads in this window yet. Log loads to build real lane history.",
         }
-        return {"30d": no_data, "90d": no_data, "365d": no_data}
+
+        def _window(stats):
+            if not stats or not stats.get("count"):
+                return dict(no_data)
+            return {
+                "load_count": stats["count"],
+                "avg_carrier_rate": stats["avg"],
+                "median_carrier_rate": stats.get("median"),
+                "low": stats.get("low"),
+                "high": stats.get("high"),
+                "avg_margin_pct": None,     # not collected — never invented
+                "cover_time_hrs": None,     # not collected — never invented
+                "confidence": "REAL",
+                "data_source": "real",
+                "note": "Broker-logged network rates on this lane.",
+            }
+
+        if not network or network.get("data_source") != "real":
+            return {"30d": dict(no_data), "90d": dict(no_data), "365d": dict(no_data)}
+
+        all_time = {
+            "count": network.get("count"), "avg": network.get("avg"),
+            "median": network.get("median"), "low": network.get("low"),
+            "high": network.get("high"),
+        }
+        return {
+            "30d": _window(network.get("last_30d")),
+            "90d": _window(network.get("last_90d")),
+            "365d": _window(all_time),
+        }
 
     def _compute_seasonality(self, equipment_type: str, month: int) -> dict:
         peak_months = self.PEAK_MONTHS.get(equipment_type, self.PEAK_MONTHS["dry_van"])
@@ -1067,4 +1095,10 @@ No bullet points. Plain spoken language a broker uses on a real call."""
                 f" ({consensus['conviction'].lower()} conviction)."
             )
 
-        return f"{market_note} {action}{floor_note} {trend_note}{consensus_note}"
+        # Cover-time rule of thumb — stated as a rule of thumb, never as data.
+        cover_note = {
+            "TIGHT": " Rule of thumb in a tight market: expect same-day coverage only at a premium — don't sit on carrier quotes.",
+            "LOOSE": " Rule of thumb in a loose market: coverage typically inside a day — use the time to shop two or three carriers.",
+        }.get(cap, " Rule of thumb in a balanced market: plan one to two days to cover this lane.")
+
+        return f"{market_note} {action}{floor_note} {trend_note}{consensus_note}{cover_note}"
