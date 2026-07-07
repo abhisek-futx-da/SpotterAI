@@ -35,7 +35,6 @@ import threading
 import time
 
 _guard_lock = threading.Lock()
-_recent_submissions: dict = {}   # (o, d, eq, rate) -> ts
 _ip_daily: dict = {}             # ip -> [day_str, count]
 DEDUP_WINDOW_SECONDS = 600
 IP_DAILY_CAP = 20
@@ -47,26 +46,39 @@ def _client_ip(request) -> str:
 
 
 def _check_guards(request, key) -> str | None:
-    """Returns an error message if a guard trips, else records and returns None."""
-    now = time.time()
+    """Returns an error message if a guard trips, else records and returns None.
+
+    Dedup is DB-backed: gunicorn runs multiple workers, and per-process memory
+    lets a duplicate slip through whenever the two requests land on different
+    workers (observed live). The DB is the one store every worker shares.
+    The per-IP daily cap stays in-memory — with N workers the effective cap is
+    N x IP_DAILY_CAP, an acceptable ceiling for abuse protection without
+    storing IP addresses in the database.
+    """
+    from datetime import timedelta
+
+    from django.utils import timezone as dj_tz
+
+    o, d, eq, rate = key
+    duplicate = LaneRate.objects.filter(
+        origin_state=o,
+        dest_state=d,
+        equipment_type=eq,
+        rate_per_mile=rate,
+        created_at__gte=dj_tz.now() - timedelta(seconds=DEDUP_WINDOW_SECONDS),
+    ).exists()
+    if duplicate:
+        return "This exact rate was just logged on this lane. Duplicate submissions within 10 minutes are ignored."
+
     today = time.strftime("%Y-%m-%d")
     ip = _client_ip(request)
     with _guard_lock:
-        # prune stale dedup entries occasionally
-        if len(_recent_submissions) > 2000:
-            for k, ts in list(_recent_submissions.items()):
-                if now - ts > DEDUP_WINDOW_SECONDS:
-                    del _recent_submissions[k]
-        ts = _recent_submissions.get(key)
-        if ts and now - ts < DEDUP_WINDOW_SECONDS:
-            return "This exact rate was just logged on this lane. Duplicate submissions within 10 minutes are ignored."
         day, count = _ip_daily.get(ip, (today, 0))
         if day != today:
             day, count = today, 0
         if count >= IP_DAILY_CAP:
             return "Daily logging limit reached from this connection. Try again tomorrow."
         _ip_daily[ip] = (day, count + 1)
-        _recent_submissions[key] = now
     return None
 
 
