@@ -654,6 +654,7 @@
                         <button type="button" class="ri-btn" id="ri-btn" onclick="fetchRateIntelligence()">
                             Get Rate Intelligence
                         </button>
+                        <div id="ri-form-error" style="display:none;margin-top:6px;padding:6px 9px;background:rgba(239,68,68,0.08);border-left:3px solid #ef4444;border-radius:0 4px 4px 0;font-size:11px;color:#fca5a5;line-height:1.4"></div>
 
                         <!-- Results panel — hidden until data arrives -->
                         <div id="ri-results" style="display:none">
@@ -1155,6 +1156,13 @@
             </div>`;
     }
 
+    // 0 is a legitimate value (e.g. "I pay 0% factoring"). parseFloat(v) || def
+    // silently replaced 0 with the default — every P&L input had this bug.
+    function numField(id, def) {
+        const v = parseFloat(document.getElementById(id)?.value);
+        return Number.isFinite(v) ? v : def;
+    }
+
     function computeRateCard(data) {
         const dist           = data.route.distance_miles;
         lastRouteDistanceMiles = dist;
@@ -1186,23 +1194,53 @@
             const parseInput = raw => {
                 if (!raw) return null;
                 const s = raw.trim();
-                // "City, ST" or "City, State" — try comma split
+                // "City, ST" or "City, State"
                 const parts = s.split(',').map(p => p.trim());
                 if (parts.length >= 2) {
                     const city = parts[0];
                     const stateRaw = parts[1].trim();
-                    // 2-char abbreviation
                     if (/^[A-Z]{2}$/i.test(stateRaw)) return { city, state: stateRaw.toUpperCase() };
-                    // Full state name
                     const abbr = STATE_ABBR[stateRaw.toLowerCase()];
                     if (abbr) return { city, state: abbr };
+                }
+                // Comma-less: "City ST" (last token is a 2-letter abbreviation)
+                const words = s.split(/\s+/);
+                if (words.length >= 2) {
+                    const last = words[words.length - 1];
+                    if (/^[A-Z]{2}$/i.test(last)) {
+                        return { city: words.slice(0, -1).join(' '), state: last.toUpperCase() };
+                    }
+                    // "City StateName" — try last one or two words as a full state name
+                    for (const n of [2, 1]) {
+                        if (words.length > n) {
+                            const cand = words.slice(-n).join(' ').toLowerCase();
+                            if (STATE_ABBR[cand]) {
+                                return { city: words.slice(0, -n).join(' '), state: STATE_ABBR[cand] };
+                            }
+                        }
+                    }
                 }
                 return null;
             };
 
-            // Always prefer what the user typed in the optimizer fields
-            const originParsed = parseInput(document.getElementById('start-input').value);
-            const destParsed   = parseInput(document.getElementById('finish-input').value);
+            // Geocoded label fallback — the optimizer already resolved the real place
+            // (e.g. "Chicago, Cook County, Illinois, United States"); mine it for
+            // city + state when the raw text box was coordinates or an odd format.
+            const parseGeoLabel = label => {
+                if (!label) return null;
+                const segs = label.split(',').map(p => p.trim());
+                for (const seg of segs) {
+                    const abbr = STATE_ABBR[seg.toLowerCase()];
+                    if (abbr) return { city: segs[0], state: abbr };
+                }
+                return null;
+            };
+
+            // Prefer what the user typed; fall back to the geocoder's resolved label
+            const originParsed = parseInput(document.getElementById('start-input').value)
+                               || parseGeoLabel(data.start && data.start.label);
+            const destParsed   = parseInput(document.getElementById('finish-input').value)
+                               || parseGeoLabel(data.finish && data.finish.label);
 
             if (originParsed) {
                 document.getElementById('ri-origin-city').value  = originParsed.city;
@@ -1229,27 +1267,27 @@
         const finishLabel    = document.getElementById('finish-input').value.trim();
 
         // --- Broker inputs ---
-        const shipperRatePerMi = parseFloat(document.getElementById('shipper-rate').value)     || 2.00;
-        const carrierPayPerMi  = parseFloat(document.getElementById('carrier-pay-rate').value) || 1.56;
-        const deadheadPct      = parseFloat(document.getElementById('deadhead-pct').value)     || 20;
-        const factoringPct     = parseFloat(document.getElementById('factoring-pct').value)    || 2.5;
-        const fscPerGal        = parseFloat(document.getElementById('fsc-rate').value)         || 0.15;
-        const marginPct        = parseFloat(document.getElementById('margin-pct').value)       || 15;
+        const shipperRatePerMi = numField('shipper-rate', 2.00);
+        const carrierPayPerMi  = numField('carrier-pay-rate', 1.56);
+        const deadheadPct      = numField('deadhead-pct', 20);
+        const factoringPct     = numField('factoring-pct', 2.5);
+        const fscPerGal        = numField('fsc-rate', 0.15);
+        const marginPct        = numField('margin-pct', 15);
 
         // --- Accessorials ---
-        const detentionRate    = parseFloat(document.getElementById('detention-rate').value)   || 55;
-        const detentionHrs     = parseFloat(document.getElementById('detention-hrs').value)    || 0;
-        const tonuAmt          = parseFloat(document.getElementById('tonu-amt').value)         || 0;
-        const layoverAmt       = parseFloat(document.getElementById('layover-amt').value)      || 0;
+        const detentionRate    = numField('detention-rate', 55);
+        const detentionHrs     = numField('detention-hrs', 0);
+        const tonuAmt          = numField('tonu-amt', 0);
+        const layoverAmt       = numField('layover-amt', 0);
 
         // --- Carrier cost detail (reference) ---
-        const driverRate       = parseFloat(document.getElementById('driver-rate').value)      || 0.55;
-        const perDiem          = parseFloat(document.getElementById('per-diem').value)         || 65;
-        const insRate          = parseFloat(document.getElementById('insurance-rate').value)   || 0.12;
-        const equipRate        = parseFloat(document.getElementById('equipment-rate').value)   || 0.18;
-        const overheadRate     = parseFloat(document.getElementById('overhead-rate').value)    || 0.12;
-        const maintRate        = parseFloat(document.getElementById('maintenance-rate').value) || 0.14;
-        const permitsRate      = parseFloat(document.getElementById('permits-rate').value)     || 0.03;
+        const driverRate       = numField('driver-rate', 0.55);
+        const perDiem          = numField('per-diem', 65);
+        const insRate          = numField('insurance-rate', 0.12);
+        const equipRate        = numField('equipment-rate', 0.18);
+        const overheadRate     = numField('overhead-rate', 0.12);
+        const maintRate        = numField('maintenance-rate', 0.14);
+        const permitsRate      = numField('permits-rate', 0.03);
 
         // --- Carrier cost calculations ---
         const tripDays         = Math.max(1, dist / 500);
@@ -1393,7 +1431,8 @@
             // Real network rate — the truest number, shown prominently when available
             const net = lastRI.network_rates;
             if (net && net.data_source === 'real' && net.count) {
-                s += ` <span style="color:#86efac">📡 Network reality: ${net.count} broker-logged load${net.count>1?'s':''} on this lane averaged <strong>${pm(net.avg)}</strong> (range ${pm(net.low)}–${pm(net.high)}) — the truest rate on this page.</span>`;
+                const netAnchor = net.median || net.avg;
+                s += ` <span style="color:#86efac">📡 Network: ${net.count} broker-logged load${net.count>1?'s':''} on this lane, median <strong>${pm(netAnchor)}</strong> (range ${pm(net.low)}–${pm(net.high)})${net.count >= 5 ? ' — the truest rate on this page.' : ' — small sample, treat as indicative.'}</span>`;
             }
         }
         el.innerHTML = s;
@@ -1478,14 +1517,31 @@
         const destState   = document.getElementById('ri-dest-state').value.trim();
         const equipment   = document.getElementById('ri-equipment').value;
 
-        if (!originCity || !originState || !destCity || !destState) {
-            alert('Please fill in all lane fields.');
+        const riErr = document.getElementById('ri-form-error');
+        const missing = [
+            ['ri-origin-city', originCity, 'origin city'],
+            ['ri-origin-state', originState, 'origin state'],
+            ['ri-dest-city', destCity, 'dest city'],
+            ['ri-dest-state', destState, 'dest state'],
+        ].filter(([, v]) => !v);
+        if (missing.length) {
+            missing.forEach(([id]) => { document.getElementById(id).style.borderColor = '#ef4444'; });
+            if (riErr) {
+                riErr.textContent = 'Missing: ' + missing.map(([, , label]) => label).join(', ') +
+                    '. Tip: run the optimizer above and these fill in automatically.';
+                riErr.style.display = 'block';
+            }
+            document.getElementById(missing[0][0]).focus();
             return;
         }
+        ['ri-origin-city','ri-origin-state','ri-dest-city','ri-dest-state'].forEach(id => {
+            document.getElementById(id).style.borderColor = '';
+        });
+        if (riErr) riErr.style.display = 'none';
 
         const distanceMiles = lastRouteDistanceMiles || 500;
-        const carrierPay = parseFloat(document.getElementById('carrier-pay-rate')?.value) || 0;
-        const marginPct  = parseFloat(document.getElementById('margin-pct')?.value) || 15;
+        const carrierPay = numField('carrier-pay-rate', 0);
+        const marginPct  = numField('margin-pct', 15);
 
         const btn = document.getElementById('ri-btn');
         btn.disabled = true;
@@ -1606,21 +1662,26 @@
             return;
         }
 
-        badge.textContent = `${nr.count} LOAD${nr.count > 1 ? 'S' : ''} · AVG $${nr.avg.toFixed(2)}/mi`;
-        badge.className = 'ri-badge ri-badge-green';
-        const win = nr.last_30d || nr.last_90d;
+        // Median leads (one outlier can't drag it); "truest" claim gated on sample size
+        const solid = nr.count >= 5;
+        badge.textContent = `${nr.count} LOAD${nr.count > 1 ? 'S' : ''} · MEDIAN $${nr.median.toFixed(2)}/mi`;
+        badge.className = `ri-badge ${solid ? 'ri-badge-green' : 'ri-badge-amber'}`;
+        const w30 = nr.last_30d, w90 = nr.last_90d;
+        const provenance = `${w30 ? w30.count : 0} in last 30d · ${w90 ? w90.count : 0} in last 90d · ${nr.count} all-time`;
         el.innerHTML = `
             ${nr.tier === 'regional'
                 ? `<div style="font-size:10px;color:#fcd34d;margin-bottom:6px">◐ REGIONAL pattern (${nr.region_pair || ''}) — real loads on similar lanes; log this exact lane for exact data</div>`
-                : `<div style="font-size:10px;color:#86efac;margin-bottom:6px">● REAL logged rates on this exact lane — the truest number on this page</div>`}
+                : solid
+                    ? `<div style="font-size:10px;color:#86efac;margin-bottom:6px">● REAL logged rates on this exact lane — the truest number on this page</div>`
+                    : `<div style="font-size:10px;color:#fcd34d;margin-bottom:6px">● Real logged rates, small sample (${nr.count} load${nr.count>1?'s':''}) — treat as indicative until 5+ loads</div>`}
             <div class="ri-stat-grid" style="margin-bottom:8px">
-                <div class="ri-stat"><div class="ri-stat-v">$${nr.avg.toFixed(2)}</div><div class="ri-stat-l">${nr.tier === 'regional' ? 'Regional' : 'Network'} avg $/mi</div></div>
-                <div class="ri-stat"><div class="ri-stat-v">$${nr.median.toFixed(2)}</div><div class="ri-stat-l">Median</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">$${nr.median.toFixed(2)}</div><div class="ri-stat-l">${nr.tier === 'regional' ? 'Regional' : 'Network'} median $/mi</div></div>
+                <div class="ri-stat"><div class="ri-stat-v">$${nr.avg.toFixed(2)}</div><div class="ri-stat-l">Mean</div></div>
                 <div class="ri-stat"><div class="ri-stat-v">$${nr.low.toFixed(2)}–$${nr.high.toFixed(2)}</div><div class="ri-stat-l">Range</div></div>
             </div>
-            ${win ? `<div style="font-size:10px;color:#64748b;margin-bottom:6px">Last 30–90 days: ${win.count} loads, avg $${win.avg.toFixed(2)}/mi</div>` : ''}
+            <div style="font-size:10px;color:#64748b;margin-bottom:6px">${provenance}</div>
             ${(nr.recent || []).slice(0,6).map(e => `<div class="ri-mkt-row"><span class="ri-mkt-label">${e.date}${e.origin_city ? ' · ' + e.origin_city : ''}</span><span class="ri-mkt-val">$${e.rate.toFixed(2)}/mi</span></div>`).join('')}
-            <div style="font-size:9px;color:#475569;margin-top:4px">Anonymous · ${nr.count} broker-logged load${nr.count>1?'s':''} ${nr.tier === 'regional' ? 'across the region' : 'on ' + document.getElementById('ri-origin-state').value.toUpperCase()+'→'+document.getElementById('ri-dest-state').value.toUpperCase()}</div>`;
+            <div style="font-size:9px;color:#475569;margin-top:4px">Anonymous · median resists outliers · duplicate + per-day limits enforced ${nr.tier === 'regional' ? '· regional pool' : '· ' + document.getElementById('ri-origin-state').value.toUpperCase()+'→'+document.getElementById('ri-dest-state').value.toUpperCase()}</div>`;
     }
 
     function renderRateIntelligence(d) {

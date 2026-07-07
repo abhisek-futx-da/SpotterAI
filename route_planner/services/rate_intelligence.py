@@ -365,14 +365,16 @@ class LaneRateIntelligenceService:
         buy_rate["cost_model_suggested"] = buy_rate["suggested"]  # keep the pure estimate
         buy_rate["calibrated"] = False
 
-        net_ok = bool(network and network.get("data_source") == "real" and network.get("avg"))
+        # Median, not mean: one outlier (fat-finger or malicious) cannot drag the anchor.
+        net_anchor = network.get("median") or network.get("avg") if network else None
+        net_ok = bool(network and network.get("data_source") == "real" and net_anchor)
         net_tier = network.get("tier", "exact") if net_ok else None
         usda_ok = bool(usda and usda.get("data_source") == "real" and usda.get("per_mile"))
 
         # Choose the strongest real anchor.
         if net_ok and net_tier == "exact":
             real_avg, count, basis, weight = (
-                float(network["avg"]), int(network.get("count", 0)), "exact",
+                float(net_anchor), int(network.get("count", 0)), "exact",
                 0.75 if int(network.get("count", 0)) >= 5 else (0.6 if int(network.get("count", 0)) >= 3 else 0.4),
             )
             label = f"{count} exact-lane loads"
@@ -381,7 +383,7 @@ class LaneRateIntelligenceService:
             label = f"USDA-surveyed produce rate (${usda.get('avg_load_usd', 0):,.0f}/load)"
         elif net_ok and net_tier == "regional":
             real_avg, count, basis, weight = (
-                float(network["avg"]), int(network.get("count", 0)), "regional",
+                float(net_anchor), int(network.get("count", 0)), "regional",
                 0.45 if int(network.get("count", 0)) >= 8 else 0.35,
             )
             label = f"{count} regional loads"
@@ -614,8 +616,8 @@ class LaneRateIntelligenceService:
         # "Your rate vs market" should mean vs what brokers ACTUALLY paid when we
         # have real exact-lane data — not vs our own model output (circular).
         if (network and network.get("data_source") == "real"
-                and network.get("tier") == "exact" and network.get("avg")):
-            market_avg = float(network["avg"])
+                and network.get("tier") == "exact" and (network.get("median") or network.get("avg"))):
+            market_avg = float(network.get("median") or network.get("avg"))
             market_avg_source = f"network real ({network.get('count', 0)} logged loads)"
         else:
             market_avg = buy_rate_suggested

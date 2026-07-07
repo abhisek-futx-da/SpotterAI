@@ -39,10 +39,30 @@ class RoutePlanService:
 
         if corridor_miles <= 0:
             raise ValidationError("corridor_miles must be greater than zero.")
+        # Server-side bound — the UI caps at 100; the API must too, or one request
+        # can pull the entire station dataset into the corridor search.
+        if corridor_miles > 100:
+            corridor_miles = 100.0
+        if max_range_miles <= 0 or mpg <= 0:
+            raise ValidationError("max_range_miles and mpg must be greater than zero.")
+        # A tank cannot currently hold more range than its capacity.
+        if starting_range_miles > max_range_miles:
+            raise ValidationError(
+                f"starting_range_miles ({starting_range_miles:g}) cannot exceed "
+                f"max_range_miles ({max_range_miles:g}) — the tank can't hold more than its capacity."
+            )
+        if starting_range_miles < 0:
+            raise ValidationError("starting_range_miles cannot be negative.")
 
         start = self.geocoder.resolve(start_payload)
         finish = self.geocoder.resolve(finish_payload)
         route = self.route_client.get_route(start, finish)
+        # Same-point "routes" are not a trip.
+        if route.distance_miles < 1.0:
+            raise ValidationError(
+                "Origin and destination are the same place (route under 1 mile). "
+                "Enter two different locations."
+            )
         candidates = self.station_repository.stations_along_route(route.points, corridor_miles)
         fuel_plan = FuelOptimizer(
             max_range_miles=max_range_miles,
