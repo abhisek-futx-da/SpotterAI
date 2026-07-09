@@ -12,3 +12,6 @@ build/
 staticfiles/
 .claude/
 .bls_cache/
+.DS_Store
+artifacts/
+SpotterAI_Audit.md
