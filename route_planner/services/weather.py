@@ -86,23 +86,7 @@ class WeatherService:
 
         all_alerts = []
         for state in states:
-            url = (
-                f"{self.BASE_URL}/alerts/active"
-                f"?status=actual&message_type=alert&area={state}"
-            )
-            try:
-                req = urllib.request.Request(
-                    url,
-                    headers={
-                        "User-Agent": "SpotterAI/1.0 (freight route weather)",
-                        "Accept": "application/geo+json",
-                    },
-                )
-                with urllib.request.urlopen(req, timeout=self.TIMEOUT) as resp:
-                    payload = json.loads(resp.read().decode("utf-8"))
-                all_alerts.extend(payload.get("features") or [])
-            except (urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, TimeoutError):
-                continue
+            all_alerts.extend(self._alerts_for_state(state))
 
         alerts = []
         seen = set()
@@ -147,8 +131,42 @@ class WeatherService:
             "source": "NWS (weather.gov)",
         }
 
+    # NWS alerts change on an hourly timescale — cache per state 20 min so a
+    # 10-state route stops making 10 live calls on every rate-intel request.
+    ALERTS_TTL = 1200
+
+    def _alerts_for_state(self, state: str) -> list:
+        from . import ttl_cache
+
+        def _fetch():
+            url = (
+                f"{self.BASE_URL}/alerts/active"
+                f"?status=actual&message_type=alert&area={state}"
+            )
+            try:
+                req = urllib.request.Request(
+                    url,
+                    headers={
+                        "User-Agent": "SpotterAI/1.0 (freight route weather)",
+                        "Accept": "application/geo+json",
+                    },
+                )
+                with urllib.request.urlopen(req, timeout=self.TIMEOUT) as resp:
+                    payload = json.loads(resp.read().decode("utf-8"))
+                return payload.get("features") or []
+            except (urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError, TimeoutError):
+                return []
+
+        return ttl_cache.cached_call(f"nws_alerts:{state}", self.ALERTS_TTL, _fetch)
+
     def point_forecast(self, lat: float, lon: float) -> dict:
-        """Get short-term forecast for a single point (e.g. pickup/delivery location)."""
+        """Get short-term forecast for a single point (e.g. pickup/delivery location).
+        Cached 30 min — a 2-day forecast doesn't move between requests."""
+        from . import ttl_cache
+        key = f"nws_forecast:{lat:.2f},{lon:.2f}"
+        return ttl_cache.cached_call(key, 1800, lambda: self._point_forecast_live(lat, lon))
+
+    def _point_forecast_live(self, lat: float, lon: float) -> dict:
         try:
             point_url = f"{self.BASE_URL}/points/{lat:.4f},{lon:.4f}"
             req = urllib.request.Request(

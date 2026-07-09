@@ -119,13 +119,19 @@ class Command(BaseCommand):
             )
 
             if not dry_run:
+                from django.utils import timezone as _tz
+                stations = list(stations_qs)
+                now = _tz.now()
+                for station in stations:
+                    new_price = Decimal(str(round(float(station.retail_price) * scale, 4)))
+                    # Clamp to a sane range (EIA data anomalies do occur)
+                    station.retail_price = max(Decimal("2.00"), min(Decimal("8.00"), new_price))
+                    station.updated_at = now
+                # One bulk UPDATE per batch instead of N individual saves.
                 with transaction.atomic():
-                    for station in stations_qs.iterator():
-                        new_price = Decimal(str(round(float(station.retail_price) * scale, 4)))
-                        # Clamp to a sane range (EIA data anomalies do occur)
-                        new_price = max(Decimal("2.00"), min(Decimal("8.00"), new_price))
-                        station.retail_price = new_price
-                        station.save(update_fields=["retail_price", "updated_at"])
+                    FuelStation.objects.bulk_update(
+                        stations, ["retail_price", "updated_at"], batch_size=500
+                    )
                 updated_count += count
             else:
                 updated_count += count

@@ -33,21 +33,20 @@ echo "Installing dependencies..."
 pip install --upgrade pip
 pip install -r requirements.txt
 
-# Run migrations and load fuel data if DB is not initialized
-if [ ! -f "db.sqlite3" ]; then
-    echo "Initializing database..."
-    python manage.py migrate
-    
-    # Generate coordinates mapping if missing
+# Always apply migrations — pending ones after a git pull must never be skipped.
+echo "Applying migrations..."
+python manage.py migrate
+
+# Load fuel data only on first init (it's a slow bulk import)
+if [ ! -f "db.sqlite3" ] || [ "$(python manage.py shell -c 'from route_planner.models import FuelStation; print(FuelStation.objects.exists())' 2>/dev/null)" = "False" ]; then
     if [ ! -f "data/fuel_city_coordinates.csv" ]; then
         echo "Generating city coordinate mappings..."
         python manage.py generate_city_lookup data/fuel-prices-for-be-assessment.csv data/fuel_city_coordinates.csv
     fi
-
     echo "Loading fuel stations data..."
     python manage.py load_fuel_prices data/fuel-prices-for-be-assessment.csv --city-lookup data/fuel_city_coordinates.csv --clear
 else
-    echo "Database already exists. Skipping migrations and data load."
+    echo "Fuel stations already loaded. Skipping data load."
 fi
 
 # Run tests

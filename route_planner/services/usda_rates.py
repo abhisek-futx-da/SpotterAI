@@ -50,6 +50,13 @@ ORIGIN_HINTS = {
 
 
 def _fetch_report() -> list[dict]:
+    # USDA truck-rate report is WEEKLY — cache 6h so every reefer request isn't
+    # a fresh HTTP round-trip for data that changes once a week.
+    from . import ttl_cache
+    return ttl_cache.cached_call("usda_truck_report", 6 * 3600, _fetch_report_live)
+
+
+def _fetch_report_live() -> list[dict]:
     api_key = os.environ.get("USDA_API_KEY", "")
     if not api_key:
         return []

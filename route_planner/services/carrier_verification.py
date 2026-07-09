@@ -20,7 +20,11 @@ class CarrierVerificationService:
         dot_number = re.sub(r"\D", "", dot_number or "")
         if not dot_number:
             return self._result(found=False, message="Enter a valid DOT number (digits only).")
+        # DOT authority/safety records change rarely — cache 10 min per DOT.
+        from .ttl_cache import cached_call
+        return cached_call(f"fmcsa:{dot_number}", 600, lambda: self._verify_live(dot_number))
 
+    def _verify_live(self, dot_number: str) -> dict:
         web_key = environ.get("FMCSA_WEBKEY", "")
         if not web_key:
             return self._result(

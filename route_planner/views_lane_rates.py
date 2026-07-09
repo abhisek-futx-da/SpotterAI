@@ -20,6 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import LaneRate
 from .services.lane_rate_stats import aggregate_lane as _aggregate
+from .views import US_STATE_CODES
 
 VALID_EQUIPMENT = {"dry_van", "reefer", "flatbed"}
 
@@ -134,6 +135,10 @@ class LaneRateView(View):
         eq = (body.get("equipment_type", "") or "").strip()
         if not o or not d or eq not in VALID_EQUIPMENT:
             return JsonResponse({"error": "origin_state, dest_state, equipment_type required"}, status=400)
+        # Reject non-US states so junk like "XX" can't pollute the network aggregate.
+        if o not in US_STATE_CODES or d not in US_STATE_CODES:
+            bad = o if o not in US_STATE_CODES else d
+            return JsonResponse({"error": f"'{bad}' is not a valid US state code."}, status=400)
 
         try:
             rate = round(float(body.get("rate_per_mile")), 2)

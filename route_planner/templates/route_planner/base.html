@@ -145,9 +145,10 @@
             position: fixed;
             top: var(--nav-h);
             left: 0; right: 0;
-            background: #fff;
-            border-bottom: 2px solid #e5e7eb;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            background: rgba(10, 10, 16, 0.98);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            backdrop-filter: var(--blur);
             display: none;
             z-index: 999;
         }
@@ -168,19 +169,19 @@
             flex-direction: column;
             gap: 1.25rem;
             padding-right: 2rem;
-            border-right: 1px solid #e5e7eb;
+            border-right: 1px solid var(--border);
         }
 
         .dd-left p {
             font-size: 0.875rem;
             line-height: 1.7;
-            color: #4b5563;
+            color: var(--text2);
         }
 
         .dd-left-link {
             font-size: 0.84rem;
             font-weight: 600;
-            color: #111827;
+            color: var(--text);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -227,7 +228,7 @@
 
         .dd-link {
             font-size: 0.875rem;
-            color: #374151;
+            color: var(--text2);
             text-decoration: none;
             padding: 0.2rem 0;
             transition: color 0.12s;
@@ -235,8 +236,8 @@
             align-items: center;
             gap: 0.35rem;
         }
-        .dd-link:hover { color: #111827; }
-        .dd-link::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #d1d5db; flex-shrink: 0; transition: background 0.12s; }
+        .dd-link:hover { color: var(--text); }
+        .dd-link::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--text3); flex-shrink: 0; transition: background 0.12s; }
         .dd-link:hover::before { background: #0dcfba; }
 
 
@@ -571,8 +572,39 @@
             .footer-top { grid-template-columns: 1fr 1fr; }
             .footer-brand-col { grid-column: span 2; }
             .nav-items { display: none; }
+            .nav-burger { display: flex; }
             .stats-bar { flex-wrap: wrap; }
             .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid var(--border); }
+        }
+
+        /* Mobile hamburger + slide-down menu */
+        .nav-burger {
+            display: none; margin-left: auto; flex-direction: column; gap: 4px;
+            background: none; border: none; cursor: pointer; padding: 8px;
+        }
+        .nav-burger span {
+            width: 22px; height: 2px; background: var(--text); border-radius: 2px;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .nav-burger.open span:nth-child(2) { opacity: 0; }
+        .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+        .mobile-menu {
+            position: fixed; top: var(--nav-h); left: 0; right: 0;
+            background: rgba(10,10,16,0.98); backdrop-filter: var(--blur);
+            border-bottom: 1px solid var(--border);
+            display: none; flex-direction: column; padding: 0.5rem 0; z-index: 999;
+            max-height: calc(100vh - var(--nav-h)); overflow-y: auto;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            color: var(--text2); text-decoration: none; padding: 0.85rem 1.5rem;
+            font-size: 0.95rem; border-bottom: 1px solid var(--border);
+        }
+        .mobile-menu a:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+        .mobile-menu-label {
+            font-size: 0.68rem; font-weight: 700; color: var(--sky);
+            text-transform: uppercase; letter-spacing: 0.1em; padding: 0.9rem 1.5rem 0.4rem;
         }
 
         {% block extra_styles %}{% endblock %}
@@ -595,7 +627,21 @@
             <a class="nav-item" href="/#optimizer-section">Fuel Optimizer</a>
             <a class="nav-item" href="/#faq">FAQ</a>
         </div>
-
+        <button class="nav-burger" id="nav-burger" type="button" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    <!-- Mobile slide-down menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="/#optimizer-section">Fuel Optimizer</a>
+        <a href="/solutions/rates/">Fuel Rate Intelligence</a>
+        <a href="/#faq">FAQ</a>
+        <div class="mobile-menu-label">Coming Soon</div>
+        <a href="/solutions/capacity/">Capacity</a>
+        <a href="/solutions/payments/">Payments</a>
+        <a href="/solutions/factoring/">Factoring</a>
+        <a href="/solutions/banking/">Banking</a>
+        <a href="/solutions/insurance/">Insurance</a>
     </div>
     <div class="nav-dropdown" id="nav-solutions-dd">
         <div class="nav-dropdown-inner">
@@ -651,6 +697,23 @@
     document.querySelectorAll('.faq-q').forEach(btn => {
         btn.addEventListener('click', () => btn.closest('.faq-item').classList.toggle('open'));
     });
+
+    (function () {
+        const burger = document.getElementById('nav-burger');
+        const menu = document.getElementById('mobile-menu');
+        if (burger && menu) {
+            burger.addEventListener('click', () => {
+                const open = menu.classList.toggle('open');
+                burger.classList.toggle('open', open);
+                burger.setAttribute('aria-expanded', open);
+            });
+            menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                menu.classList.remove('open');
+                burger.classList.remove('open');
+                burger.setAttribute('aria-expanded', 'false');
+            }));
+        }
+    })();
 
     (function () {
         const btn = document.getElementById('nav-solutions-btn');

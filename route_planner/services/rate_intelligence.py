@@ -57,6 +57,7 @@ class LaneRateIntelligenceService:
     CAPACITY_PREMIUM = {
         "TIGHT":    0.55,   # carrier market — rates well above floor
         "BALANCED": 0.22,   # normal — modest margin above floor
+        "NEUTRAL":  0.22,   # BLS employment reports "NEUTRAL" — same as BALANCED
         "LOOSE":    0.07,   # broker market — carriers near floor, competing
     }
 
@@ -277,7 +278,7 @@ class LaneRateIntelligenceService:
         market = self._compute_market(buy_rate["suggested"], carrier_pay_per_mile, month, ppi, fred, network_rates)
         history = self._compute_history(network_rates)
         seasonality = self._compute_seasonality(equipment_type, month)
-        confidence = self._compute_confidence(0, capacity["signal"], employment, ppi, fuel_surcharge, network_rates, usda_rate)
+        confidence = self._compute_confidence(0, capacity["signal"], employment, ppi, fuel_surcharge, network_rates, usda_rate, weather)
         consensus = self._compute_consensus(ppi, employment, fred)
         equipment_demand = self._compute_equipment_demand(equipment_type, fred, nat_gas)
 
@@ -884,7 +885,7 @@ class LaneRateIntelligenceService:
             return {"signal": "NORMAL", "yoy_delta_pct": 3.0}
         return {"signal": "TROUGH", "yoy_delta_pct": -6.0}
 
-    def _compute_confidence(self, data_points: int, capacity_signal: str, employment: dict | None = None, ppi: dict | None = None, fsc: dict | None = None, network: dict | None = None, usda: dict | None = None) -> dict:
+    def _compute_confidence(self, data_points: int, capacity_signal: str, employment: dict | None = None, ppi: dict | None = None, fsc: dict | None = None, network: dict | None = None, usda: dict | None = None, weather: dict | None = None) -> dict:
         # Honest confidence: each source scores only if it returned real data.
         # Real lane-level rates (logged network or USDA-surveyed) lift the ceiling
         # from 90 to 100 — they're the one thing free macro data can't provide.
@@ -909,7 +910,8 @@ class LaneRateIntelligenceService:
             "bls_employment": 20 if (employment and employment.get("data_source") == "real") else 0,
             "bls_ppi_trend":  15 if (ppi and ppi.get("data_source") == "real") else 0,
             "eia_diesel":     20 if (fsc and fsc.get("data_source") == "real") else 0,
-            "nws_weather":    10,   # always attempted; NWS is free and reliable
+            # Only credit NWS when it actually returned data — not when it timed out.
+            "nws_weather":    10 if (weather and weather.get("data_source") == "real") else 0,
             "network_rates":  lane_pts,   # real broker-logged lane rates
         }
         score = sum(score_breakdown.values())
@@ -931,10 +933,33 @@ class LaneRateIntelligenceService:
             "ceiling_note": note,
         }
 
+    @staticmethod
+    def _clean_place(s: str) -> str:
+        """Strip anything that isn't a normal place-name character before the
+        value goes into the LLM prompt — closes the prompt-injection surface on
+        user-controlled origin_city / dest_city."""
+        import re as _re
+        return _re.sub(r"[^A-Za-z0-9 .,'\-]", "", str(s or ""))[:60]
+
     def _get_negotiation_coach(self, signals: dict) -> tuple:
         api_key = os.environ.get("ANTHROPIC_API_KEY", "")
         if not api_key:
             return self._fallback_coach(signals), "rule_based_fallback"
+
+        # Cache on a market-snapshot key: the coach output for the same lane +
+        # equipment + capacity + trend + pay bucket is stable for ~45 min, so we
+        # don't pay for a fresh LLM call (and ~500ms) on every identical request.
+        from .ttl_cache import get as _cache_get, put as _cache_put
+        mkt = signals["market"]
+        snap = (
+            signals["origin_state"], signals["dest_state"], signals["equipment_type"],
+            signals["capacity"].get("signal"), mkt.get("trend_30d"),
+            round(float(signals.get("carrier_pay_per_mile") or 0), 1),
+        )
+        cache_key = "coach:" + "|".join(str(x) for x in snap)
+        cached = _cache_get(cache_key)
+        if cached:
+            return cached, "ai"
 
         weather = signals.get("weather", {})
         weather_note = ""
@@ -959,7 +984,7 @@ class LaneRateIntelligenceService:
         prompt = f"""You are an expert freight broker negotiation coach with 15+ years experience.
 A broker is pricing a live load. All data below is from real government sources (BLS, EIA, FRED, NWS).
 
-Lane: {signals['origin_city']}, {signals['origin_state']} → {signals['dest_city']}, {signals['dest_state']}
+Lane: {self._clean_place(signals['origin_city'])}, {signals['origin_state']} → {self._clean_place(signals['dest_city'])}, {signals['dest_state']}
 Equipment: {signals['equipment_type']}   Distance: {signals['distance_miles']} miles
 ATRI carrier cost floor: ${signals['buy_rate']['atri_floor']}/mi (published 2024)
 Market buy rate estimate: ${signals['buy_rate']['suggested']}/mi (ATRI floor + BLS capacity premium)
@@ -986,7 +1011,9 @@ No bullet points. Plain spoken language a broker uses on a real call."""
                 max_tokens=300,
                 messages=[{"role": "user", "content": prompt}],
             )
-            return response.content[0].text.strip(), "ai"
+            text = response.content[0].text.strip()
+            _cache_put(cache_key, text, 2700)   # 45 min
+            return text, "ai"
         except Exception:
             return self._fallback_coach(signals), "rule_based_fallback"
 
@@ -1004,7 +1031,7 @@ No bullet points. Plain spoken language a broker uses on a real call."""
             "&sort[0][column]=period&sort[0][direction]=desc&length=4"
         )
         try:
-            with urllib.request.urlopen(url, timeout=5) as resp:
+            with urllib.request.urlopen(url, timeout=8) as resp:
                 payload = json.loads(resp.read().decode("utf-8"))
             records = payload["response"]["data"]
             if not records:
